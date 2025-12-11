@@ -1,0 +1,52 @@
+---
+title: 'Formato localizado y plurales en MDX'
+description: 'Demostración de la interpolación de cadenas en tiempo de ejecución, la lógica de plurales y el formato dinámico usando traducciones desde KV dentro de MDX y React Islands.'
+pubDate: '2025-12-01'
+tags: ['i18n', 'MDX', 'Pluralization']
+heroImage: '@/assets/blog/localized-pluralization.jpg'
+---
+
+Este ejemplo muestra cómo funcionan **la interpolación, las reglas de plural y el formato en tiempo de ejecución** dentro de MDX cuando se utiliza la arquitectura de i18n sin JavaScript (Zero-JS) de EdgeKits Core.
+
+Mientras que la demo anterior se centraba en componentes interactivos, esta demuestra cómo **el texto dinámico** puede venir directamente de Cloudflare KV, incluso cuando cambian los números o el estado de la interfaz.
+
+## Un contador dinámico con texto localizado
+
+A continuación se muestra una React Island que expone un contador sencillo.
+El componente en sí **no contiene cadenas en inglés**. Todas las etiquetas provienen de KV:
+
+- formas singular y plural (`1 item` → `5 items`)
+- valores interpolados (`{count}`)
+- redacción localizada según el idioma activo
+
+Prueba a cambiar entre inglés y alemán para ver cómo la pluralización se ajusta automáticamente.
+
+<LocalizedCounter />
+
+## Por qué esto es importante
+
+El i18n tradicional en el lado del cliente requiere:
+
+- enviar diccionarios JSON al navegador,
+- incluir una librería de formateo en el bundle,
+- cablear manualmente las reglas de pluralización,
+- actualizar el estado de idioma dentro de React.
+
+Con EdgeKits Core:
+
+1. Astro carga las traducciones correctas en el edge.
+2. La lógica de pluralización e interpolación se ejecuta **en el servidor**, antes de la hidratación.
+3. Las React Islands reciben texto **preformateado** y **con tipos seguros**.
+4. No se necesita ninguna librería de i18n en el cliente — se envían **0 KB**.
+
+## Casos de uso reales
+
+Este patrón funciona especialmente bien para:
+
+- widgets de precio/cantidad en la interfaz,
+- paneles de control que requieren etiquetas localizadas,
+- documentación MDX con demos interactivas incrustadas,
+- formularios con mensajes de validación dinámicos,
+- cualquier componente cuyo texto dependa de números o del estado.
+
+Como las traducciones se almacenan en KV, los editores de contenido pueden ajustar la redacción sin tocar el código del componente, incluso en casos complejos que implican lógica de plurales o formato numérico.

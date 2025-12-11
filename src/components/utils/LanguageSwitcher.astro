@@ -1,0 +1,63 @@
+---
+import { Globe, Dot } from 'lucide-react'
+
+import { cn } from '@/lib/utils'
+import { SUPPORTED_LOCALES, LANGUAGES } from '@/utils/constants'
+import { localeToFlagCode } from '@/utils/i18n/flags'
+import { type Locale } from '@/utils/schemas'
+import Flag from '@/components/icons/Flag.astro'
+import LanguageScript from './LanguageScript.astro'
+
+const { uiLocale: currentLang } = Astro.locals
+---
+
+<language-switcher data-current-lang={currentLang}>
+  <button
+    type='button'
+    data-ls-trigger
+    class='p-2 rounded-full'
+    aria-haspopup='true'
+    aria-expanded='false'
+  >
+    <Globe className='size-5 text-foreground' />
+  </button>
+
+  <div
+    data-ls-dropdown
+    class='absolute z-50 right-14 -mt-8 w-32 bg-card shadow-lg rounded-lg border overflow-hidden hidden animate-in fade-in slide-in-from-top-8 duration-300'
+    role='menu'
+  >
+    {
+      SUPPORTED_LOCALES.map((lang) => {
+        const locale = lang as Locale
+        const isActive = locale === currentLang
+        const label = LANGUAGES[locale]
+        const flagCode = localeToFlagCode[locale]
+
+        return (
+          <button
+            type='button'
+            class={cn(
+              'ls-selector flex w-32 items-center justify-between px-4 py-2 text-sm hover:bg-muted',
+              isActive && 'bg-background cursor-default'
+            )}
+            data-lang={locale}
+            role='menuitem'
+            disabled={isActive}
+          >
+            <span class='flex items-center gap-3 pointer-events-none'>
+              <Flag
+                code={flagCode}
+                size={16}
+              />
+              {label}
+            </span>
+            {isActive && <Dot className='size-6' />}
+          </button>
+        )
+      })
+    }
+  </div>
+</language-switcher>
+
+<LanguageScript />

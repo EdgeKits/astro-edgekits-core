@@ -1,0 +1,14 @@
+---
+import { Newsletter } from '@/components/islands/Newsletter'
+import { fetchTranslations } from '@/utils/i18n/fetcher'
+
+const { translationLocale, runtime } = Astro.locals
+
+const { blog } = await fetchTranslations(runtime, translationLocale, ['blog'])
+const t = blog.newsletter
+---
+
+<Newsletter
+  client:visible
+  t={t}
+/>

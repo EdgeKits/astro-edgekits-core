@@ -1,0 +1,28 @@
+{
+  "indexPageTitle": "ブログ",
+  "newsletter": {
+    "title": "最新情報を受け取る",
+    "description": "EdgeKitsの最新ニュースをメールでお届けします。",
+    "placeholder": "メールアドレスを入力",
+    "button": "購読する",
+    "success": "ご購読ありがとうございます！",
+    "validation": {
+      "invalidEmail": "有効なメールアドレスを入力してください。"
+    }
+  },
+  "ui": {
+    "readMore": "続きを読む",
+    "backToOverview": "一覧に戻る",
+    "publishedOn": "公開日",
+    "readTime": "{min}分で読めます"
+  },
+  "counter": {
+    "title": "カウンターのデモ",
+    "increment": "増やす",
+    "reset": "リセット",
+    "patterns": {
+      "zero": "項目はありません",
+      "other": "{count}個"
+    }
+  }
+}

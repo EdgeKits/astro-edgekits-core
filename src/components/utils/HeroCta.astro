@@ -1,0 +1,35 @@
+---
+import githubLogo from '@/assets/logo/github/github.svg'
+
+interface Props {
+  ctaBtnText: string
+}
+
+const { ctaBtnText } = Astro.props
+---
+
+<div
+  class='mt-6 flex w-full flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-4'
+>
+  <a
+    href={`/${Astro.locals.uiLocale}/blog`}
+    class='inline-flex w-full items-center justify-center rounded-full outline outline-primary/90 bg-primary/90 px-7 py-3 text-sm font-semibold text-primary-foreground shadow-md transition hover:bg-primary sm:w-auto sm:text-base'
+    >{ctaBtnText}</a
+  >
+  <a
+    href='https://github.com/EdgeKits/astro-edgekits-core'
+    target='_blank'
+    rel='noopener noreferrer'
+    class='inline-flex gap-2 w-full items-center justify-center rounded-full outline bg-card px-7 py-3 text-sm font-semibold text-foreground shadow-sm transition hover:bg-card/80 sm:w-auto sm:text-base'
+    ><span>
+      <img
+        src={githubLogo.src}
+        width='24'
+        height='24'
+        alt='Github'
+        class='dark:invert dark:brightness-75'
+      /></span
+    >
+    <span>GitHub</span>
+  </a>
+</div>

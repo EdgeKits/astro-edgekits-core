@@ -1,0 +1,16 @@
+<script is:inline>
+  const applyTheme = () => {
+    const localTheme = localStorage.getItem('theme')
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+
+    if (localTheme === 'dark' || (!localTheme && systemDark)) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }
+
+  applyTheme()
+
+  document.addEventListener('astro:after-swap', applyTheme)
+</script>
