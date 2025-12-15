@@ -115,7 +115,15 @@ npm run setup
 Then create a KV namespace and wire its ID into `wrangler.jsonc` as described in
 **“Creating KV namespaces (local + dashboard)”** below.
 
-### 5. Seed translations (local)
+### 5. Generate types from env vars
+
+Run this command whenever you add or remove environment variables in `.dev.vars` or `wrangler.jsonc`, or modify bindings in `wrangler.jsonc`.
+
+```bash
+npm run typegen
+```
+
+### 6. Seed translations (local)
 
 ```bash
 npm run i18n:seed
@@ -127,7 +135,7 @@ This:
 - Creates `i18n-data.json`
 - Uploads it to your **local** KV namespace
 
-### 6. Start local dev server
+### 7. Start local dev server
 
 ```bash
 npm run dev

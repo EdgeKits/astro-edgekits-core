@@ -23,14 +23,14 @@
     "i18n:migrate:fallbacks": "npm run i18n:bundle:fallbacks && wrangler kv bulk put i18n-data.json --remote --namespace-id=70224705d49a4d5ea833779c9c22ef67"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.11",
-    "@astrojs/mdx": "^4.3.12",
+    "@astrojs/cloudflare": "^12.6.12",
+    "@astrojs/mdx": "^4.3.13",
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.6.0",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-label": "^2.1.8",
     "@radix-ui/react-slot": "^1.2.4",
-    "astro": "^5.15.9",
+    "astro": "^5.16.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.554.0",
@@ -39,7 +39,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.5",
+    "@astrojs/check": "^0.9.6",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.1.17",
     "@types/node": "^24.10.1",
