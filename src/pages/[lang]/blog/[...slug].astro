@@ -1,0 +1,106 @@
+---
+import { getEntry } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { fetchTranslations } from '@/utils/i18n/fetcher'
+import NewsletterWrapper from '@/components/blog/NewsletterWrapper.astro'
+import LocalizedCounterWrapper from '@/components/blog/LocalizedCounterWrapper.astro'
+
+// 1. Get parameters from URL
+const { lang, slug } = Astro.params
+
+if (!slug) {
+  return Astro.redirect('/404')
+}
+
+// 2. Take translationLocale from locals
+const { translationLocale, runtime } = Astro.locals
+
+// 3. Construct Content ID using translationLocale, not lang from URL
+//    Example: URL /pt/blog/localized-formatting-demo
+//    uiLocale = "pt", translationLocale = "en"
+//    -> contentId = "en/localized-formatting-demo"
+const contentId = `${translationLocale}/${slug}`
+
+// 4. Fetch Post
+const post = await getEntry('blog', contentId)
+
+if (!post) {
+  return Astro.redirect('/404')
+}
+
+// 5. Render Content
+const { Content } = await post.render()
+
+// 6. Fetch UI Translations (KV)
+const { blog } = await fetchTranslations(runtime, translationLocale, ['blog'])
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+>
+  <article class='max-w-2xl mx-auto pb-12 px-4'>
+    {/* Hero Image */}
+    {
+      post.data.heroImage && (
+        <img
+          src={post.data.heroImage.src}
+          alt={post.data.title}
+          class='w-full h-auto rounded-lg shadow-md mb-8'
+          transition:name={`hero-${slug}`}
+        />
+      )
+    }
+
+    {/* Header */}
+    <header class='mb-8 text-center flex flex-col items-start'>
+      <h1 class='text-4xl font-bold mb-4 text-foreground text-left'>
+        {post.data.title}
+      </h1>
+
+      <div class='w-full flex justify-between items-center'>
+        <div class='flex gap-2 justify-center items-center'>
+          {
+            post.data.tags.map((tag) => (
+              <span class='px-2 py-1 bg-gray-100 dark:bg-gray-800 text-xs rounded-full text-gray-600 dark:text-gray-300 font-medium'>
+                #{tag.toLocaleLowerCase()}
+              </span>
+            ))
+          }
+        </div>
+
+        <div class='text-gray-500 dark:text-gray-400'>
+          {
+            post.data.pubDate.toLocaleDateString(translationLocale, {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })
+          }
+        </div>
+      </div>
+    </header>
+
+    {/* Markdown/MDX Content Body */}
+    <div class='prose prose-lg dark:prose-invert mx-auto'>
+      <Content
+        components={{
+          Newsletter: NewsletterWrapper,
+          LocalizedCounter: LocalizedCounterWrapper,
+        }}
+      />
+    </div>
+
+    {/* Back Navigation */}
+    <div
+      class='mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 text-right'
+    >
+      <a
+        href={`/${lang}/blog`}
+        class='text-primary hover:underline'
+      >
+        &larr; {blog.ui.backToOverview}
+      </a>
+    </div>
+  </article>
+</BaseLayout>

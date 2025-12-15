@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content'
+
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { fetchTranslations } from '@/utils/i18n/fetcher'
+
+const { uiLocale, translationLocale, runtime } = Astro.locals
+
+// 1. Fetch ALL posts
+const allPosts = await getCollection('blog')
+
+// 2. Filter by *translation* locale
+const localizedPosts = allPosts
+  .filter((post) => post.id.startsWith(`${translationLocale}/`))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+
+// 3. Fetch UI translations
+const { blog } = await fetchTranslations(runtime, translationLocale, ['blog'])
+
+const pageTitle = blog.indexPageTitle
+---
+
+<BaseLayout title={pageTitle}>
+  <section class='mx-auto max-w-4xl py-10 sm:py-14'>
+    <h1 class='mb-8 text-center text-3xl font-bold sm:mb-12 sm:text-4xl'>
+      {pageTitle}
+    </h1>
+
+    <!-- Cards wrapper -->
+    <div class='grid gap-6 sm:gap-8 md:grid-cols-2'>
+      {
+        localizedPosts.map((post) => {
+          const slug = post.slug.split('/')[1]
+
+          return (
+            <a
+              href={`/${uiLocale}/blog/${slug}`}
+              class='group flex h-full w-full flex-col rounded-2xl border bg-card shadow-sm transition hover:shadow-md'
+            >
+              {post.data.heroImage && (
+                <div class='aspect-video rounded-t-2xl w-full overflow-hidden'>
+                  <img
+                    src={post.data.heroImage.src}
+                    alt={post.data.title}
+                    class='block h-full w-full scale-105 object-cover transition-transform duration-500 group-hover:scale-110'
+                    loading='lazy'
+                  />
+                </div>
+              )}
+
+              <div class='flex flex-1 flex-col px-5 py-6 sm:px-6'>
+                <h2 class='mb-2 text-lg font-bold sm:text-xl group-hover:text-primary'>
+                  {post.data.title}
+                </h2>
+
+                <p class='mb-4 line-clamp-3 text-slate-600 dark:text-slate-400'>
+                  {post.data.description}
+                </p>
+
+                <div class='mt-auto flex items-center justify-between text-xs text-gray-500 sm:text-sm'>
+                  <span>
+                    {post.data.pubDate.toLocaleDateString(translationLocale, {
+                      dateStyle: 'medium',
+                    })}
+                  </span>
+
+                  <span class='font-medium group-hover:text-primary'>
+                    {blog.ui.readMore} →
+                  </span>
+                </div>
+              </div>
+            </a>
+          )
+        })
+      }
+    </div>
+  </section>
+</BaseLayout>

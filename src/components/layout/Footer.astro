@@ -1,0 +1,27 @@
+---
+import { PROJECT_ID } from '@/utils/constants'
+import { fetchTranslations } from '@/utils/i18n/fetcher'
+
+const { translationLocale } = Astro.locals
+
+const { common } = await fetchTranslations(
+  Astro.locals.runtime,
+  translationLocale,
+  ['common']
+)
+---
+
+<footer>
+  <div class='flex items-center gap-2'>
+    <time>{new Date().getFullYear()}</time>
+    <span>©</span>
+    <a
+      href={`https://${PROJECT_ID}`}
+      rel='noopener noreferrer'
+      target='_blank'
+      class='hover:underline'
+      >{PROJECT_ID}</a
+    >
+    <span>{common.footer.license}</span>
+  </div>
+</footer>

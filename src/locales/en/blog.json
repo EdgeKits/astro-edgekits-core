@@ -1,0 +1,29 @@
+{
+  "indexPageTitle": "Blog",
+  "newsletter": {
+    "title": "Stay Updated",
+    "description": "Get the latest EdgeKits news directly to your inbox.",
+    "placeholder": "Enter your email",
+    "button": "Subscribe",
+    "success": "Thanks for subscribing!",
+    "validation": {
+      "invalidEmail": "Please enter a valid email address."
+    }
+  },
+  "ui": {
+    "readMore": "Read more",
+    "backToOverview": "Back to Overview",
+    "publishedOn": "Published on",
+    "readTime": "{min} min read"
+  },
+  "counter": {
+    "title": "Counter demo",
+    "increment": "Increment",
+    "reset": "Reset",
+    "patterns": {
+      "zero": "No items",
+      "one": "{count} item",
+      "other": "{count} items"
+    }
+  }
+}

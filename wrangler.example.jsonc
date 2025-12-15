@@ -1,0 +1,73 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "astro-cf-starter",
+  "main": "./dist/_worker.js/index.js",
+  "compatibility_date": "2025-11-18",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./dist",
+    // OPTIMIZATION: Explicitly defining handling order.
+    // false = check for asset first, then run worker.
+    // This reduces CPU invocation costs for static files and maximizes cache hits.
+    // Reference:
+    "run_worker_first": false,
+  },
+  "observability": {
+    "enabled": true,
+  },
+  // For instructions on how to configure environment-specific overrides
+  // (development, preview, production), see:
+  // https://developers.cloudflare.com/workers/configuration/environment-variables/
+  //
+  // For the variables below:
+  // - If you define them in .dev.vars, those values will be used in the development environment.
+  // - The values defined here (in wrangler.jsonc) will apply when running production locally (wrangler dev)
+  //   or when deploying to Cloudflare, unless overridden by environment-specific configs.
+  // - If a variable is not present in .dev.vars, the values defined here will be used for all environments.
+  "vars": {
+    "I18N_CACHE": "true",
+    "DEBUG_I18N": "false",
+  },
+  "kv_namespaces": [
+    {
+      "binding": "TRANSLATIONS",
+      "id": "<KV_NAMESPACE_ID>",
+      "preview_id": "<KV_NAMESPACE_PREVIEW_ID>", // Use same ID for simplicity in dev, or create a separate one
+    },
+  ],
+  /**
+   * Smart Placement
+   * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
+   */
+  // "placement": { "mode": "smart" }
+  /**
+   * Bindings
+   * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
+   * databases, object storage, AI inference, real-time communication and more.
+   * https://developers.cloudflare.com/workers/runtime-apis/bindings/
+   */
+  /**
+   * Environment Variables
+   * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
+   */
+  // "vars": { "MY_VARIABLE": "production_value" }
+  /**
+   * Note: Use secrets to store sensitive data.
+   * https://developers.cloudflare.com/workers/configuration/secrets/
+   */
+  /**
+   * Static Assets
+   * https://developers.cloudflare.com/workers/static-assets/binding/
+   */
+  // "assets": { "directory": "./public/", "binding": "ASSETS" }
+  /**
+   * Service Bindings (communicate between multiple Workers)
+   * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings
+   */
+  // "services": [{ "binding": "MY_SERVICE", "service": "my-service" }]
+}

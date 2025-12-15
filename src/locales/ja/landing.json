@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "title": "Astro コンポーネントデモ",
+    "subtitle": "<strong>Astro 5.0 + Cloudflare Workers</strong> を利用した高性能テンプレートで、<strong>エッジネイティブ国際化エンジン</strong> と <strong>0 KB クライアントバンドル</strong> を特徴としています。",
+    "description": "従来のように大きな JSON 辞書をクライアントに送信する方式とは異なり、このアーキテクチャは翻訳データを <strong>Cloudflare KV</strong> に保存し、ユーザーまたはブラウザに必要なロケールのみを取得し、ページやコンポーネントごとに必要な特定の namespace だけを <strong>単一のバッチリクエスト</strong> で読み込み、<strong>事前レンダリングされた HTML</strong> を返します。この HTML はキャッシュされ、KV へのリクエストを削減します。",
+    "cta": "ブログを見る"
+  },
+  "metrics": {
+    "metric1": "クライアントバンドル",
+    "metric2": "レイテンシ",
+    "metric3": "タイプセーフ"
+  },
+  "features": {
+    "title": "以下のカードは React Islands です",
+    "feature1Title": "エッジでロードされる翻訳",
+    "feature1Desc": "翻訳はエッジで単一の KV バッチリクエストにより取得され、0 KB のクライアントバンドルと、必要なロケールと namespace への 10ms 未満のアクセスを実現します。",
+    "feature2Title": "動的ロケール解決",
+    "feature2Desc": "/en/about.astro や /es/about.astro のような重複ページは不要です。ロケールと翻訳 namespace はリクエストごとに動的に解決され、ルーティングがシンプルになり、保守性が向上します。",
+    "feature3Title": "厳密に型付けされた翻訳",
+    "feature3Desc": "翻訳型は src/locales の JSON ファイルから自動生成され、Astro と React Islands 全体で完全な型安全性を提供します — IntelliSense とコンパイル時の保証付きです。"
+  },
+  "builtWith": {
+    "title": "使用技術",
+    "subtitle": "Astro、React Islands、Cloudflare Workers & KV、Tailwind CSS、Shadcn/ui を組み合わせたエッジネイティブスタックです。"
+  }
+}
