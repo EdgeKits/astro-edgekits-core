@@ -1,0 +1,14 @@
+---
+import Header from '@/components/layout/Header.astro'
+import Footer from '@/components/layout/Footer.astro'
+import MissingTranslationBanner from '@/components/utils/MissingTranslationBanner.astro'
+---
+
+<div class='wrapper'>
+  <Header />
+  <main>
+    <MissingTranslationBanner />
+    <slot />
+  </main>
+  <Footer />
+</div>

@@ -1,0 +1,17 @@
+{
+  "nav": {
+    "home": "Astro components & islands",
+    "blog": "Markdown i18n examples",
+    "mobileButton": "Menu"
+  },
+  "footer": {
+    "license": "Under the MIT license."
+  },
+  "error": {
+    "notFound": {
+      "title": "404 — Page not found",
+      "message": "The page you are looking for does not exist or has been moved.",
+      "backToHome": "Go back to homepage"
+    }
+  }
+}

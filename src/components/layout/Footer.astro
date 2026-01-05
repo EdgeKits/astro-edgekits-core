@@ -1,0 +1,26 @@
+---
+import { fetchTranslations } from '@/utils/i18n/fetcher'
+
+const { translationLocale } = Astro.locals
+
+const { common } = await fetchTranslations(
+  Astro.locals.runtime,
+  translationLocale,
+  ['common']
+)
+---
+
+<footer>
+  <div class='flex items-center gap-2'>
+    <time>{new Date().getFullYear()}</time>
+    <span>©</span>
+    <a
+      href='https://edgekits.dev'
+      rel='noopener noreferrer'
+      target='_blank'
+      class='hover:underline'
+      >edgekits.dev</a
+    >
+    <span>{common.footer.license}</span>
+  </div>
+</footer>

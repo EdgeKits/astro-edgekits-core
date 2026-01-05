@@ -1,0 +1,49 @@
+---
+import { LANGUAGES } from '@/utils/constants'
+import { replaceLocaleInPath } from '@/utils/i18n/format'
+
+interface Props {
+  currentLang: string
+}
+
+const { currentLang } = Astro.props
+const currentPath = Astro.url.pathname
+
+// Helper function to replace the language segment in the URL
+// Input: /en/about, target: es -> Output: /es/about
+function getPathForLang(lang: string) {
+  const newPath = replaceLocaleInPath(currentPath, currentLang, lang)
+  const url = new URL(newPath, Astro.site)
+  let href = url.toString()
+
+  // Ensure it ends with a slash (URL.toString usually adds it, but be safe)
+  if (!href.endsWith('/')) {
+    href += '/'
+  }
+
+  return href
+}
+---
+
+{
+  Object.keys(LANGUAGES).map((code) => {
+    const path = getPathForLang(code)
+
+    // Create absolute URL (https://edgekits.dev/es/...)
+    const href = new URL(path, Astro.site).toString()
+
+    return (
+      <link
+        rel='alternate'
+        hreflang={code}
+        href={href}
+      />
+    )
+  })
+}
+
+<link
+  rel='alternate'
+  hreflang='x-default'
+  href={new URL(getPathForLang('en'), Astro.site).toString()}
+/>

@@ -1,0 +1,82 @@
+<script>
+  import { type Locale } from '@/utils/i18n/schemas'
+  import { replaceLocaleInPath, getLangFromUrl } from '@/utils/i18n/format'
+
+  class LanguageSwitcher extends HTMLElement {
+    private trigger: HTMLButtonElement | null = null
+    private dropdown: HTMLElement | null = null
+
+    connectedCallback() {
+      this.trigger = this.querySelector('[data-ls-trigger]')
+      this.dropdown = this.querySelector('[data-ls-dropdown]')
+
+      if (!this.trigger || !this.dropdown) return
+
+      this.trigger.addEventListener('click', this.onToggle)
+      this.dropdown.addEventListener('click', this.onSelect)
+      document.addEventListener('click', this.onDocumentClick)
+      document.addEventListener('keydown', this.onKeyDown)
+    }
+
+    disconnectedCallback() {
+      this.trigger?.removeEventListener('click', this.onToggle)
+      this.dropdown?.removeEventListener('click', this.onSelect)
+      document.removeEventListener('click', this.onDocumentClick)
+      document.removeEventListener('keydown', this.onKeyDown)
+    }
+
+    private open() {
+      if (!this.dropdown || !this.trigger) return
+      this.dropdown.classList.remove('hidden')
+      this.trigger.setAttribute('aria-expanded', 'true')
+    }
+
+    private close() {
+      if (!this.dropdown || !this.trigger) return
+      this.dropdown.classList.add('hidden')
+      this.trigger.setAttribute('aria-expanded', 'false')
+    }
+
+    private onToggle = () => {
+      if (!this.dropdown) return
+      const isHidden = this.dropdown.classList.contains('hidden')
+      isHidden ? this.open() : this.close()
+    }
+
+    private onSelect = async (event: Event) => {
+      const target = event.target as HTMLElement
+      const button = target.closest<HTMLButtonElement>('.ls-selector')
+      if (!button) return
+
+      const lang = button.dataset.lang as Locale | undefined
+      if (!lang) return
+
+      const { pathname } = window.location
+      const currentLang = getLangFromUrl(pathname)
+      if (!currentLang) return
+
+      const newPath = replaceLocaleInPath(pathname, currentLang, lang)
+
+      window.location.href = newPath
+    }
+
+    private onDocumentClick = (event: MouseEvent) => {
+      if (!this.contains(event.target as Node)) {
+        this.close()
+      }
+    }
+
+    private onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        this.close()
+      }
+    }
+  }
+
+  if (!customElements.get('language-switcher')) {
+    customElements.define('language-switcher', LanguageSwitcher)
+  }
+
+  // so that the module is "ESM" without default export
+  export {}
+</script>
