@@ -262,8 +262,8 @@ src/
     global.css                   # Tailwind layers, theme tokens, base typography, utilities
 
   utils/
-    cookies/
-      server.ts                  # Cookie helpers (setCookieLang, getCookieLang)
+    server/
+      cookies.ts                  # Cookie helpers (setCookieLang, getCookieLang)
 
     i18n/
       constants.ts               # PROJECT_ID, SUPPORTED_LOCALES, cookie names
