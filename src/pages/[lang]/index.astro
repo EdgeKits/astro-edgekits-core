@@ -1,0 +1,38 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Hero from '@/components/layout/Hero.astro'
+import BuiltWith from '@/components/layout/BuiltWith.astro'
+import { Features } from '@/components/islands/Features'
+import { fetchTranslations } from '@/domain/i18n/fetcher'
+
+const { uiLocale, translationLocale, runtime } = Astro.locals
+
+const { landing } = await fetchTranslations(runtime, translationLocale, [
+  'landing',
+])
+---
+
+<BaseLayout
+  title={`${landing.seo.title}`}
+  description={`${landing.seo.description}`}
+>
+  {/* HERO */}
+  <section
+    class='relative flex flex-col items-center overflow-hidden px-2 pt-8 pb-16 text-center sm:pb-28 sm:pt-20 lg:pb-32'
+  >
+    <Hero
+      t={landing}
+      lang={uiLocale}
+    />
+  </section>
+
+  {/* REACT ISLANDS CARDS */}
+  <section class='mx-auto max-w-6xl px-2 pb-16 sm:pb-20'>
+    <Features t={landing} />
+  </section>
+
+  {/* BUILT WITH LOGOS */}
+  <section class='mx-auto max-w-6xl px-2 pb-16 sm:pb-20'>
+    <BuiltWith t={landing} />
+  </section>
+</BaseLayout>

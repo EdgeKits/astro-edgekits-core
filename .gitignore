@@ -1,0 +1,39 @@
+# build output
+dist/
+
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
+.cache/
+
+# --- EdgeKits i18n Artifacts ---
+
+# i18n KV bundle (for wrangler kv bulk put)
+i18n-data.json
+
+# Auto-generated Types
+src/i18n.generated.d.ts

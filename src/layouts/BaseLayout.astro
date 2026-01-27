@@ -1,0 +1,112 @@
+---
+import { ClientRouter } from 'astro:transitions'
+
+import SeoHreflangs from '@/components/utils/SeoHreflangs.astro'
+import ContentWrapper from '@/components/layout/ContentWrapper.astro'
+import ThemeScript from '@/components/utils/ThemeScript.astro'
+import background from '@/assets/background.svg'
+import { PROJECT } from '@/config'
+
+import '@fontsource-variable/inter'
+import '@fontsource-variable/jetbrains-mono'
+import '@fontsource-variable/noto-sans-jp'
+import '@/styles/global.css'
+
+interface Props {
+  title: string
+  description?: string
+}
+
+const { title, description } = Astro.props
+const uiLocale = Astro.locals.uiLocale
+
+const socialImageURL = new URL('/og-image.jpg', Astro.url)
+---
+
+<!doctype html>
+<html lang={uiLocale}>
+  <head>
+    <meta charset='UTF-8' />
+    <meta
+      name='viewport'
+      content='width=device-width'
+    />
+    <link
+      rel='icon'
+      type='image/svg+xml'
+      href='/favicon.svg'
+    />
+    <SeoHreflangs currentLang={uiLocale} />
+    <title>{title ? `${title} | ${PROJECT.name}` : title}</title>
+    {
+      description && (
+        <meta
+          name='description'
+          content={description}
+        />
+      )
+    }
+    <meta
+      property='og:type'
+      content='website'
+    />
+    <meta
+      property='og:url'
+      content={Astro.url}
+    />
+    <meta
+      property='og:title'
+      content={title}
+    />
+    {
+      description && (
+        <meta
+          property='og:description'
+          content={description}
+        />
+      )
+    }
+    <meta
+      property='og:image'
+      content={socialImageURL}
+    />
+
+    <meta
+      property='twitter:card'
+      content='summary_large_image'
+    />
+    <meta
+      property='twitter:url'
+      content={Astro.url}
+    />
+    <meta
+      property='twitter:title'
+      content={title}
+    />
+    {
+      description && (
+        <meta
+          property='twitter:description'
+          content={description}
+        />
+      )
+    }
+    <meta
+      property='twitter:image'
+      content={socialImageURL}
+    />
+    <ThemeScript />
+    <ClientRouter />
+  </head>
+  <body>
+    <ContentWrapper>
+      <slot />
+    </ContentWrapper>
+    <img
+      id='background'
+      src={background.src}
+      alt=''
+      fetchpriority='high'
+    />
+  </body>
+</html>

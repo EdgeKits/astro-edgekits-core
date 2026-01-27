@@ -1,0 +1,15 @@
+{
+  "nav": {
+    "home": "Astro コンポーネント & Islands",
+    "blog": "Markdown の i18n 例",
+    "mobileButton": "メニュー"
+  },
+  "footer": {
+    "license": "MITライセンスの下で提供"
+  },
+  "notFound": {
+    "title": "404 — ページが見つかりません",
+    "message": "お探しのページは存在しないか、移動した可能性があります。",
+    "backToHome": "ホームに戻る"
+  }
+}

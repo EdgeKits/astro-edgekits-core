@@ -1,0 +1,42 @@
+---
+import { GlobeIcon } from 'lucide-react'
+
+import HeroCta from '@/components/utils/HeroCta.astro'
+import { type Locale } from '@/domain/i18n/schema'
+
+interface Props {
+  lang: Locale
+  t: I18n.Schema['landing']
+}
+
+const { lang, t } = Astro.props
+---
+
+<div class='relative z-10 w-full max-w-4xl'>
+  <div class='flex items-center justify-center mb-4'>
+    <GlobeIcon
+      aria-hidden='true'
+      className='text-primary sm:mt-1'
+      size={48}
+    />
+  </div>
+
+  <h1
+    class='text-center text-2xl font-extrabold tracking-tight dark:text-white sm:flex-row sm:text-4xl md:text-5xl'
+  >
+    {t.hero.title} ({lang.toUpperCase()})
+  </h1>
+
+  <p
+    class='mt-6 text-base font-medium text-slate-700 dark:text-slate-100 sm:text-xl'
+    set:html={t.hero.subtitle}
+  />
+
+  <p
+    class='mt-6 text-sm leading-relaxed text-slate-600 dark:text-slate-300 sm:text-lg'
+    set:html={t.hero.description}
+  />
+
+  {/* CTA BUTTONS */}
+  <HeroCta ctaBtnText={t.hero.cta} />
+</div>

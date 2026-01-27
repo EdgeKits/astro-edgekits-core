@@ -1,0 +1,52 @@
+---
+title: 'Localized Formatting & Plurals in MDX'
+description: 'Demonstrating runtime string interpolation, plural logic, and dynamic formatting using KV translations inside MDX and React Islands.'
+pubDate: '2025-12-01'
+tags: ['i18n', 'MDX', 'Pluralization']
+heroImage: '@/assets/blog/localized-pluralization.jpg'
+---
+
+This example shows how **interpolation, plural rules, and runtime formatting** work inside MDX when using EdgeKits Core’s Zero-JS i18n architecture.
+
+While the previous demo focused on interactive components, this one demonstrates how **dynamic text** can come directly from Cloudflare KV — even when numbers or UI state change.
+
+## A dynamic counter with localized text
+
+Below is a React Island that exposes a simple counter.
+The component itself contains **no English strings**. All labels come from KV:
+
+- singular and plural forms (`1 item` → `5 items`)
+- interpolated values (`{count}`)
+- localized phrasing based on the active locale
+
+Try switching between English and German to see how pluralization changes automatically.
+
+<LocalizedCounter />
+
+## Why this matters
+
+Traditional client-side i18n requires:
+
+- shipping JSON dictionaries to the browser,
+- bundling a formatting engine,
+- manually wiring pluralization rules,
+- updating locale state inside React.
+
+With EdgeKits Core:
+
+1. Astro loads the correct translations at the edge.
+2. Plural and interpolation logic runs **server-side**, before hydration.
+3. React Islands receive **preformatted**, **type-safe** text.
+4. No client-side i18n library is needed — **0 KB shipped**.
+
+## Real-world use cases
+
+This pattern works especially well for:
+
+- price/quantity UI widgets,
+- dashboards that require localized labels,
+- MDX documentation with embedded interactive demos,
+- forms with dynamic validation messages,
+- any component where the text depends on numbers or state.
+
+Because translations are stored in KV, content writers can manage phrasing without touching component code — even for complex cases involving plural logic or numeric formatting.

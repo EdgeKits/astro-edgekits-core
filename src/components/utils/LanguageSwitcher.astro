@@ -1,0 +1,143 @@
+---
+import { Globe, Dot } from 'lucide-react'
+
+import { cn } from '@/shadcn/utils'
+import { SUPPORTED_LOCALES, LANGUAGES } from '@/domain/i18n/constants'
+import { localeToFlagCode } from '@/domain/i18n/flags'
+import type { Locale } from '@/domain/i18n/schema'
+import Flag from '@/components/icons/Flag.astro'
+
+const { uiLocale: currentLang } = Astro.locals
+---
+
+<language-switcher data-current-lang={currentLang}>
+  <div class='relative'>
+    <button
+      type='button'
+      data-ls-trigger
+      class='rounded-full'
+      aria-haspopup='true'
+      aria-expanded='false'
+    >
+      <Globe className='size-5 text-foreground mt-1.5' />
+    </button>
+
+    <div
+      data-ls-dropdown
+      class='absolute z-50 right-8 -mt-8 w-36 bg-card shadow-lg rounded-lg border overflow-hidden hidden animate-in fade-in slide-in-from-top-8 duration-300'
+      role='menu'
+    >
+      {
+        SUPPORTED_LOCALES.map((lang) => {
+          const locale = lang as Locale
+          const isActive = locale === currentLang
+          const label = LANGUAGES[locale]
+          const flagCode = localeToFlagCode(locale)
+
+          return (
+            <button
+              type='button'
+              class={cn(
+                'ls-selector flex w-36 items-center justify-between px-4 py-2 text-sm hover:bg-muted',
+                isActive && 'bg-background cursor-default'
+              )}
+              data-lang={locale}
+              role='menuitem'
+              disabled={isActive}
+            >
+              <span class='flex items-center gap-3 pointer-events-none'>
+                <Flag
+                  code={flagCode}
+                  size={16}
+                />
+                {label}
+              </span>
+              {isActive && <Dot className='size-6' />}
+            </button>
+          )
+        })
+      }
+    </div>
+  </div>
+</language-switcher>
+
+<script>
+  import { type Locale } from '@/domain/i18n/schema'
+  import { replaceLocaleInPath, getLangFromUrl } from '@/domain/i18n/format'
+
+  class LanguageSwitcher extends HTMLElement {
+    private trigger: HTMLButtonElement | null = null
+    private dropdown: HTMLElement | null = null
+
+    connectedCallback() {
+      this.trigger = this.querySelector('[data-ls-trigger]')
+      this.dropdown = this.querySelector('[data-ls-dropdown]')
+
+      if (!this.trigger || !this.dropdown) return
+
+      this.trigger.addEventListener('click', this.onToggle)
+      this.dropdown.addEventListener('click', this.onSelect)
+
+      document.addEventListener('click', this.onDocumentClick)
+      document.addEventListener('keydown', this.onKeyDown)
+    }
+
+    disconnectedCallback() {
+      this.trigger?.removeEventListener('click', this.onToggle)
+      this.dropdown?.removeEventListener('click', this.onSelect)
+      document.removeEventListener('click', this.onDocumentClick)
+      document.removeEventListener('keydown', this.onKeyDown)
+    }
+
+    private open() {
+      if (!this.dropdown || !this.trigger) return
+      this.dropdown.classList.remove('hidden')
+      this.trigger.setAttribute('aria-expanded', 'true')
+    }
+
+    private close() {
+      if (!this.dropdown || !this.trigger) return
+      this.dropdown.classList.add('hidden')
+      this.trigger.setAttribute('aria-expanded', 'false')
+    }
+
+    private onToggle = (e: MouseEvent) => {
+      e.stopPropagation()
+      if (!this.dropdown) return
+      const isHidden = this.dropdown.classList.contains('hidden')
+      isHidden ? this.open() : this.close()
+    }
+
+    private onSelect = async (event: Event) => {
+      const target = event.target as HTMLElement
+      const button = target.closest<HTMLButtonElement>('.ls-selector')
+      if (!button) return
+
+      const lang = button.dataset.lang as Locale | undefined
+      if (!lang) return
+
+      const { pathname } = window.location
+      const currentLang = getLangFromUrl(pathname)
+      if (!currentLang) return
+
+      const newPath = replaceLocaleInPath(pathname, currentLang, lang)
+      window.location.href = newPath
+    }
+
+    private onDocumentClick = (event: MouseEvent) => {
+      if (!this.contains(event.target as Node)) {
+        this.close()
+      }
+    }
+
+    private onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        this.close()
+      }
+    }
+  }
+
+  if (!customElements.get('language-switcher')) {
+    customElements.define('language-switcher', LanguageSwitcher)
+  }
+</script>

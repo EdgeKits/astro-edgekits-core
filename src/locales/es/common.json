@@ -1,0 +1,15 @@
+{
+  "nav": {
+    "home": "Componentes Astro e Islands",
+    "blog": "Ejemplos de i18n en Markdown",
+    "mobileButton": "Menú"
+  },
+  "footer": {
+    "license": "Bajo la licencia MIT."
+  },
+  "notFound": {
+    "title": "404 — Página no encontrada",
+    "message": "La página que buscas no existe o ha sido movida.",
+    "backToHome": "Volver al inicio"
+  }
+}

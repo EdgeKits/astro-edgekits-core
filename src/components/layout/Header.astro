@@ -1,0 +1,21 @@
+---
+import AstroLogo from '@/components/utils/logo/HeaderAstroLogo.astro'
+import ThemeToggle from '@/components/utils/ThemeToggle.astro'
+import LanguageSwitcher from '@/components/utils/LanguageSwitcher.astro'
+import MainNav from '@/components/layout/MainNav.astro'
+---
+
+<header class='baselayout-header'>
+  <div class='header-left'>
+    <AstroLogo />
+  </div>
+
+  <div class='header-center'>
+    <MainNav />
+  </div>
+
+  <div class='header-right'>
+    <ThemeToggle />
+    <LanguageSwitcher />
+  </div>
+</header>

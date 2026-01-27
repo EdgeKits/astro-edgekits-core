@@ -1,0 +1,30 @@
+{
+  "seo": {
+    "title": "Zero-JS i18n Astro Starter para trabajadores de Cloudflare",
+    "description": "Distribuye aplicaciones multilingües más rápido y sin sobrecarga de hidratación. Integración completa con Cloudflare Workers y KV, generación automatizada de TypeScript y almacenamiento en caché perimetral listo para usar."
+  },
+  "hero": {
+    "title": "Demo de Astro Component",
+    "subtitle": "Una plantilla de alto rendimiento para <strong>Astro 5.0 + Cloudflare Workers</strong> con un <strong>motor de internacionalización nativo del Edge</strong> y un <strong>paquete cliente de 0 KB</strong>.",
+    "description": "A diferencia de las configuraciones tradicionales que envían grandes diccionarios JSON al cliente, esta arquitectura almacena las traducciones en <strong>Cloudflare KV</strong>, carga solo el idioma requerido por el usuario o el navegador, obtiene únicamente los namespaces necesarios para cada página o componente mediante una <strong>sola solicitud batch</strong> y entrega <strong>HTML prerenderizado</strong>, que se almacena en caché para reducir solicitudes a KV.",
+    "cta": "Explorar el blog"
+  },
+  "metrics": {
+    "metric1": "Paquete Cliente",
+    "metric2": "Latencia",
+    "metric3": "Type-Safe"
+  },
+  "features": {
+    "title": "Las tarjetas siguientes son React Islands",
+    "feature1Title": "Traducciones Cargadas desde el Edge",
+    "feature1Desc": "Las traducciones se obtienen en el Edge mediante una sola solicitud batch a KV, con un paquete cliente de 0 KB y acceso inferior a 10 ms al idioma y los namespaces necesarios.",
+    "feature2Title": "Resolución Dinámica de Locales",
+    "feature2Desc": "Sin páginas duplicadas como /en/about.astro, /es/about.astro, etc. Los locales y namespaces de traducción se resuelven dinámicamente por solicitud, manteniendo un routing limpio y un proyecto fácil de mantener.",
+    "feature3Title": "Traducciones Estrictamente Tipadas",
+    "feature3Desc": "Los tipos de traducción se generan automáticamente a partir de tus archivos JSON en src/locales, garantizando un esquema i18n completamente tipado en Astro y React Islands — con IntelliSense integrado y garantías en tiempo de compilación."
+  },
+  "builtWith": {
+    "title": "Construido Con",
+    "subtitle": "Stack nativo del edge que combina Astro, React Islands, Cloudflare Workers & KV, Tailwind CSS y Shadcn/ui."
+  }
+}

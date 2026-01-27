@@ -1,0 +1,52 @@
+---
+title: 'Lokalisierte Formatierung & Plurale in MDX'
+description: 'Demonstration der Laufzeit-Stringinterpolation, Plurallogik und dynamischen Formatierung mit KV-Übersetzungen in MDX und React Islands.'
+pubDate: '2025-12-01'
+tags: ['i18n', 'MDX', 'Pluralization']
+heroImage: '@/assets/blog/localized-pluralization.jpg'
+---
+
+Dieses Beispiel zeigt, wie **Interpolation, Pluralregeln und Laufzeitformatierung** in MDX funktionieren, wenn die Zero-JS-i18n-Architektur von EdgeKits Core verwendet wird.
+
+Während die vorherige Demo sich auf interaktive Komponenten konzentriert hat, zeigt dieses Beispiel, wie **dynamischer Text** direkt aus Cloudflare KV kommen kann – selbst dann, wenn sich Zahlen oder der UI-Status ändern.
+
+## Ein dynamischer Zähler mit lokalisiertem Text
+
+Unten befindet sich eine React-Island, die einen einfachen Zähler bereitstellt.
+Die Komponente selbst enthält **keine englischen Strings**. Alle Beschriftungen kommen aus KV:
+
+- Singular- und Pluralformen (`1 item` → `5 items`)
+- interpolierte Werte (`{count}`)
+- lokalisierte Formulierungen basierend auf der aktiven Sprache
+
+Probiere aus, zwischen Englisch und Deutsch zu wechseln, und sieh dir an, wie sich die Pluralbildung automatisch ändert.
+
+<LocalizedCounter />
+
+## Warum das wichtig ist
+
+Traditionelles clientseitiges i18n erfordert:
+
+- das Ausliefern von JSON-Wörterbüchern an den Browser,
+- das Bündeln einer Formatierungs-Engine,
+- das manuelle Verdrahten von Pluralregeln,
+- das Aktualisieren des Sprachzustands innerhalb von React.
+
+Mit EdgeKits Core hingegen:
+
+1. Lädt Astro die richtigen Übersetzungen am Edge.
+2. Plural- und Interpolationslogik laufen **serverseitig**, bevor hydriert wird.
+3. React-Islands erhalten **vorformatierte**, **typsichere** Texte.
+4. Es wird keine clientseitige i18n-Bibliothek benötigt — **0 KB werden ausgeliefert**.
+
+## Praxisnahe Anwendungsfälle
+
+Dieses Muster eignet sich besonders gut für:
+
+- Preis-/Mengen-Widgets in der UI,
+- Dashboards mit lokalisierten Beschriftungen,
+- MDX-Dokumentation mit eingebetteten interaktiven Demos,
+- Formulare mit dynamischen Validierungsnachrichten,
+- beliebige Komponenten, deren Text von Zahlen oder Zustand abhängt.
+
+Da die Übersetzungen in KV gespeichert sind, können Content-Ersteller Formulierungen anpassen, ohne den Komponenten-Code anfassen zu müssen – sogar bei komplexen Fällen mit Plurallogik oder numerischer Formatierung.

@@ -1,0 +1,15 @@
+---
+import { LocalizedCounter } from '@/components/islands/LocalizedCounter'
+import { fetchTranslations } from '@/domain/i18n/fetcher'
+
+const { translationLocale, runtime } = Astro.locals
+const { blog } = await fetchTranslations(runtime, translationLocale, ['blog'])
+const t = blog.counter
+---
+
+<LocalizedCounter
+  client:visible
+  t={t}
+  locale={translationLocale}
+  labels={blog.counter}
+/>
