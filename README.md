@@ -1,7 +1,7 @@
 # ⚡ Zero-JS i18n Astro Starter for Cloudflare Workers
 
 <div align="center">
-<a href="https://deploy.workers.cloudflare.com/?url=https://github.com/EdgeKits/astro-edgekits-core"><img src="./.github/assets/banner.jpg" alt="Deploy to Cloudflare" width="100%" /></a>
+<a href="https://deploy.workers.cloudflare.com/?url=https://github.com/EdgeKits/astro-edgekits-core"><img src="./.github/assets/astro-edgekits-core-banner.jpg" alt="Deploy to Cloudflare" width="100%" /></a>
 </div>
 
 **Astro + Cloudflare Workers + KV + Type-Safe i18n**
@@ -276,7 +276,6 @@ src/
   pages/
     [lang]/                      # Locale-aware routes
       index.astro                # Landing page demo (Astro + React Islands)
-      about.astro                # About page example
       blog/
         index.astro              # Localized blog index
         [...slug].astro          # Localized blog post reader using Content Collections
