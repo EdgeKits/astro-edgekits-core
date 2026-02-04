@@ -6,6 +6,18 @@
 
 **Astro + Cloudflare Workers + KV + Type-Safe i18n**
 
+> <br>
+> [!IMPORTANT]
+>
+> **Building a commercial SaaS or Telegram App?**
+>
+> This repository is the open-source **core engine** (i18n + caching).
+> If you need a production-ready foundation with **Authentication**, **Multi-tenancy (Orgs/Teams)**, **D1 Database**, and **Billing (Stripe/Paddle)**, check out the Pro kits.
+>
+> 🚀 **[Join the EdgeKits Waitlist](https://edgekits.dev)** to get the Early Bird launch discount.
+> <br>
+> <br>
+
 EdgeKits Core is a minimal, production-ready starter designed for developers building **internationalized** Astro sites on **Cloudflare Workers**.
 
 It provides:
@@ -66,6 +78,24 @@ npm run i18n:bundle:fallbacks
 npm run i18n:seed:fallbacks
 npm run i18n:migrate:fallbacks
 ```
+
+---
+
+## ⚖️ Core vs. EdgeKits Pro
+
+EdgeKits Core is the best possible _starting point_ for i18n projects. The Pro Starters are fully integrated products designed to save 100+ hours of setup.
+
+| Feature                   | `astro-edgekits-core` | [SaaS Starter](https://edgekits.dev) | [TMA Starter](https://edgekits.dev) |
+| :------------------------ | :-------------------: | :----------------------------------: | :---------------------------------: |
+| **License**               |      MIT (Free)       |              Commercial              |             Commercial              |
+| **i18n Engine (Zero-JS)** |          ✅           |                  ✅                  |                 ✅                  |
+| **Edge Caching**          |          ✅           |                  ✅                  |                 ✅                  |
+| **Authentication**        |       ❌ (DIY)        |       ✅ (Email/Pass + Social)       |         ✅ (Telegram Auth)          |
+| **Database**              |        KV Only        |        ✅ Cloudflare D1 (SQL)        |       ✅ Cloudflare D1 (SQL)        |
+| **Multi-tenancy**         |          ❌           |        ✅ (Orgs, Roles, RBAC)        |          ❌ (User-centric)          |
+| **Billing**               |          ❌           |          ✅ Stripe & Paddle          |          ✅ Telegram Stars          |
+
+[View all Pro features →](https://edgekits.dev)
 
 ---
 
