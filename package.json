@@ -50,7 +50,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-label": "^2.1.8",
     "@radix-ui/react-slot": "^1.2.4",
-    "astro": "^5.16.15",
+    "astro": "^5.17.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.554.0",
@@ -72,6 +72,6 @@
     "prettier-plugin-tailwindcss": "^0.7.1",
     "tailwindcss": "^4.1.17",
     "tsx": "^4.21.0",
-    "wrangler": "^4.61.0"
+    "wrangler": "^4.63.0"
   }
 }

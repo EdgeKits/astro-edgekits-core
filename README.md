@@ -6,17 +6,12 @@
 
 **Astro + Cloudflare Workers + KV + Type-Safe i18n**
 
-> <br>
-> [!IMPORTANT]
->
-> **Building a commercial SaaS or Telegram App?**
+> [!IMPORTANT] **Building a commercial SaaS or Telegram App?**
 >
 > This repository is the open-source **core engine** (i18n + caching).
 > If you need a production-ready foundation with **Authentication**, **Multi-tenancy (Orgs/Teams)**, **D1 Database**, and **Billing (Stripe/Paddle)**, check out the Pro kits.
 >
 > 🚀 **[Join the EdgeKits Waitlist](https://edgekits.dev)** to get the Early Bird launch discount.
-> <br>
-> <br>
 
 EdgeKits Core is a minimal, production-ready starter designed for developers building **internationalized** Astro sites on **Cloudflare Workers**.
 
