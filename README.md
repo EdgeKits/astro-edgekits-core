@@ -13,6 +13,13 @@
 >
 > 🚀 **[Join the EdgeKits Waitlist](https://edgekits.dev)** to get the Early Bird launch discount.
 
+---
+
+# 🏛️ The Philosophy
+
+EdgeKits Core is a minimal, production-ready starter designed for developers building **internationalized** Astro sites on **Cloudflare Workers**. No vendor lock-in. No Vercel tax. 100% Edge-native.
+
+This implementation is a paradigm shift from "i18n as code" to "i18n as data on the Edge".
 EdgeKits Core is a minimal, production-ready starter designed for developers building **internationalized** Astro sites on **Cloudflare Workers**.
 
 It provides:
@@ -33,7 +40,7 @@ It provides:
 
 ### ✔ Zero-JS i18n (SSR only)
 
-No client bundles, no hydration — all rendering happens at the edge.
+No client bundles, no hydration - all rendering happens at the edge.
 
 ### ✔ Cloudflare KV as translation storage
 
@@ -127,7 +134,7 @@ i18n: {
 **Important:**
 
 EdgeKits Core currently supports only two-letter ISO 639-1 locales ("en", "ja", "de", "es").
-Do not use region-based locales ("pt-BR", "en-US", "zh-CN", etc.) — Astro will accept them, but the i18n system will not, and translation loading will fail silently.
+Do not use region-based locales ("pt-BR", "en-US", "zh-CN", etc.) - Astro will accept them, but the i18n system will not, and translation loading will fail silently.
 
 The `SUPPORTED_LOCALES` and `DEFAULT_LOCALE` constants are defined in `/src/domain/i18n/constants.ts`.
 
@@ -199,7 +206,7 @@ npx wrangler kv namespace create TRANSLATIONS
 This command:
 
 - Creates a KV namespace in your Cloudflare account (or in Miniflare when using `wrangler dev`).
-- Prints an `id = ...` value — copy this into `wrangler.jsonc`:
+- Prints an `id = ...` value - copy this into `wrangler.jsonc`:
 
 ```jsonc
 "kv_namespaces": [
@@ -364,6 +371,8 @@ src/locales/en/landing.json
 
 ```
 
+> [!TIP]: Break your JSON into smaller namespaces (buttons.json, hero.json, etc.) instead of dumping everything into common.json.
+
 KV keys are generated as:
 
 ```
@@ -476,8 +485,8 @@ Example inspection:
 
 All locale resolution happens in middleware, so pages and components receive ready values:
 
-- `Astro.locals.uiLocale` — the UI locale the user **expects** to see based on their language selection
-- `Astro.locals.translationLocale` — locale used for KV fetching
+- `Astro.locals.uiLocale` - the UI locale the user **expects** to see based on their language selection
+- `Astro.locals.translationLocale` - locale used for KV fetching
 
 ### Understanding `uiLocale` vs `translationLocale`
 
@@ -486,7 +495,7 @@ This separation is critical for preventing runtime crashes and ensuring a gracef
 
 ---
 
-### `uiLocale` — the user’s chosen language
+### `uiLocale` - the user’s chosen language
 
 Represents the locale **intended by the user** and controls the visible interface:
 
@@ -512,7 +521,7 @@ even if `ja/` translations are missing.
 
 ---
 
-### `translationLocale` — the safe locale used for KV translation fetch
+### `translationLocale` - the safe locale used for KV translation fetch
 
 Represents the locale that **actually has translation data available**.
 
@@ -927,7 +936,7 @@ Even during KV outages, existing cached entries (if present) and fallback dictio
 > For detailed information about KV storage, reads, writes, and free-tier/paid quotas, see:
 > https://developers.cloudflare.com/kv/platform/
 >
-> Using edge caching significantly reduces KV-read volume, helping maintain predictable costs — especially for multilingual sites where the same namespaces are fetched on every request.
+> Using edge caching significantly reduces KV-read volume, helping maintain predictable costs - especially for multilingual sites where the same namespaces are fetched on every request.
 
 ---
 
@@ -1277,7 +1286,7 @@ The stub must exist for TypeScript to resolve imports.
 
 ### “Do I need to run the i18n generator before `npm run dev`?”
 
-Yes — run:
+Yes - run:
 
 ```bash
 npm run i18n:bundle
@@ -1295,7 +1304,7 @@ Both generate all necessary artifacts.
 
 ### “Can I add a locale without translations?”
 
-Yes — all locales in `SUPPORTED_LOCALES` are routable.
+Yes - all locales in `SUPPORTED_LOCALES` are routable.
 
 If translations are missing:
 
@@ -1321,7 +1330,7 @@ If fallback dictionaries are not enabled:
 
 ### “Can I add new translation namespaces?”
 
-Yes — simply create a new JSON file:
+Yes - simply create a new JSON file:
 
 ```
 src/locales/en/pricing.json
@@ -1347,7 +1356,7 @@ Add support for regional locales (e.g. pt-BR, zh-CN). Contributions welcome!
 
 This starter is designed to be a **drop-in foundation** for multilingual Astro apps running on Cloudflare Workers.
 
-If you need additional utilities, deeper integrations (R2, D1, Durable Objects, AI Gateway, Agents and more), or production deployment templates — EdgeKits provides extensions that build on this core (coming soon).
+If you need additional utilities, deeper integrations (Auth, Agents, AI Gateway, Workflows and more) in production deployment templates - EdgeKits provides extensions that build on this core (coming soon).
 
 Happy shipping!
 ⚡ **Astro EdgeKits Core**

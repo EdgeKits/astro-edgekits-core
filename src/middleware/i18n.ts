@@ -43,6 +43,8 @@ function resolveFallbackLocale(context: I18nMiddlewareContext): Locale {
     parsed = LocaleSchema.safeParse(short)
     if (parsed.success) return parsed.data
   }
+  // TO DO: if browserRaw undefined, we use context.locals.runtime.ctx.request.cf.country
+  // with country -> locale mapping (UA -> uk)
 
   return DEFAULT_LOCALE
 }
