@@ -20,6 +20,7 @@
 EdgeKits Core is a minimal, production-ready starter designed for developers building **internationalized** Astro sites on **Cloudflare Workers**. No vendor lock-in. No Vercel tax. 100% Edge-native.
 
 This implementation is a paradigm shift from "i18n as code" to "i18n as data on the Edge".
+EdgeKits Core is a minimal, production-ready starter designed for developers building **internationalized** Astro sites on **Cloudflare Workers**.
 
 It provides:
 
