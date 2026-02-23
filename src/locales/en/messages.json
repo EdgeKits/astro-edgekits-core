@@ -1,0 +1,8 @@
+{
+  "errors": {
+    "ui": {
+      "MISSING_TRANSLATED_UI": "Sorry, this page is not yet fully available in your selected language.",
+      "MISSING_TRANSLATED_CONTENT": "Sorry, this article is not yet available in your selected language."
+    }
+  }
+}

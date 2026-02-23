@@ -1,0 +1,10 @@
+{
+  "title": "Zähler-Demo",
+  "increment": "Erhöhen",
+  "reset": "Zurücksetzen",
+  "patterns": {
+    "zero": "Keine Elemente",
+    "one": "{count} Element",
+    "other": "{count} Elemente"
+  }
+}

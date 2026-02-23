@@ -1,0 +1,205 @@
+---
+import { PuzzleIcon, FilePenIcon, MenuIcon } from 'lucide-react'
+
+import { cn } from '@/shadcn/utils'
+import { fetchTranslations } from '@/domain/i18n/fetcher'
+
+const { uiLocale, translationLocale } = Astro.locals
+
+const { common } = await fetchTranslations(
+  Astro.locals.runtime,
+  translationLocale,
+  ['common']
+)
+
+const currentPath = Astro.url.pathname
+---
+
+<nav
+  class='main-nav relative w-full'
+  data-main-nav
+>
+  <!-- Desktop nav -->
+  <ul class='hidden items-center gap-8 sm:flex'>
+    <li>
+      <a
+        href={`/${translationLocale}/`}
+        class={cn(
+          'flex items-center gap-2 text-sm font-medium',
+          currentPath === `/${uiLocale}/` ? 'group text-primary' : ''
+        )}
+      >
+        <span><PuzzleIcon size={16} /></span>
+        <span>{common.nav.home}</span>
+      </a>
+    </li>
+    <li>
+      <a
+        href={`/${translationLocale}/blog/`}
+        class={cn(
+          'flex items-center gap-2 text-sm font-medium',
+          currentPath.startsWith(`/${uiLocale}/blog/`)
+            ? 'group text-primary'
+            : ''
+        )}
+      >
+        <span><FilePenIcon size={16} /></span>
+        <span>{common.nav.blog}</span>
+      </a>
+    </li>
+  </ul>
+
+  <!-- Mobile: burger button -->
+  <button
+    type='button'
+    class='inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium shadow-sm backdrop-blur transition sm:hidden'
+    data-menu-toggle
+    aria-label='Toggle navigation'
+    aria-expanded='false'
+  >
+    <MenuIcon size={20} />
+    <span class='text-xs font-medium'>{common.nav.mobileButton}</span>
+  </button>
+
+  <!-- Mobile overlay (click to close) -->
+  <div
+    class='fixed inset-0 z-40 pointer-events-none opacity-0 transition-opacity sm:hidden'
+    data-menu-overlay
+  >
+  </div>
+
+  <!-- Mobile side panel -->
+  <aside
+    class='fixed inset-y-0 left-0 z-50 w-72 max-w-[80%] -translate-x-full transform bg-background shadow-xl transition-transform sm:hidden'
+    data-menu-panel
+    aria-hidden='true'
+  >
+    <div class='flex h-full flex-col'>
+      <div class='flex items-center justify-between border-b px-4 py-3'>
+        <span class='text-sm font-semibold'>{common.nav.mobileButton}</span>
+        <button
+          type='button'
+          class='inline-flex h-8 w-8 items-center justify-center rounded-full'
+          data-menu-close
+          aria-label='Close navigation'
+        >
+          ✕
+        </button>
+      </div>
+
+      <ul
+        class='flex flex-1 flex-col items-start justify-start gap-1 px-4 py-4 text-sm'
+      >
+        <li>
+          <a
+            href={`/${translationLocale}/`}
+            class={cn(
+              'flex items-center gap-2 rounded-lg px-2 py-2 font-medium',
+              currentPath === `/${uiLocale}/` ? 'group text-primary' : ''
+            )}
+          >
+            <span><PuzzleIcon size={16} /></span>
+            <span>{common.nav.home}</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href={`/${translationLocale}/blog/`}
+            class={cn(
+              'flex items-center gap-2 rounded-lg px-2 py-2 font-medium',
+              currentPath.startsWith(`/${uiLocale}/blog/`)
+                ? 'group text-primary'
+                : ''
+            )}
+          >
+            <span><FilePenIcon size={16} /></span>
+            <span>{common.nav.blog}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <script>
+    const initMobileNav = () => {
+      const nav = document.querySelector<HTMLElement>('[data-main-nav]')
+
+      if (!nav || nav.dataset.navInitialized === 'true') return
+      nav.dataset.navInitialized = 'true'
+
+      const toggle = nav.querySelector<HTMLButtonElement>('[data-menu-toggle]')
+      const overlay = nav.querySelector<HTMLDivElement>('[data-menu-overlay]')
+      const panel = nav.querySelector<HTMLElement>('[data-menu-panel]')
+      const closeBtn = nav.querySelector<HTMLButtonElement>('[data-menu-close]')
+
+      const getFirstFocusableInPanel = () => {
+        if (!panel) return null
+        return panel.querySelector<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      }
+
+      const openMenu = () => {
+        panel?.classList.remove('-translate-x-full')
+        panel?.setAttribute('aria-hidden', 'false')
+
+        overlay?.classList.remove('pointer-events-none', 'opacity-0')
+        overlay?.classList.add('opacity-100')
+
+        toggle?.setAttribute('aria-expanded', 'true')
+
+        const first = getFirstFocusableInPanel()
+        first?.focus()
+      }
+
+      const closeMenu = () => {
+        panel?.classList.add('-translate-x-full')
+
+        overlay?.classList.add('pointer-events-none', 'opacity-0')
+        overlay?.classList.remove('opacity-100')
+
+        if (
+          panel &&
+          document.activeElement &&
+          panel.contains(document.activeElement)
+        ) {
+          toggle?.focus()
+        }
+
+        panel?.setAttribute('aria-hidden', 'true')
+        toggle?.setAttribute('aria-expanded', 'false')
+      }
+
+      toggle?.addEventListener('click', () => {
+        const expanded = toggle.getAttribute('aria-expanded') === 'true'
+        if (expanded) {
+          closeMenu()
+        } else {
+          openMenu()
+        }
+      })
+
+      overlay?.addEventListener('click', () => {
+        closeMenu()
+      })
+
+      closeBtn?.addEventListener('click', () => {
+        closeMenu()
+      })
+
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          closeMenu()
+        }
+      })
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMobileNav)
+    } else {
+      initMobileNav()
+    }
+
+    document.addEventListener('astro:page-load', initMobileNav)
+  </script>
+</nav>

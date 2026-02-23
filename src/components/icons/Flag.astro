@@ -1,0 +1,53 @@
+---
+import { Globe } from 'lucide-react'
+
+import UsFlag from '@/assets/icons/flags/us.svg'
+import DeFlag from '@/assets/icons/flags/de.svg'
+import EsFlag from '@/assets/icons/flags/es.svg'
+import JpFlag from '@/assets/icons/flags/jp.svg'
+
+import type { FlagCode } from '@/domain/i18n/flags'
+
+const FLAG_COMPONENTS = {
+  us: UsFlag,
+  de: DeFlag,
+  es: EsFlag,
+  jp: JpFlag,
+} as const
+
+interface Props {
+  code: FlagCode | null
+  size?: number
+  title?: string
+  class?: string
+  [key: string]: any
+}
+
+const { code, size = 16, title, class: className, ...rest } = Astro.props
+const Svg = code ? FLAG_COMPONENTS[code as FlagCode] : undefined
+---
+
+{
+  Svg ? (
+    <Svg
+      width={size}
+      height={size}
+      class={className}
+      aria-hidden={title ? 'false' : 'true'}
+      role={title ? 'img' : 'presentation'}
+      {...rest}
+    >
+      {title && <title>{title}</title>}
+    </Svg>
+  ) : (
+    // Fallback: globe
+    <Globe
+      width={size}
+      height={size}
+      aria-hidden={title ? undefined : true}
+      role={title ? 'img' : 'presentation'}
+      className={className}
+      {...rest}
+    />
+  )
+}

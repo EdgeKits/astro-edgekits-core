@@ -1,0 +1,44 @@
+---
+import { LANGUAGES, DEFAULT_LOCALE } from '@/domain/i18n/constants'
+import { buildAlternateUrl } from '@/domain/seo/utils'
+
+interface Props {
+  currentLang: string
+  currentOrigin: string
+}
+
+const { currentLang, currentOrigin } = Astro.props
+const currentPath = Astro.url.pathname
+---
+
+{/* 1.Generates links for all supported languages */}
+{
+  Object.keys(LANGUAGES).map((code) => {
+    const href = buildAlternateUrl(
+      currentOrigin,
+      currentPath,
+      currentLang,
+      code
+    )
+
+    return (
+      <link
+        rel='alternate'
+        hreflang={code}
+        href={href}
+      />
+    )
+  })
+}
+
+{/* 2. Required x-default tag (specifies the default language, usually 'en') */}
+<link
+  rel='alternate'
+  hreflang='x-default'
+  href={buildAlternateUrl(
+    currentOrigin,
+    currentPath,
+    currentLang,
+    DEFAULT_LOCALE
+  )}
+/>

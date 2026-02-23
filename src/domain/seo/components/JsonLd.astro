@@ -1,0 +1,51 @@
+---
+import { SEO_DEFAULTS } from '@/domain/seo/constants'
+import { PROJECT } from '@/config'
+
+interface Props {
+  title: string
+  description: string
+  url: string
+  imageUrl: string
+  pubDate?: Date
+  tags?: string[]
+}
+
+const { title, description, url, imageUrl, pubDate, tags } = Astro.props
+
+// Smart schema generation based on page context
+const schema = pubDate
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: title,
+      description: description,
+      image: imageUrl,
+      author: {
+        '@type': 'Person',
+        name: SEO_DEFAULTS.author.name,
+        url: SEO_DEFAULTS.author.url,
+      },
+      datePublished: pubDate.toISOString(),
+      keywords: tags,
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': url,
+      },
+    }
+  : {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: SEO_DEFAULTS.siteName,
+      url: url,
+      description: description,
+    }
+---
+
+{
+  /* Using set:html is required to prevent Astro from HTML-escaping the JSON quotes */
+}
+<script
+  type='application/ld+json'
+  set:html={JSON.stringify(schema)}
+/>

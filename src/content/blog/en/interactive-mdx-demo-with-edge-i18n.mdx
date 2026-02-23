@@ -1,0 +1,25 @@
+---
+title: 'Interactive MDX with Edge i18n'
+description: 'Demonstrates how to inject KV translations into React Islands inside Astro Markdown.'
+pubDate: '2025-12-05'
+tags: ['Demo', 'MDX', 'React Islands']
+heroImage: '@/assets/blog/edgekits-core-hero-dark.jpg'
+---
+
+This is a standard paragraph in Markdown. The text you are reading now lives in the filesystem.
+
+But what if we want to add a dynamic component, like a newsletter signup form? Usually, you'd have to hardcode the button labels inside the React component.
+
+## The "Hybrid" Component
+
+Below is a React Island. Its structure is defined in code, but **the text labels come from Cloudflare KV**. Try switching the language to German, and watch the component update automatically without changing the code!
+
+<Newsletter />
+
+## How it works
+
+1. The page loads and fetches translations for the `blog` namespace from KV.
+2. Astro passes these translations to the `<Newsletter />` component via props.
+3. The component hydrates on the client (`client:visible`) using the correct language.
+
+This allows content creators to use complex UI widgets without worrying about localization files.

@@ -1,0 +1,116 @@
+---
+import { getEntry } from 'astro:content'
+
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { fetchTranslations } from '@/domain/i18n/fetcher'
+import NewsletterWrapper from '@/components/blog/NewsletterWrapper.astro'
+import LocalizedCounterWrapper from '@/components/blog/LocalizedCounterWrapper.astro'
+import { DEFAULT_LOCALE } from '@/domain/i18n/constants'
+
+// 1. Get parameters from URL
+const { lang, slug } = Astro.params
+
+if (!slug) {
+  return Astro.rewrite(`/${lang}/404/`)
+}
+
+// 2. Take uiLocale and translationLocale from locals
+// uiLocale - the language the user requested (from the URL or cookies)
+// translationLocale - a language for which there are dictionaries in KV
+const { uiLocale, translationLocale, runtime } = Astro.locals
+
+// 3. Graceful Fallback Logic for Content
+// Step A: Try to find an article in the requested language
+let post = await getEntry('blog', `${uiLocale}/${slug}`)
+
+// Step B: If there is no translation, roll back to the default locale (English)
+if (!post) {
+  post = await getEntry('blog', `${DEFAULT_LOCALE}/${slug}`)
+  // (We can also trigger the MissingTranslationBanner here)
+  Astro.locals.isMissingContent = true
+}
+
+// Step C: If the article isn't even in English, or unexisting slug given, it's a fair 404.
+if (!post) {
+  // Turns off the MissingTranslationBanner if it was triggered above
+  Astro.locals.isMissingContent = false
+  // We return 404 status without changing the URL.
+  return Astro.rewrite(`/${uiLocale}/404/`)
+}
+
+// 4. Render Content
+const { Content } = await post.render()
+
+// 6. Fetch UI Translations (KV)
+const { blog } = await fetchTranslations(runtime, translationLocale, ['blog'])
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+>
+  <article class='max-w-2xl mx-auto pb-12 px-4'>
+    {/* Hero Image */}
+    {
+      post.data.heroImage && (
+        <img
+          src={post.data.heroImage.src}
+          alt={`${post.data.title} - hero image.`}
+          class='w-full h-auto rounded-lg shadow-md mb-8'
+          transition:name={`hero-${slug}`}
+        />
+      )
+    }
+
+    {/* Header */}
+    <header class='mb-8 text-center flex flex-col items-start'>
+      <h1 class='text-4xl font-bold mb-4 text-foreground text-left'>
+        {post.data.title}
+      </h1>
+
+      <div class='w-full flex justify-between items-center'>
+        <div class='flex gap-2 justify-center items-center'>
+          {
+            post.data.tags.map((tag) => (
+              <span class='px-2 py-1 bg-gray-100 dark:bg-gray-800 text-xs rounded-full text-gray-600 dark:text-gray-300 font-medium'>
+                #{tag.toLocaleLowerCase()}
+              </span>
+            ))
+          }
+        </div>
+
+        <div class='text-gray-500 dark:text-gray-400'>
+          {
+            post.data.pubDate.toLocaleDateString(translationLocale, {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })
+          }
+        </div>
+      </div>
+    </header>
+
+    {/* Markdown/MDX Content Body */}
+    <div class='prose prose-lg dark:prose-invert mx-auto'>
+      <Content
+        components={{
+          Newsletter: NewsletterWrapper,
+          LocalizedCounter: LocalizedCounterWrapper,
+        }}
+      />
+    </div>
+
+    {/* Back Navigation */}
+    <div
+      class='mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 text-right'
+    >
+      <a
+        href={`/${lang}/blog`}
+        class='text-primary hover:underline'
+      >
+        &larr; {blog.backToOverview}
+      </a>
+    </div>
+  </article>
+</BaseLayout>

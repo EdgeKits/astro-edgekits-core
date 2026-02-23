@@ -1,0 +1,83 @@
+---
+import CloudflareLogo from '@/components/utils/logo/CloudflareLogo.astro'
+import AstroLogo from '@/components/utils/logo/AstroLogo.astro'
+import ReactLogo from '@/components/utils/logo/ReactLogo.astro'
+import TailwindLogo from '@/components/utils/logo/TailwindLogo.astro'
+import ShadcnLogo from '@/components/utils/logo/ShadcnLogo.astro'
+
+interface Props {
+  t: I18n.Schema['landing']
+}
+
+const { t } = Astro.props
+---
+
+<h2 class='mb-4 text-center justify-center text-xl font-semibold sm:text-3xl'>
+  {t.builtWith.title}:
+</h2>
+
+<p
+  class='w-full text-slate-600 dark:text-slate-300 text-center sm:text-lg mb-8'
+>
+  {t.builtWith.subtitle}
+</p>
+
+<ul
+  class='flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-8'
+>
+  <!-- Cloudflare -->
+  <li class='h-14 flex items-center'>
+    <a
+      href='https://developers.cloudflare.com'
+      target='_blank'
+      rel='noopener noreferrer'
+      aria-label='Cloudflare Workers & KV documentation'
+    >
+      <CloudflareLogo />
+    </a>
+  </li>
+  <!-- Astro -->
+  <li class='h-14 flex items-center'>
+    <a
+      href='https://astro.build'
+      target='_blank'
+      rel='noopener noreferrer'
+      aria-label='Astro website'
+    >
+      <AstroLogo />
+    </a>
+  </li>
+  <!-- React -->
+  <li class='h-14 flex items-center'>
+    <a
+      href='https://react.dev/'
+      target='_blank'
+      rel='noopener noreferrer'
+      aria-label='React website'
+    >
+      <ReactLogo />
+    </a>
+  </li>
+  <!-- Tailwind -->
+  <li class='h-14 flex items-center'>
+    <a
+      href='https://tailwindcss.com'
+      target='_blank'
+      rel='noopener noreferrer'
+      aria-label='Tailwind CSS website'
+    >
+      <TailwindLogo />
+    </a>
+  </li>
+  <!-- Shadcn -->
+  <li class='h-14 flex items-center'>
+    <a
+      href='https://ui.shadcn.com'
+      target='_blank'
+      rel='noopener noreferrer'
+      aria-label='shadcn/ui website'
+    >
+      <ShadcnLogo />
+    </a>
+  </li>
+</ul>
