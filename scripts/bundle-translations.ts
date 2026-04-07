@@ -6,7 +6,7 @@ import { PROJECT } from '../src/config'
 import { DEFAULT_LOCALE } from '../src/domain/i18n/constants'
 
 const ROOT = process.cwd()
-const LOCALES_DIR = path.join(ROOT, 'src', 'locales')
+const LOCALES_DIR = path.join(ROOT, 'locales')
 
 const OUTPUT_DATA = path.join(ROOT, 'i18n-data.json')
 const OUTPUT_TYPES = path.join(ROOT, 'src', 'i18n.generated.d.ts')
@@ -85,7 +85,7 @@ const localesWithTranslations = Object.keys(collected).sort()
 
 if (localesWithTranslations.length === 0) {
   console.warn(
-    '[i18n] No locales with JSON files found in src/locales. Generating empty artifacts.',
+    `[i18n] No locales with JSON files found in ${LOCALES_DIR}. Generating empty artifacts.`,
   )
 }
 
