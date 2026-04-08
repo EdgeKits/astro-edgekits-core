@@ -1,0 +1,25 @@
+---
+title: 'MDX Interativo com i18n no Edge'
+description: 'Demonstra como injetar traduções do KV em React Islands dentro do Markdown do Astro.'
+pubDate: '2025-12-05'
+tags: ['Demo', 'MDX', 'React Islands']
+heroImage: '@/assets/blog/edgekits-core-hero-dark.jpg'
+---
+
+Este é um parágrafo padrão em Markdown. O texto que você está lendo agora vive no sistema de arquivos.
+
+Mas e se quisermos adicionar um componente dinâmico, como um formulário de inscrição em newsletter? Normalmente, você teria que codificar os rótulos dos botões dentro do componente React.
+
+## O Componente "Híbrido"
+
+Abaixo está um React Island. Sua estrutura é definida em código, mas **os rótulos de texto vêm do Cloudflare KV**. Tente mudar o idioma para alemão e observe o componente atualizar automaticamente sem alterar o código!
+
+<Newsletter />
+
+## Como funciona
+
+1. A página carrega e busca traduções para o namespace `blog` do KV.
+2. O Astro passa essas traduções para o componente `<Newsletter />` via props.
+3. O componente hidrata no cliente (`client:visible`) usando o idioma correto.
+
+Isso permite que criadores de conteúdo usem widgets de UI complexos sem se preocupar com arquivos de localização.

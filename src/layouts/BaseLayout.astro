@@ -8,6 +8,7 @@ import ThemeScript from '@/domain/theme/components/ThemeScript.astro'
 import JsonLd from '@/domain/seo/components/JsonLd.astro'
 import { SEO_DEFAULTS } from '@/domain/seo/constants'
 import { buildCanonicalUrl, truncateDescription } from '@/domain/seo/utils'
+import { toIetfTag } from '@/domain/i18n/format'
 
 import background from '@/assets/background.svg'
 
@@ -51,7 +52,7 @@ const safeDescription = description
 ---
 
 <!doctype html>
-<html lang={uiLocale}>
+<html lang={toIetfTag(uiLocale)}>
   <head>
     <meta charset='UTF-8' />
     <meta
