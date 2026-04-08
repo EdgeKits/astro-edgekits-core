@@ -49,7 +49,7 @@ function buildLocalizedPath(locale: Locale, rest: string[]): string {
 
 // Resolves the most appropriate locale for the user based on a fallback cascade:
 // 1. User's saved cookie preference.
-// 2. Browser's Accept-Language header (matching 2-char code).
+// 2. Browser's Accept-Language header (exact match, then base language fallback).
 // 3. Cloudflare Geo-IP country mapping.
 // 4. Finally, falls back to the application's DEFAULT_LOCALE.
 function resolveFallbackLocale(context: I18nMiddlewareContext): Locale {
@@ -58,7 +58,6 @@ function resolveFallbackLocale(context: I18nMiddlewareContext): Locale {
 
   const browserRaw = context.preferredLocale
   if (browserRaw) {
-    // Currently we support 2-chars locales only.
     let parsed = LocaleSchema.safeParse(browserRaw)
     if (parsed.success) return parsed.data
 

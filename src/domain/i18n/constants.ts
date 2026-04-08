@@ -1,5 +1,5 @@
 // Locales Configuration
-export const SUPPORTED_LOCALES = ['en', 'ja', 'de', 'es'] as const
+export const SUPPORTED_LOCALES = ['en', 'ja', 'de', 'es', 'pt-br'] as const
 export type SupportedLocales = (typeof SUPPORTED_LOCALES)[number]
 
 // Default locale
@@ -14,6 +14,7 @@ export const LANGUAGES: Record<SupportedLocales, string> = {
   ja: '日本語',
   de: 'Deutsch',
   es: 'Español',
+  'pt-br': 'Português (Brasil)',
 }
 
 // Cookie name

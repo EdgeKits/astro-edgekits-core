@@ -1,6 +1,7 @@
 ---
 import { LANGUAGES, DEFAULT_LOCALE } from '@/domain/i18n/constants'
 import { buildAlternateUrl } from '@/domain/seo/utils'
+import { toIetfTag } from '@/domain/i18n/format'
 
 interface Props {
   currentLang: string
@@ -24,7 +25,7 @@ const currentPath = Astro.url.pathname
     return (
       <link
         rel='alternate'
-        hreflang={code}
+        hreflang={toIetfTag(code)}
         href={href}
       />
     )

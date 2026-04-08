@@ -1,0 +1,10 @@
+{
+  "title": "Fique Atualizado",
+  "description": "Receba as últimas novidades do EdgeKits diretamente na sua caixa de entrada.",
+  "placeholder": "Digite seu e-mail",
+  "button": "Inscrever-se",
+  "success": "Obrigado por se inscrever!",
+  "validation": {
+    "invalidEmail": "Por favor, insira um endereço de e-mail válido."
+  }
+}
