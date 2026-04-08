@@ -8,7 +8,6 @@
     "strictNullChecks": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitAny": true,
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },

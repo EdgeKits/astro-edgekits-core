@@ -6,6 +6,7 @@ export const FLAG_CODES = {
   ja: 'jp',
   de: 'de',
   es: 'es',
+  'pt-br': 'br',
 } as const
 
 export type FlagCode = (typeof FLAG_CODES)[keyof typeof FLAG_CODES]

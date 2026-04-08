@@ -107,3 +107,11 @@ export function getLangFromUrl(pathname: string) {
   const [lang] = cleaned.split('/')
   return lang
 }
+
+// Converts a URL locale code to an IETF BCP 47 language tag.
+// Used for the HTML lang attribute and hreflang values.
+// 'pt-br' → 'pt-BR', 'en-us' → 'en-US', 'en' → 'en'
+export function toIetfTag(locale: string): string {
+  const [lang, region] = locale.split('-')
+  return region ? `${lang}-${region.toUpperCase()}` : lang
+}

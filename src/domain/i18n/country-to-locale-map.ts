@@ -32,10 +32,10 @@ const GEO_MAP: Record<string, Locale> = {
   JP: 'ja',
 
   // --- LUSOPHONE (Portuguese) ---
-  // PT: 'pt',
-  // BR: 'pt',
-  // AO: 'pt',
-  // MZ: 'pt',
+  BR: 'pt-br',
+  PT: 'pt-br',
+  // AO: 'pt-br',
+  // MZ: 'pt-br',
 
   // --- FRANCOPHONE ---
   //   FR: 'fr',

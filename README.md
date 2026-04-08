@@ -1,4 +1,4 @@
-# ⚡ EdgeKits Core: Zero-JS i18n Astro Starter for Cloudflare Workers
+# ⚡ Astro EdgeKits Core: Zero-JS i18n Astro Starter for Cloudflare Workers
 
 <div align="center">
 <a href="https://deploy.workers.cloudflare.com/?url=https://github.com/EdgeKits/astro-edgekits-core"><img src="./.github/assets/astro-edgekits-core-banner.jpg" alt="Deploy to Cloudflare" width="100%" /></a>
@@ -17,7 +17,7 @@
 
 # 🏛️ The Philosophy
 
-EdgeKits Core is a minimal, production-ready starter designed for developers building **internationalized** Astro sites on **Cloudflare Workers**. No vendor lock-in. No Vercel tax. 100% Edge-native.
+Astro EdgeKits Core is a minimal, production-ready starter designed for developers building **internationalized** Astro sites on **Cloudflare Workers**. No vendor lock-in. No Vercel tax. 100% Edge-native.
 
 This implementation is a paradigm shift from **"i18n as code"** to **"i18n as data on the Edge"**.
 
@@ -89,7 +89,7 @@ npm run i18n:migrate:fallbacks
 
 ## ⚖️ Core vs. EdgeKits Pro
 
-EdgeKits Core is the best possible _starting point_ for i18n projects. The Pro Starters are fully integrated products designed to save 100+ hours of setup.
+Astro EdgeKits Core is the best possible _starting point_ for i18n projects. The Pro Starters are fully integrated products designed to save 100+ hours of setup.
 
 | Feature                   | `astro-edgekits-core` | [SaaS Starter](https://edgekits.dev) | [TMA Starter](https://edgekits.dev) |
 | :------------------------ | :-------------------: | :----------------------------------: | :---------------------------------: |
@@ -137,7 +137,7 @@ i18n: {
 
 **Important:**
 
-EdgeKits Core currently supports only two-letter ISO 639-1 locales ("en", "ja", "de", "es").
+Astro EdgeKits Core currently supports only two-letter ISO 639-1 locales ("en", "ja", "de", "es").
 Do not use region-based locales ("pt-BR", "en-US", "zh-CN", etc.) - Astro will accept them, but the i18n system will not, and translation loading will fail silently.
 
 The `SUPPORTED_LOCALES` and `DEFAULT_LOCALE` constants are defined in `/src/domain/i18n/constants.ts`.
@@ -196,15 +196,17 @@ http://localhost:4321/
 
 ## 📦 How to drop this i18n engine into your existing Astro project
 
-EdgeKits Core is designed to be highly portable. If you already have an Astro project and just want to add this Zero-JS i18n engine, follow these steps:
+Astro EdgeKits Core is designed to be highly portable. If you already have an Astro project and just want to add this Zero-JS i18n engine, follow these steps:
 
 1. **Copy the Domain & Utils:**
    - Copy `src/domain/i18n` into your project's `src/domain` folder.
+   - Copy `src/domain/seo` into your project's `src/domain` folder.
    - Copy `src/utils` into your project's `src/utils` folder (the i18n engine relies on these shared helpers like `cookies.ts` and `deep-merge.ts`).
+   - Copy `src/middleware` into your project's `src` folder.
 2. **Copy the Generator Script:**
    - Copy `scripts/bundle-translations.ts` to your project and add the `i18n:*` commands to your `package.json` scripts.
 3. **Copy Locales & Config:**
-   - Create a `src/locales` folder and add your JSON files.
+   - Create a `./locales` folder in the root of your project and add your JSON files.
    - Copy `src/config/project.ts` (or update the i18n constants to point to your existing config).
 4. **Update `astro.config.ts`:**
    - Set `trailingSlash: 'ignore'` and `output: 'server'`.
@@ -237,7 +239,7 @@ EdgeKits Core is designed to be highly portable. If you already have an Astro pr
 
 ## Creating KV namespaces (local + dashboard)
 
-EdgeKits Core relies on a single KV namespace bound as `TRANSLATIONS`.
+Astro EdgeKits Core relies on a single KV namespace bound as `TRANSLATIONS`.
 You can create it via the Wrangler CLI (recommended for local dev) or via the Cloudflare Dashboard.
 
 ### 1) Local development (Wrangler CLI)
@@ -329,15 +331,6 @@ src/
   layouts/
     BaseLayout.astro             # Shared HTML shell: <html lang>, SEO headers, theme
 
-  locales/                       # JSON translations grouped by locale
-    en/
-      blog.json
-      common.json
-      ...
-    de/ ...
-    es/ ...
-    ja/ ...
-
   middleware/
     demoProtectionMiddleware.ts  # SEO protection for staging/demo environments
     index.ts                     # Combines middlewares via sequence()
@@ -365,6 +358,15 @@ src/
   env.d.ts                       # Extends App.Locals with runtime + locale typings
   i18n.base.d.ts                 # Committed stub for i18n typings
   i18n.generated.d.ts            # Generated from JSON (gitignored)
+
+locales/                         # JSON translations grouped by locale
+  en/
+    blog.json
+    common.json
+    ...
+  de/ ...
+  es/ ...
+  ja/ ...
 
 scripts/
   bundle-translations.ts         # Main i18n generator (JSON → KV payload + TS types)
@@ -396,20 +398,19 @@ export default {
 
 # 🌍 How i18n Works
 
-## 1. Translations live in `src/locales/<locale>/<namespace>.json`
+## 1. Translations live in `./locales/<locale>/<namespace>.json`
 
 Example:
 
-```
+`./locales/en/landing.json`
 
-src/locales/en/landing.json
+```json
 {
-"welcome": "Welcome back, {name}!",
-"subscription": {
-"status": "Your plan renews on {date}."
+  "welcome": "Welcome back, {name}!",
+  "subscription": {
+    "status": "Your plan renews on {date}."
+  }
 }
-}
-
 ```
 
 > [!TIP]: Break your JSON into smaller namespaces (buttons.json, hero.json, etc.) instead of dumping everything into common.json.
@@ -615,7 +616,7 @@ By keeping these two concepts separate:
 - Translation fetches never break due to missing JSON
 - Fallback dictionaries (if enabled) work reliably
 
-This pattern is one of the key design features of **EdgeKits Core** and ensures a stable multilingual experience with zero client-side JavaScript.
+This pattern is one of the key design features of **Astro EdgeKits Core** and ensures a stable multilingual experience with zero client-side JavaScript.
 
 ### How translation loading works
 
@@ -729,7 +730,7 @@ This offers the best of both worlds: SEO-friendly displayed URLs, with a stable 
 
 # 🔍 Edge-Native SEO Tools
 
-EdgeKits Core comes with a fully automated, dynamic SEO suite located in `src/domain/seo/services/`. All endpoints are Edge-cached in production to save Worker CPU cycles.
+Astro EdgeKits Core comes with a fully automated, dynamic SEO suite located in `src/domain/seo/services/`. All endpoints are Edge-cached in production to save Worker CPU cycles.
 
 ### 1. Dynamic `robots.txt` (`src/pages/robots.txt.ts`)
 
@@ -758,7 +759,7 @@ To save LLM context window tokens, this endpoint intelligently filters out local
 
 # ⚡ Edge Caching for Translations (Cloudflare Cache API)
 
-EdgeKits Core includes **built-in edge caching** for all translation fetches.
+Astro EdgeKits Core includes **built-in edge caching** for all translation fetches.
 
 `fetchTranslations` uses the Cloudflare **Cache API** via:
 
@@ -799,7 +800,7 @@ Where:
 
 Effect:
 
-- If you edit any JSON in `src/locales/**` and run `npm run i18n:bundle`,
+- If you edit any JSON in `./locales/**` and run `npm run i18n:bundle`,
   `TRANSLATIONS_VERSION` changes → all cache keys change → old entries are effectively invalidated.
 - If you run `npm run i18n:bundle` without changing translations,
   `TRANSLATIONS_VERSION` stays the same → cache is preserved.
@@ -1032,11 +1033,11 @@ Even during KV outages, existing cached entries (if present) and fallback dictio
 ## 📢 Optional: Missing Translation Banner (Dual-Mode)
 
 In multilingual projects, users may select a locale for which translations or specific articles are not yet fully available.
-With **EdgeKits Core**, such locales are still fully routable (`/ja/about`), but the system silently falls back to `DEFAULT_LOCALE` for any missing translation data to prevent crashes.
+With **Astro EdgeKits Core**, such locales are still fully routable (`/ja/about`), but the system silently falls back to `DEFAULT_LOCALE` for any missing translation data to prevent crashes.
 
 To improve UX, we provide an optional banner informing users about the language fallback. The banner operates in **Dual-Mode**:
 
-1. **UI Missing (`ui`):** The user selected a language that is missing some (or all) JSON translation namespaces in `src/locales/`. Any untranslated parts of the UI will gracefully fall back to the default language (English), while the available translations are still displayed (e.g., the page text is in Spanish, but some new buttons remain in English).
+1. **UI Missing (`ui`):** The user selected a language that is missing some (or all) JSON translation namespaces in `./locales/`. Any untranslated parts of the UI will gracefully fall back to the default language (English), while the available translations are still displayed (e.g., the page text is in Spanish, but some new buttons remain in English).
 2. **Content Missing (`content`):** The UI is translated, but the specific Markdown/MDX Content Collection entry (e.g., a blog post) does not exist in the requested language. Only the article falls back to English.
 
 ### Enabling or Disabling the banner
@@ -1157,7 +1158,7 @@ If KV fails entirely, fallbacks guarantee stable UI.
 
 Instead of hard-coding HTML in components, keep simple, generic patterns in JSON and inject variables via `{placeholders}`.
 
-`src/locales/en/common.json`
+`./locales/en/common.json`
 
 ```json
 {
@@ -1256,7 +1257,7 @@ plural(3, '1 item', '{count} items') // "3 items"
 
 For proper ICU-style plural rules per locale, use `pluralIcu()` and keep patterns in JSON:
 
-`src/locales/en/blog.json`
+`./locales/en/blog.json`
 
 ```json
 {
@@ -1270,7 +1271,7 @@ For proper ICU-style plural rules per locale, use `pluralIcu()` and keep pattern
 }
 ```
 
-`src/locales/de/blog.json`
+`./locales/de/blog.json`
 
 ```json
 {
@@ -1414,7 +1415,7 @@ If fallback dictionaries are not enabled:
 Yes - simply create a new JSON file:
 
 ```
-src/locales/en/pricing.json
+./locales/en/pricing.json
 ```
 
 Run:
