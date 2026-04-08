@@ -24,7 +24,7 @@ const { uiLocale: currentLang } = Astro.locals
 
     <div
       data-ls-dropdown
-      class='absolute z-50 right-8 -mt-8 w-36 bg-card shadow-lg rounded-lg border overflow-hidden hidden animate-in fade-in slide-in-from-top-8 duration-300'
+      class='absolute z-50 right-8 -mt-8 w-44 bg-card shadow-lg rounded-lg border overflow-hidden hidden animate-in fade-in slide-in-from-top-8 duration-300'
       role='menu'
     >
       {
@@ -38,14 +38,14 @@ const { uiLocale: currentLang } = Astro.locals
             <button
               type='button'
               class={cn(
-                'ls-selector flex w-36 items-center justify-between px-4 py-2 text-sm hover:bg-muted',
+                'ls-selector flex w-44 items-center justify-between px-4 py-2 text-sm hover:bg-muted',
                 isActive && 'bg-background cursor-default'
               )}
               data-lang={locale}
               role='menuitem'
               disabled={isActive}
             >
-              <span class='flex items-center gap-3 pointer-events-none'>
+              <span class='flex items-center gap-2 pointer-events-none'>
                 <Flag
                   code={flagCode}
                   size={16}
