@@ -1,0 +1,10 @@
+{
+  "title": "Demo do contador",
+  "increment": "Incrementar",
+  "reset": "Reiniciar",
+  "patterns": {
+    "zero": "Nenhum item",
+    "one": "{count} item",
+    "other": "{count} itens"
+  }
+}
