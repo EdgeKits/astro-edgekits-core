@@ -14,7 +14,7 @@ export const LANGUAGES: Record<SupportedLocales, string> = {
   ja: '日本語',
   de: 'Deutsch',
   es: 'Español',
-  'pt-br': 'Português (Brasil)',
+  'pt-br': 'Português (Br)',
 }
 
 // Cookie name
