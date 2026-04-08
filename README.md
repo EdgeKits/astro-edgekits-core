@@ -126,7 +126,7 @@ The template comes pre-configured, but you can adjust the supported languages in
 
 ```ts
 i18n: {
-  locales: [...SUPPORTED_LOCALES], // e.g. ["en", "ja", "de", "es"]
+  locales: [...SUPPORTED_LOCALES], // e.g. ["en", "ja", "de", "es", "pt-br"]
   defaultLocale: DEFAULT_LOCALE,   // "en"
   routing: {
     prefixDefaultLocale: true,
@@ -135,10 +135,9 @@ i18n: {
 },
 ```
 
-**Important:**
+**Note:**
 
-Astro EdgeKits Core currently supports only two-letter ISO 639-1 locales ("en", "ja", "de", "es").
-Do not use region-based locales ("pt-BR", "en-US", "zh-CN", etc.) - Astro will accept them, but the i18n system will not, and translation loading will fail silently.
+Astro EdgeKits Core supports both two-letter ISO 639-1 locales (e.g. `"en"`, `"ja"`, `"de"`) and region-based BCP 47 locales (e.g. `"pt-br"`, `"en-us"`, `"zh-tw"`). Locale values in `SUPPORTED_LOCALES` are case-insensitive — use lowercase in code (e.g. `"pt-br"`), and the system will automatically normalize them to proper IETF tags (`"pt-BR"`) for HTML `lang` attributes and `hreflang` SEO tags.
 
 The `SUPPORTED_LOCALES` and `DEFAULT_LOCALE` constants are defined in `/src/domain/i18n/constants.ts`.
 
@@ -1430,7 +1429,7 @@ The namespace will be automatically discovered.
 
 # 🧭 Roadmap
 
-Add support for regional locales (e.g. pt-BR, zh-CN). Contributions welcome!
+Add support for additional regional locales (e.g. zh-CN, fr-FR). Contributions welcome!
 
 ---
 
