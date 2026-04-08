@@ -1429,7 +1429,7 @@ The namespace will be automatically discovered.
 
 # 🧭 Roadmap
 
-Add support for additional regional locales (e.g. zh-CN, fr-FR). Contributions welcome!
+We're considering the feasibility of packaging the edge-native i18n engine into a portable module — making it easier to adopt in existing Astro projects without having to start from this template. If that's something you'd find useful, feel free to open an issue or start a discussion.
 
 ---
 
