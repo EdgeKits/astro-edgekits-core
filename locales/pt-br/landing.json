@@ -1,0 +1,21 @@
+{
+  "hero": {
+    "title": "Demo de Componentes Astro",
+    "subtitle": "Um template de alta performance <strong>Astro 5.0 + Cloudflare Workers</strong> com um <strong>Motor de Internacionalização Edge-Native</strong> e <strong>0 KB de bundle no cliente</strong>.",
+    "description": "Ao contrário de configurações tradicionais que enviam dicionários JSON pesados ao cliente, esta arquitetura armazena traduções no <strong>Cloudflare KV</strong>, busca apenas o locale necessário, carrega apenas os namespaces específicos para cada página via uma <strong>única requisição em lote</strong> e serve <strong>HTML pré-renderizado</strong> com cache para reduzir requisições ao KV.",
+    "cta": "Explorar o Blog"
+  },
+  "features": {
+    "title": "Os cards abaixo são React Islands",
+    "feature1Title": "Traduções Carregadas no Edge",
+    "feature1Desc": "As traduções são buscadas no edge em uma única requisição KV em lote, com 0 KB de bundle no cliente e acesso sub-10ms ao locale e namespaces exatos necessários para a página.",
+    "feature2Title": "Resolução Dinâmica de Locale",
+    "feature2Desc": "Sem páginas duplicadas como /en/about.astro, /es/about.astro, etc. Locales e namespaces de tradução são resolvidos dinamicamente por requisição, mantendo o roteamento limpo e o projeto fácil de manter.",
+    "feature3Title": "Traduções Estritamente Tipadas",
+    "feature3Desc": "Os tipos de tradução são gerados automaticamente a partir dos seus arquivos JSON em src/locales, garantindo um schema i18n totalmente type-safe em Astro e React Islands — com IntelliSense integrado e garantias em tempo de compilação."
+  },
+  "builtWith": {
+    "title": "Construído Com",
+    "subtitle": "Stack edge-native combinando Astro, React Islands, Cloudflare Workers & KV, Tailwind CSS e Shadcn/ui."
+  }
+}

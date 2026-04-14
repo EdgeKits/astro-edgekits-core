@@ -1,0 +1,20 @@
+---
+import { parseBooleanFlag } from '@/utils/shared/parse-boolean'
+
+interface Props {
+  env: Env
+  noindex: boolean | undefined
+}
+
+const { env, noindex } = Astro.props
+const DEMO_MODE = parseBooleanFlag(env.DEMO_MODE, /* defaultValue */ true)
+---
+
+{
+  (DEMO_MODE || noindex) && (
+    <meta
+      name='robots'
+      content='noindex, nofollow'
+    />
+  )
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Counter demo",
+  "increment": "Increment",
+  "reset": "Reset",
+  "patterns": {
+    "zero": "No items",
+    "one": "{count} item",
+    "other": "{count} items"
+  }
+}

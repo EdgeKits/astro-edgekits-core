@@ -1,0 +1,103 @@
+---
+import { getCollection } from 'astro:content'
+
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { fetchTranslations } from '@/domain/i18n/fetcher'
+import { DEFAULT_LOCALE } from '@/domain/i18n/constants'
+
+const { uiLocale, translationLocale, runtime } = Astro.locals
+
+// 1. Fetch ALL posts
+const allPosts = await getCollection('blog')
+
+// 2. Graceful Fallback Strategy for the Post List
+// Step A: Get all the basic posts (English)
+const basePosts = allPosts.filter((post) =>
+  post.id.startsWith(`${DEFAULT_LOCALE}/`)
+)
+
+// Step B: Get translated posts for the current locale (if they already exist in the folder, for example /es/)
+const translatedPosts = allPosts.filter((post) =>
+  post.id.startsWith(`${uiLocale}/`)
+)
+
+// Step B: Merge the lists. Prioritize the translated article; otherwise, use the English original.
+const localizedPosts = basePosts
+  .map((basePost) => {
+    // Extract the pure slug (e.g. 'localized-formatting-demo')
+    const slug = basePost.slug.split('/')[1]
+    const translatedPost = translatedPosts.find(
+      (p) => p.slug.split('/')[1] === slug
+    )
+
+    return translatedPost || basePost
+  })
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+
+// Check whether our entire collection has localized versions.
+if (translatedPosts.length < localizedPosts.length) {
+  Astro.locals.isMissingContent = true
+}
+
+// 3. Fetch UI translations
+const { blog } = await fetchTranslations(runtime, translationLocale, ['blog'])
+
+const pageTitle = blog.indexPageTitle
+---
+
+<BaseLayout title={pageTitle}>
+  <section class='mx-auto max-w-4xl py-10 sm:py-14'>
+    <h1 class='mb-8 text-center text-3xl font-bold sm:mb-12 sm:text-4xl'>
+      {pageTitle}
+    </h1>
+
+    <!-- Cards wrapper -->
+    <div class='grid gap-6 sm:gap-8 md:grid-cols-2'>
+      {
+        localizedPosts.map((post) => {
+          const slug = post.slug.split('/')[1]
+
+          return (
+            <a
+              href={`/${uiLocale}/blog/${slug}`}
+              class='group flex h-full w-full flex-col rounded-2xl border bg-card shadow-sm transition hover:shadow-md'
+            >
+              {post.data.heroImage && (
+                <div class='aspect-video rounded-t-2xl w-full overflow-hidden'>
+                  <img
+                    src={post.data.heroImage.src}
+                    alt={`${post.data.title} - hero image.`}
+                    class='block h-full w-full scale-105 object-cover transition-transform duration-500 group-hover:scale-110'
+                    loading='lazy'
+                  />
+                </div>
+              )}
+
+              <div class='flex flex-1 flex-col px-5 py-6 sm:px-6'>
+                <h2 class='mb-2 text-lg font-bold sm:text-xl group-hover:text-primary'>
+                  {post.data.title}
+                </h2>
+
+                <p class='mb-4 line-clamp-3 text-slate-600 dark:text-slate-400'>
+                  {post.data.description}
+                </p>
+
+                <div class='mt-auto flex items-center justify-between text-xs text-gray-500 sm:text-sm'>
+                  <span>
+                    {post.data.pubDate.toLocaleDateString(translationLocale, {
+                      dateStyle: 'medium',
+                    })}
+                  </span>
+
+                  <span class='font-medium group-hover:text-primary'>
+                    {blog.readMore} →
+                  </span>
+                </div>
+              </div>
+            </a>
+          )
+        })
+      }
+    </div>
+  </section>
+</BaseLayout>

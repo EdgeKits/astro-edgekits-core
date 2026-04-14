@@ -1,0 +1,52 @@
+---
+title: 'Formatação Localizada e Plurais em MDX'
+description: 'Demonstrando interpolação de strings em tempo de execução, lógica de plural e formatação dinâmica usando traduções KV dentro de MDX e React Islands.'
+pubDate: '2025-12-01'
+tags: ['i18n', 'MDX', 'Pluralização']
+heroImage: '@/assets/blog/localized-pluralization.jpg'
+---
+
+Este exemplo mostra como **interpolação, regras de plural e formatação em tempo de execução** funcionam dentro do MDX usando a arquitetura Zero-JS i18n do EdgeKits Core.
+
+Enquanto a demo anterior focou em componentes interativos, esta demonstra como **texto dinâmico** pode vir diretamente do Cloudflare KV — mesmo quando números ou estado da UI mudam.
+
+## Um contador dinâmico com texto localizado
+
+Abaixo está um React Island com um contador simples.
+O componente em si **não contém strings em inglês**. Todos os rótulos vêm do KV:
+
+- formas singular e plural (`1 item` → `5 itens`)
+- valores interpolados (`{count}`)
+- fraseado localizado baseado no locale ativo
+
+Tente alternar entre português e alemão para ver como a pluralização muda automaticamente.
+
+<LocalizedCounter />
+
+## Por que isso importa
+
+O i18n tradicional no lado do cliente exige:
+
+- enviar dicionários JSON para o navegador,
+- empacotar um motor de formatação,
+- conectar manualmente as regras de pluralização,
+- atualizar o estado de locale dentro do React.
+
+Com o EdgeKits Core:
+
+1. O Astro carrega as traduções corretas no edge.
+2. A lógica de plural e interpolação roda **no servidor**, antes da hidratação.
+3. Os React Islands recebem texto **pré-formatado** e **type-safe**.
+4. Nenhuma biblioteca i18n no cliente é necessária — **0 KB enviado**.
+
+## Casos de uso reais
+
+Este padrão funciona especialmente bem para:
+
+- widgets de preço/quantidade,
+- dashboards que requerem rótulos localizados,
+- documentação MDX com demos interativas incorporadas,
+- formulários com mensagens de validação dinâmicas,
+- qualquer componente onde o texto depende de números ou estado.
+
+Como as traduções são armazenadas no KV, os redatores de conteúdo podem gerenciar o fraseado sem tocar no código do componente — mesmo para casos complexos envolvendo lógica de plural ou formatação numérica.

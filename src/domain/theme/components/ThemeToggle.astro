@@ -1,0 +1,48 @@
+---
+import { MoonIcon, SunIcon } from 'lucide-react'
+---
+
+<theme-toggle>
+  <button
+    type='button'
+    class='p-2 rounded-full'
+    aria-label='Toggle Theme'
+  >
+    <MoonIcon
+      size={20}
+      className='text-foreground hidden dark:block active:rotate-12'
+    />
+    <SunIcon
+      size={20}
+      className='text-foreground dark:hidden active:rotate-12'
+    />
+  </button>
+</theme-toggle>
+
+<script>
+  class ThemeToggle extends HTMLElement {
+    connectedCallback() {
+      const button = this.querySelector('button')
+
+      if (button) {
+        button.addEventListener('click', () => {
+          const html = document.documentElement
+          const isDark = html.classList.contains('dark')
+
+          if (isDark) {
+            html.classList.remove('dark')
+            localStorage.setItem('theme', 'light')
+          } else {
+            html.classList.add('dark')
+            localStorage.setItem('theme', 'dark')
+          }
+        })
+      }
+    }
+  }
+
+  // Register the custom element (if not already registered)
+  if (!customElements.get('theme-toggle')) {
+    customElements.define('theme-toggle', ThemeToggle)
+  }
+</script>

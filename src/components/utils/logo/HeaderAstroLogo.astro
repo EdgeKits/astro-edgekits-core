@@ -1,0 +1,23 @@
+---
+import astroLogo from '@/assets/logo/astro/astro.svg'
+import astroLogoSymbol from '@/assets/logo/astro/astro-symbol.svg'
+
+const { uiLocale: currentLang } = Astro.locals
+---
+
+<a href=`/${currentLang}/`>
+  <img
+    src={astroLogoSymbol.src}
+    width='36'
+    height='36'
+    alt='Astro Homepage'
+    class='dark:invert dark:hue-rotate-180 dark:brightness-75 sm:hidden'
+  />
+  <img
+    src={astroLogo.src}
+    width='115'
+    height='48'
+    alt='Astro Homepage'
+    class='dark:invert dark:hue-rotate-180 dark:brightness-75 hidden sm:block'
+  />
+</a>

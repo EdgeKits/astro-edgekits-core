@@ -1,0 +1,58 @@
+---
+import { LANGUAGES, DEFAULT_LOCALE } from '@/domain/i18n/constants'
+import { buildAlternateUrl } from '@/domain/seo/utils'
+import { toIetfTag } from '@/domain/i18n/format'
+
+interface Props {
+  currentLang: string
+  currentOrigin: string
+  altLocales?: string[]
+}
+
+const { currentLang, currentOrigin, altLocales } = Astro.props
+const currentPath = Astro.url.pathname
+// If we're given a list of locales, we use it.
+// Otherwise (for static pages like /about/), we use all available languages.
+// const localesToGenerate = altLocales || Object.keys(LANGUAGES)
+const localesToGenerate = altLocales || Object.keys(LANGUAGES)
+const shouldRenderHreflangs = localesToGenerate.length > 1
+---
+
+{/* Render tags ONLY if there is at least one translation */}
+{
+  shouldRenderHreflangs && (
+    <>
+      {/* 1. Generates links only for confirmed languages */}
+      {localesToGenerate.map((code) => {
+        const href = buildAlternateUrl(
+          currentOrigin,
+          currentPath,
+          currentLang,
+          code
+        )
+
+        return (
+          <link
+            rel='alternate'
+            hreflang={toIetfTag(code)}
+            href={href}
+          />
+        )
+      })}
+
+      {/* 2. The x-default tag is generated ONLY if the default locale (for example, 'en') is in the list of available translations. */}
+      {localesToGenerate.includes(DEFAULT_LOCALE) && (
+        <link
+          rel='alternate'
+          hreflang='x-default'
+          href={buildAlternateUrl(
+            currentOrigin,
+            currentPath,
+            currentLang,
+            DEFAULT_LOCALE
+          )}
+        />
+      )}
+    </>
+  )
+}

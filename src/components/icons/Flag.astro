@@ -1,0 +1,49 @@
+---
+import { Globe } from 'lucide-react'
+
+interface Props {
+  code: string | null
+  size?: number
+  title?: string
+  class?: string
+  [key: string]: any
+}
+
+const { code, size = 16, title, class: className, ...rest } = Astro.props
+
+// Vite collects all icons during the build process.
+// Note: aliases like @/ in import.meta.glob may not work,
+// so the absolute path from the project root is used.
+const flags = import.meta.glob('/src/assets/icons/flags/*.svg', {
+  eager: true,
+  import: 'default',
+})
+
+// Form a path to search for the required component
+const svgPath = code ? `/src/assets/icons/flags/${code}.svg` : ''
+const Svg = flags[svgPath] as any
+---
+
+{
+  Svg ? (
+    <Svg
+      width={size}
+      height={size}
+      class={className}
+      aria-hidden={title ? 'false' : 'true'}
+      role={title ? 'img' : 'presentation'}
+      {...rest}
+    >
+      {title && <title>{title}</title>}
+    </Svg>
+  ) : (
+    <Globe
+      width={size}
+      height={size}
+      aria-hidden={title ? undefined : true}
+      role={title ? 'img' : 'presentation'}
+      className={className}
+      {...rest}
+    />
+  )
+}
