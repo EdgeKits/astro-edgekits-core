@@ -1,0 +1,10 @@
+{
+  "title": "Bleib auf dem Laufenden",
+  "description": "Erhalte die neuesten EdgeKits-Neuigkeiten direkt in dein Postfach.",
+  "placeholder": "E-Mail-Adresse eingeben",
+  "button": "Abonnieren",
+  "success": "Danke für dein Abonnement!",
+  "validation": {
+    "invalidEmail": "Bitte gib eine gültige E-Mail-Adresse ein."
+  }
+}

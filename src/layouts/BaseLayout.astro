@@ -1,0 +1,180 @@
+---
+import { ClientRouter } from 'astro:transitions'
+
+import NoIndex from '@/domain/seo/components/NoIndex.astro'
+import SeoHreflangs from '@/domain/seo/components/SeoHreflangs.astro'
+import ContentWrapper from '@/components/layout/ContentWrapper.astro'
+import ThemeScript from '@/domain/theme/components/ThemeScript.astro'
+import JsonLd from '@/domain/seo/components/JsonLd.astro'
+import { SEO_DEFAULTS } from '@/domain/seo/constants'
+import { buildCanonicalUrl, truncateDescription } from '@/domain/seo/utils'
+import { toIetfTag } from '@/domain/i18n/format'
+
+import background from '@/assets/background.svg'
+
+import '@fontsource-variable/inter/index.css'
+import '@fontsource-variable/jetbrains-mono/index.css'
+import '@fontsource-variable/noto-sans-jp/index.css'
+
+import '@/styles/global.css'
+
+interface Props {
+  title: string
+  description?: string
+  ogImage?: string
+  pubDate?: Date
+  tags?: string[]
+  altLocales?: string[]
+  noindex?: boolean
+  is404?: boolean
+}
+
+const {
+  title,
+  description,
+  ogImage,
+  pubDate,
+  tags,
+  altLocales,
+  noindex,
+  is404,
+} = Astro.props
+const { uiLocale, runtime } = Astro.locals
+
+const env = runtime.env
+
+const currentOrigin = import.meta.env.PROD
+  ? SEO_DEFAULTS.baseUrl
+  : Astro.url.origin
+
+const canonicalUrl = buildCanonicalUrl(Astro.url.pathname, currentOrigin)
+const rssUrl = `${currentOrigin}/${uiLocale}/rss.xml`
+
+const ogImageUrl = ogImage ? ogImage : SEO_DEFAULTS.ogImageFallback
+
+const pageTitle = title
+  ? SEO_DEFAULTS.titleTemplate.replace('%s', title)
+  : SEO_DEFAULTS.siteName
+
+const safeDescription = description
+  ? truncateDescription(description)
+  : SEO_DEFAULTS.defaultDescription
+---
+
+<!doctype html>
+<html lang={toIetfTag(uiLocale)}>
+  <head>
+    <meta charset='UTF-8' />
+    <meta
+      name='viewport'
+      content='width=device-width'
+    />
+
+    <NoIndex
+      env={env}
+      noindex={noindex}
+    />
+
+    <link
+      rel='icon'
+      type='image/svg+xml'
+      href='/favicon.svg'
+    />
+
+    {
+      !is404 && !noindex && (
+        <>
+          <SeoHreflangs
+            currentLang={uiLocale}
+            currentOrigin={currentOrigin}
+            altLocales={altLocales}
+          />
+
+          <link
+            rel='canonical'
+            href={canonicalUrl}
+          />
+
+          <link
+            rel='alternate'
+            type='application/rss+xml'
+            title={`${SEO_DEFAULTS.siteName} RSS Feed (${uiLocale?.toUpperCase()})`}
+            href={rssUrl}
+          />
+
+          <JsonLd
+            title={pageTitle}
+            description={safeDescription}
+            url={canonicalUrl}
+            imageUrl={ogImageUrl}
+            pubDate={pubDate}
+            tags={tags}
+          />
+        </>
+      )
+    }
+
+    <title>{pageTitle}</title>
+
+    <meta
+      name='description'
+      content={safeDescription}
+    />
+
+    <meta
+      property='og:type'
+      content='website'
+    />
+    <meta
+      property='og:url'
+      content={canonicalUrl}
+    />
+    <meta
+      property='og:title'
+      content={title}
+    />
+    <meta
+      property='og:description'
+      content={safeDescription}
+    />
+    <meta
+      property='og:image'
+      content={ogImageUrl}
+    />
+
+    <meta
+      property='twitter:card'
+      content='summary_large_image'
+    />
+    <meta
+      property='twitter:url'
+      content={canonicalUrl}
+    />
+    <meta
+      property='twitter:title'
+      content={title}
+    />
+    <meta
+      property='twitter:description'
+      content={safeDescription}
+    />
+    <meta
+      property='twitter:image'
+      content={ogImageUrl}
+    />
+
+    <ThemeScript />
+    <ClientRouter />
+  </head>
+  <body>
+    <ContentWrapper>
+      <slot />
+    </ContentWrapper>
+    <img
+      id='background'
+      src={background.src}
+      alt=''
+      fetchpriority='high'
+    />
+  </body>
+</html>
