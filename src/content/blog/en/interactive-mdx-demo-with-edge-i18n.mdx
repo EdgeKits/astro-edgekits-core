@@ -1,25 +1,34 @@
 ---
-title: 'Interactive MDX with Edge i18n'
-description: 'Demonstrates how to inject KV translations into React Islands inside Astro Markdown.'
+title: 'Edge i18n Inside MDX'
+description: 'Reading KV translations from inside an MDX post: plain strings, interpolation and HTML-safe values, with no island.'
 pubDate: '2025-12-05'
-tags: ['Demo', 'MDX', 'React Islands']
-heroImage: '@/assets/blog/edgekits-core-hero-dark.jpg'
+tags: ['Demo', 'MDX']
 ---
 
-This is a standard paragraph in Markdown. The text you are reading now lives in the filesystem.
+import { fmt } from '@edgekits/astro-i18n/format'
+import Html from '@/components/mdx/Html.astro'
 
-But what if we want to add a dynamic component, like a newsletter signup form? Usually, you'd have to hardcode the button labels inside the React component.
+This is a standard paragraph in Markdown. The text you are reading now lives in the filesystem, next to this post.
 
-## The "Hybrid" Component
+The text in the box below does not. It is the newsletter copy from the `newsletter` namespace, fetched from Cloudflare KV for your language and passed to this post as `props.t`:
 
-Below is a React Island. Its structure is defined in code, but **the text labels come from Cloudflare KV**. Try switching the language to German, and watch the component update automatically without changing the code!
+<div class="not-prose my-6 rounded-xl border border-zinc-200 p-5">
+  <p class="font-semibold">{props.t.newsletter.title}</p>
+  <p class="mt-1 text-sm text-zinc-600">{props.t.newsletter.description}</p>
+</div>
 
-<Newsletter />
+## Interpolation inside MDX
+
+`fmt()` fills `{placeholders}` and escapes every value it inserts. The template, HTML included, stays in the JSON file:
+
+<Html html={fmt(props.t.common.ui.emphasis, { content: 'wrangler.jsonc' })} />
+
+<Html html={fmt(props.t.common.ui.learnMore, { url: 'https://github.com/EdgeKits/astro-i18n', label: '@edgekits/astro-i18n' })} />
 
 ## How it works
 
-1. The page loads and fetches translations for the `blog` namespace from KV.
-2. Astro passes these translations to the `<Newsletter />` component via props.
-3. The component hydrates on the client (`client:visible`) using the correct language.
+1. The post page calls `fetchTranslations(translationLocale, ['common', 'newsletter'])`.
+2. It passes the typed objects to the post: `<Content t={{ common, newsletter }} />`.
+3. The MDX reads `props.t` and the server renders plain HTML. No component hydrates and no translation file reaches the browser.
 
-This allows content creators to use complex UI widgets without worrying about localization files.
+This post exists in English and German only. Open it in Spanish, Japanese or Portuguese: the article falls back to English with a notice and a `noindex` tag, while the box above still speaks your language, because KV has that copy.

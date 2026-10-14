@@ -1,18 +1,19 @@
 ---
 title: 'Formatação Localizada e Plurais em MDX'
-description: 'Demonstrando interpolação de strings em tempo de execução, lógica de plural e formatação dinâmica usando traduções KV dentro de MDX e React Islands.'
+description: 'Demonstrando interpolação de strings, lógica de plural e formatação por idioma usando traduções KV dentro de MDX, renderizadas no servidor.'
 pubDate: '2025-12-01'
 tags: ['i18n', 'MDX', 'Pluralização']
-heroImage: '@/assets/blog/localized-pluralization.jpg'
 ---
+
+import PluralDemo from '@/components/blog/PluralDemo.astro'
 
 Este exemplo mostra como **interpolação, regras de plural e formatação em tempo de execução** funcionam dentro do MDX usando a arquitetura Zero-JS i18n do EdgeKits Core.
 
-Enquanto a demo anterior focou em componentes interativos, esta demonstra como **texto dinâmico** pode vir diretamente do Cloudflare KV — mesmo quando números ou estado da UI mudam.
+O texto da tabela abaixo não está neste post: ele vem diretamente do Cloudflare KV, e a forma de plural muda com o número de cada linha.
 
-## Um contador dinâmico com texto localizado
+## Uma tabela de plurais com texto localizado
 
-Abaixo está um React Island com um contador simples.
+Abaixo está um componente Astro simples.
 O componente em si **não contém strings em inglês**. Todos os rótulos vêm do KV:
 
 - formas singular e plural (`1 item` → `5 itens`)
@@ -21,7 +22,9 @@ O componente em si **não contém strings em inglês**. Todos os rótulos vêm d
 
 Tente alternar entre português e alemão para ver como a pluralização muda automaticamente.
 
-<LocalizedCounter />
+<PluralDemo />
+
+O tempo de leitura no topo desta página funciona do mesmo jeito: o namespace `blog` guarda `"{min} min de leitura"`, e `fmt()` insere o número.
 
 ## Por que isso importa
 
@@ -30,13 +33,13 @@ O i18n tradicional no lado do cliente exige:
 - enviar dicionários JSON para o navegador,
 - empacotar um motor de formatação,
 - conectar manualmente as regras de pluralização,
-- atualizar o estado de locale dentro do React.
+- atualizar o estado de locale dentro de um framework no cliente.
 
 Com o EdgeKits Core:
 
 1. O Astro carrega as traduções corretas no edge.
-2. A lógica de plural e interpolação roda **no servidor**, antes da hidratação.
-3. Os React Islands recebem texto **pré-formatado** e **type-safe**.
+2. A lógica de plural e interpolação roda **no servidor**, com `pluralIcu()` e `fmt()`.
+3. Os componentes recebem traduções **type-safe** como props e renderizam HTML puro.
 4. Nenhuma biblioteca i18n no cliente é necessária — **0 KB enviado**.
 
 ## Casos de uso reais
@@ -45,7 +48,7 @@ Este padrão funciona especialmente bem para:
 
 - widgets de preço/quantidade,
 - dashboards que requerem rótulos localizados,
-- documentação MDX com demos interativas incorporadas,
+- documentação MDX com demos incorporadas,
 - formulários com mensagens de validação dinâmicas,
 - qualquer componente onde o texto depende de números ou estado.
 

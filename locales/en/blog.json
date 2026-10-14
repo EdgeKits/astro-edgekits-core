@@ -3,5 +3,16 @@
   "readMore": "Read more",
   "backToOverview": "Back to Overview",
   "publishedOn": "Published on",
-  "readTime": "{min} min read"
+  "readTime": "{min} min read",
+  "pluralDemo": {
+    "title": "Plural forms from KV",
+    "count": "Count",
+    "text": "Rendered text",
+    "note": "Rendered on the server with pluralIcu(); the browser receives plain HTML.",
+    "patterns": {
+      "zero": "No items",
+      "one": "{count} item",
+      "other": "{count} items"
+    }
+  }
 }

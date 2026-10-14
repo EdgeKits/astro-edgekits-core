@@ -3,5 +3,16 @@
   "readMore": "Mehr erfahren",
   "backToOverview": "Zur Übersicht",
   "publishedOn": "Veröffentlicht am",
-  "readTime": "{min} Min. Lesezeit"
+  "readTime": "{min} Min. Lesezeit",
+  "pluralDemo": {
+    "title": "Pluralformen aus KV",
+    "count": "Anzahl",
+    "text": "Gerenderter Text",
+    "note": "Auf dem Server mit pluralIcu() gerendert; der Browser erhält reines HTML.",
+    "patterns": {
+      "zero": "Keine Elemente",
+      "one": "{count} Element",
+      "other": "{count} Elemente"
+    }
+  }
 }

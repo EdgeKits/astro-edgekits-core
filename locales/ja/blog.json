@@ -3,5 +3,16 @@
   "readMore": "続きを読む",
   "backToOverview": "一覧に戻る",
   "publishedOn": "公開日",
-  "readTime": "{min}分で読めます"
+  "readTime": "{min}分で読めます",
+  "pluralDemo": {
+    "title": "KV から取得した複数形",
+    "count": "数",
+    "text": "表示テキスト",
+    "note": "pluralIcu() でサーバー上でレンダリングされ、ブラウザには素の HTML が届きます。",
+    "patterns": {
+      "zero": "項目はありません",
+      "one": "{count}個",
+      "other": "{count}個"
+    }
+  }
 }

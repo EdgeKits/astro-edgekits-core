@@ -1,0 +1,46 @@
+---
+import Base from '@/layouts/Base.astro'
+import { fetchTranslations, fmt } from '@edgekits/astro-i18n/runtime'
+import { getPostsForLocale, readingMinutes, splitId } from '@/lib/blog'
+import { SITE_NAME } from '@/lib/site'
+
+const { uiLocale, translationLocale } = Astro.locals
+const { blog } = await fetchTranslations(translationLocale, ['blog'])
+
+// Only the posts written in this locale; a missing translation is reachable by URL
+// (it falls back to the default locale's post with the banner) but is not listed here.
+const posts = await getPostsForLocale(uiLocale)
+const dateFormat = new Intl.DateTimeFormat(uiLocale, { dateStyle: 'long' })
+---
+
+<Base title={`${blog.indexPageTitle} · ${SITE_NAME}`}>
+  <section class="mx-auto max-w-3xl px-6 py-16">
+    <h1 class="text-3xl font-bold tracking-tight">{blog.indexPageTitle}</h1>
+    <ul class="mt-10 space-y-10">
+      {
+        posts.map((post) => {
+          const href = `/${uiLocale}/blog/${splitId(post.id).slug}/`
+          return (
+            <li>
+              <article>
+                <p class="text-sm text-zinc-500">
+                  <time datetime={post.data.pubDate.toISOString()}>{dateFormat.format(post.data.pubDate)}</time> ·{' '}
+                  {fmt(blog.readTime, { min: readingMinutes(post.body, uiLocale) })}
+                </p>
+                <h2 class="mt-1 text-xl font-semibold">
+                  <a href={href} class="hover:underline">
+                    {post.data.title}
+                  </a>
+                </h2>
+                <p class="mt-2 text-zinc-600">{post.data.description}</p>
+                <a href={href} class="mt-2 inline-block text-sm font-medium underline-offset-4 hover:underline">
+                  {blog.readMore} →
+                </a>
+              </article>
+            </li>
+          )
+        })
+      }
+    </ul>
+  </section>
+</Base>

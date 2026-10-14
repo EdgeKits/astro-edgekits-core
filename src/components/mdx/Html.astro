@@ -1,0 +1,11 @@
+---
+// Renders a translation that carries HTML (e.g. the output of fmt(), which escapes the
+// interpolated values). Only for strings from the project's own locales/ files.
+interface Props {
+  html: string
+}
+
+const { html } = Astro.props
+---
+
+<p set:html={html} />

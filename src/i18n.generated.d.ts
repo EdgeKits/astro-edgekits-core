@@ -10,6 +10,17 @@ declare global {
             "backToOverview": string;
             "publishedOn": string;
             "readTime": string;
+            "pluralDemo": {
+              "title": string;
+              "count": string;
+              "text": string;
+              "note": string;
+              "patterns": {
+                "zero": string;
+                "one": string;
+                "other": string;
+              };
+            };
           };
       "common": {
             "seo": {

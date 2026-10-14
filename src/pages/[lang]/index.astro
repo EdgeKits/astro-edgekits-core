@@ -1,12 +1,46 @@
 ---
-import Base from '../../layouts/Base.astro'
+import Base from '@/layouts/Base.astro'
 import { fetchTranslations } from '@edgekits/astro-i18n/runtime'
 
-const { landing } = await fetchTranslations(Astro.locals.translationLocale, ['landing'])
+const { uiLocale, translationLocale } = Astro.locals
+const { landing } = await fetchTranslations(translationLocale, ['landing'])
+
+const features = [
+  { title: landing.features.feature1Title, desc: landing.features.feature1Desc },
+  { title: landing.features.feature2Title, desc: landing.features.feature2Desc },
+  { title: landing.features.feature3Title, desc: landing.features.feature3Desc },
+]
 ---
 
 <Base>
-  <section class="mx-auto max-w-3xl px-6 py-20 text-center">
-    <h1 class="text-4xl font-bold tracking-tight">{landing.hero.title}</h1>
+  <section class="mx-auto max-w-3xl px-6 pt-20 pb-16 text-center">
+    <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">{landing.hero.title}</h1>
+    <p class="mt-6 text-lg text-zinc-700" set:html={landing.hero.subtitle} />
+    <p class="mt-4 text-zinc-600" set:html={landing.hero.description} />
+    <a
+      href={`/${uiLocale}/blog/`}
+      class="mt-8 inline-block rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-zinc-700"
+    >
+      {landing.hero.cta}
+    </a>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-6 py-12">
+    <h2 class="text-center text-2xl font-semibold tracking-tight">{landing.features.title}</h2>
+    <ul class="mt-8 grid gap-6 md:grid-cols-3">
+      {
+        features.map((feature) => (
+          <li class="rounded-xl border border-zinc-200 p-6">
+            <h3 class="font-semibold">{feature.title}</h3>
+            <p class="mt-2 text-sm text-zinc-600">{feature.desc}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 py-12 text-center">
+    <h2 class="text-2xl font-semibold tracking-tight">{landing.builtWith.title}</h2>
+    <p class="mt-3 text-zinc-600">{landing.builtWith.subtitle}</p>
   </section>
 </Base>

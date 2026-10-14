@@ -1,19 +1,19 @@
 ---
 title: 'Lokalisierte Formatierung & Plurale in MDX'
-description: 'Demonstration der Laufzeit-Stringinterpolation, Plurallogik und dynamischen Formatierung mit KV-Übersetzungen in MDX und React Islands.'
+description: 'Demonstration von Stringinterpolation, Plurallogik und sprachabhängiger Formatierung mit KV-Übersetzungen in MDX, serverseitig gerendert.'
 pubDate: '2025-12-01'
 tags: ['i18n', 'MDX', 'Pluralization']
-heroImage: '@/assets/blog/localized-pluralization.jpg'
 ---
+
+import PluralDemo from '@/components/blog/PluralDemo.astro'
 
 Dieses Beispiel zeigt, wie **Interpolation, Pluralregeln und Laufzeitformatierung** in MDX funktionieren, wenn die Zero-JS-i18n-Architektur von EdgeKits Core verwendet wird.
 
-Während die vorherige Demo sich auf interaktive Komponenten konzentriert hat, zeigt dieses Beispiel, wie **dynamischer Text** direkt aus Cloudflare KV kommen kann – selbst dann, wenn sich Zahlen oder der UI-Status ändern.
+Der Text in der Tabelle unten steht nicht in diesem Beitrag: Er kommt direkt aus Cloudflare KV, und die Pluralform ändert sich mit der Zahl in jeder Zeile.
 
-## Ein dynamischer Zähler mit lokalisiertem Text
+## Eine Pluraltabelle mit lokalisiertem Text
 
-Unten befindet sich eine React-Island, die einen einfachen Zähler bereitstellt.
-Die Komponente selbst enthält **keine englischen Strings**. Alle Beschriftungen kommen aus KV:
+Unten befindet sich eine einfache Astro-Komponente. Sie enthält **keine englischen Strings**. Alle Beschriftungen kommen aus KV:
 
 - Singular- und Pluralformen (`1 item` → `5 items`)
 - interpolierte Werte (`{count}`)
@@ -21,7 +21,9 @@ Die Komponente selbst enthält **keine englischen Strings**. Alle Beschriftungen
 
 Probiere aus, zwischen Englisch und Deutsch zu wechseln, und sieh dir an, wie sich die Pluralbildung automatisch ändert.
 
-<LocalizedCounter />
+<PluralDemo />
+
+Die Lesezeit oben auf dieser Seite funktioniert genauso: Der Namespace `blog` enthält `"{min} Min. Lesezeit"`, und `fmt()` setzt die Zahl ein.
 
 ## Warum das wichtig ist
 
@@ -30,13 +32,13 @@ Traditionelles clientseitiges i18n erfordert:
 - das Ausliefern von JSON-Wörterbüchern an den Browser,
 - das Bündeln einer Formatierungs-Engine,
 - das manuelle Verdrahten von Pluralregeln,
-- das Aktualisieren des Sprachzustands innerhalb von React.
+- das Aktualisieren des Sprachzustands in einem clientseitigen Framework.
 
 Mit EdgeKits Core hingegen:
 
 1. Lädt Astro die richtigen Übersetzungen am Edge.
-2. Plural- und Interpolationslogik laufen **serverseitig**, bevor hydriert wird.
-3. React-Islands erhalten **vorformatierte**, **typsichere** Texte.
+2. Plural- und Interpolationslogik laufen **serverseitig**, mit `pluralIcu()` und `fmt()`.
+3. Komponenten erhalten **typsichere** Übersetzungen als Props und rendern reines HTML.
 4. Es wird keine clientseitige i18n-Bibliothek benötigt — **0 KB werden ausgeliefert**.
 
 ## Praxisnahe Anwendungsfälle
@@ -45,7 +47,7 @@ Dieses Muster eignet sich besonders gut für:
 
 - Preis-/Mengen-Widgets in der UI,
 - Dashboards mit lokalisierten Beschriftungen,
-- MDX-Dokumentation mit eingebetteten interaktiven Demos,
+- MDX-Dokumentation mit eingebetteten Demos,
 - Formulare mit dynamischen Validierungsnachrichten,
 - beliebige Komponenten, deren Text von Zahlen oder Zustand abhängt.
 

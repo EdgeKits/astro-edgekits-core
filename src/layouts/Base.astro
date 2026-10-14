@@ -4,9 +4,10 @@ import '../styles/global.css'
 import MissingTranslationBanner from '@edgekits/astro-i18n/components/MissingTranslationBanner'
 import { fetchTranslations, toIetfTag } from '@edgekits/astro-i18n/runtime'
 
-import Footer from '../components/Footer.astro'
-import Header from '../components/Header.astro'
-import SeoHreflangs from '../components/seo/SeoHreflangs.astro'
+import Footer from '@/components/Footer.astro'
+import Header from '@/components/Header.astro'
+import SeoHreflangs from '@/components/seo/SeoHreflangs.astro'
+import { siteOrigin } from '@/lib/site'
 
 interface Props {
   title?: string
@@ -20,7 +21,7 @@ const { uiLocale, translationLocale } = Astro.locals
 const { common, messages } = await fetchTranslations(translationLocale, ['common', 'messages'])
 
 const { title = common.seo.title, description = common.seo.description, altLocales, noindex = false } = Astro.props
-const currentOrigin = import.meta.env.PROD && Astro.site ? Astro.site.origin : Astro.url.origin
+const currentOrigin = siteOrigin(Astro.site, Astro.url)
 ---
 
 <!doctype html>

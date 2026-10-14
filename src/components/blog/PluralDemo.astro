@@ -1,0 +1,39 @@
+---
+import { fetchTranslations, pluralIcu } from '@edgekits/astro-i18n/runtime'
+
+interface Props {
+  counts?: number[]
+}
+
+const { counts = [0, 1, 2, 5, 21] } = Astro.props
+const { uiLocale, translationLocale } = Astro.locals
+const { blog } = await fetchTranslations(translationLocale, ['blog'])
+const { patterns } = blog.pluralDemo
+
+// Intl.PluralRules has no `zero` category in most locales (English 0 is `other`), so an
+// explicit zero pattern is picked by hand.
+const label = (count: number) => (count === 0 ? patterns.zero : pluralIcu(count, uiLocale, patterns))
+---
+
+<figure class="not-prose my-8 rounded-xl border border-zinc-200 p-5">
+  <figcaption class="text-xs font-semibold tracking-widest text-zinc-500 uppercase">{blog.pluralDemo.title}</figcaption>
+  <table class="mt-4 w-full text-sm">
+    <thead>
+      <tr class="border-b border-zinc-200 text-left text-zinc-500">
+        <th class="py-2 pr-4 font-medium">{blog.pluralDemo.count}</th>
+        <th class="py-2 font-medium">{blog.pluralDemo.text}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        counts.map((count) => (
+          <tr class="border-b border-zinc-100 last:border-0">
+            <td class="py-2 pr-4 tabular-nums">{count}</td>
+            <td class="py-2">{label(count)}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  <p class="mt-4 text-xs text-zinc-500">{blog.pluralDemo.note}</p>
+</figure>

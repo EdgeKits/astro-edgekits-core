@@ -1,0 +1,67 @@
+import type { APIRoute } from 'astro'
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES, toIetfTag } from '@edgekits/astro-i18n/runtime'
+
+import { getPostLocales, getPublishedPosts, splitId } from '@/lib/blog'
+import { siteOrigin, STATIC_ROUTES } from '@/lib/site'
+
+interface Entry {
+  loc: string
+  lastmod?: Date
+  // locale -> URL of the same page in that locale
+  alternates: Map<string, string>
+}
+
+const escapeXml = (value: string) =>
+  value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+
+function renderEntry({ loc, lastmod, alternates }: Entry): string {
+  const links = [...alternates].map(
+    ([locale, href]) => `    <xhtml:link rel="alternate" hreflang="${toIetfTag(locale)}" href="${escapeXml(href)}"/>`,
+  )
+  const xDefault = alternates.get(DEFAULT_LOCALE)
+  if (xDefault) links.push(`    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(xDefault)}"/>`)
+
+  return [
+    '  <url>',
+    `    <loc>${escapeXml(loc)}</loc>`,
+    ...(lastmod ? [`    <lastmod>${lastmod.toISOString()}</lastmod>`] : []),
+    ...(alternates.size > 1 ? links : []),
+    '  </url>',
+  ].join('\n')
+}
+
+// Every static route in every locale, plus each post in the locales it is written in.
+// Fallback renders (a post opened in a locale it lacks) are noindex and left out.
+export const GET: APIRoute = async ({ site, url }) => {
+  const origin = siteOrigin(site, url)
+  const entries: Entry[] = []
+
+  for (const route of STATIC_ROUTES) {
+    const alternates = new Map(SUPPORTED_LOCALES.map((locale) => [locale, `${origin}/${locale}${route}`]))
+    for (const locale of SUPPORTED_LOCALES) entries.push({ loc: `${origin}/${locale}${route}`, alternates })
+  }
+
+  const postLocales = await getPostLocales()
+  for (const post of await getPublishedPosts()) {
+    const { locale, slug } = splitId(post.id)
+    const alternates = new Map(
+      (postLocales.get(slug) ?? [locale]).map((code) => [code, `${origin}/${code}/blog/${slug}/`]),
+    )
+    entries.push({
+      loc: `${origin}/${locale}/blog/${slug}/`,
+      lastmod: post.data.updatedDate ?? post.data.pubDate,
+      alternates,
+    })
+  }
+
+  const xml = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
+    ...entries.map(renderEntry),
+    '</urlset>',
+  ].join('\n')
+
+  return new Response(xml, {
+    headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=3600' },
+  })
+}

@@ -1,0 +1,18 @@
+---
+import { fetchTranslations } from '@edgekits/astro-i18n/runtime'
+
+import Base from '@/layouts/Base.astro'
+
+const { uiLocale, translationLocale } = Astro.locals
+const { common } = await fetchTranslations(translationLocale, ['common'])
+---
+
+<Base title={common.notFound.title} noindex>
+  <section class="mx-auto max-w-xl px-6 py-24 text-center">
+    <h1 class="text-3xl font-bold tracking-tight">{common.notFound.title}</h1>
+    <p class="mt-4 text-zinc-600">{common.notFound.message}</p>
+    <a href={`/${uiLocale}/`} class="mt-8 inline-block text-sm font-medium underline-offset-4 hover:underline">
+      {common.notFound.backToHome}
+    </a>
+  </section>
+</Base>
