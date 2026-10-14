@@ -1,5 +1,5 @@
 export interface SchemaIssue {
-  /** Field path, first element is the field name `enhanceForm` paints. */
+  /** Field path, first element is the field name. */
   path: Array<string | number>
   /** An ERROR_MESSAGE_CODES value (localized later via `tErrors`). */
   message: string

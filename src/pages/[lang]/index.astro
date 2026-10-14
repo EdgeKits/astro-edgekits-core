@@ -1,6 +1,7 @@
 ---
+import { actions } from 'astro:actions'
 import Base from '@/layouts/Base.astro'
-import NewsletterForm from '@/components/forms/NewsletterForm.astro'
+import NewsletterForm, { noJsState } from '@/components/forms/NewsletterForm'
 import { fetchTranslations, localizedPath } from '@edgekits/astro-i18n/runtime'
 import { pathOptions } from '@/lib/paths'
 
@@ -53,6 +54,11 @@ const features = [
   <section id="newsletter" class="mx-auto max-w-3xl px-6 pt-8 pb-20 text-center">
     <h2 class="text-2xl font-semibold tracking-tight">{newsletter.title}</h2>
     <p class="mt-3 mb-8 text-zinc-600">{newsletter.description}</p>
-    <NewsletterForm t={{ newsletter, messages }} locale={uiLocale} />
+    <NewsletterForm
+      client:load
+      t={{ newsletter, messages }}
+      locale={uiLocale}
+      initial={noJsState(Astro.getActionResult(actions.newsletter.subscribe), Astro.url)}
+    />
   </section>
 </Base>
