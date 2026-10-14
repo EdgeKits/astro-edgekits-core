@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config'
 import cloudflare from '@astrojs/cloudflare'
 import tailwindcss from '@tailwindcss/vite'
 import mdx from '@astrojs/mdx'
+import react from '@astrojs/react'
 import { edgekitsI18n } from '@edgekits/astro-i18n'
 
 import i18nConfig from './edgekits-i18n.config'
@@ -16,5 +17,5 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  integrations: [edgekitsI18n(i18nConfig), mdx()],
+  integrations: [edgekitsI18n(i18nConfig), mdx(), react()],
 })
