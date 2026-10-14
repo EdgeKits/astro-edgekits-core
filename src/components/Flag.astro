@@ -1,0 +1,9 @@
+---
+interface Props {
+  code?: string
+  size?: number
+}
+const { code, size = 16 } = Astro.props
+---
+
+{code && <img src={`/flags/${code}.svg`} width={(size * 4) / 3} height={size} alt="" loading="lazy" decoding="async" />}

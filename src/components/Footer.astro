@@ -1,0 +1,19 @@
+---
+interface Props {
+  t: I18n.Schema['common']
+}
+
+const { t } = Astro.props
+---
+
+<footer class="border-t border-zinc-200">
+  <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-6 text-sm text-zinc-500">
+    <p>
+      <a href="https://github.com/EdgeKits/astro-edgekits-core" class="underline-offset-4 hover:underline"
+        >Astro EdgeKits Core</a
+      >.
+      {t.footer.license}
+    </p>
+    <a href="https://edgekits.dev" class="underline-offset-4 hover:underline">edgekits.dev</a>
+  </div>
+</footer>

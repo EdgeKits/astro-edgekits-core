@@ -1,0 +1,56 @@
+---
+import '../styles/global.css'
+
+import MissingTranslationBanner from '@edgekits/astro-i18n/components/MissingTranslationBanner'
+import { fetchTranslations, toIetfTag } from '@edgekits/astro-i18n/runtime'
+
+import Footer from '../components/Footer.astro'
+import Header from '../components/Header.astro'
+import SeoHreflangs from '../components/seo/SeoHreflangs.astro'
+
+interface Props {
+  title?: string
+  description?: string
+  // The locales this page exists in (hreflang). Default: every supported locale.
+  altLocales?: readonly string[]
+  noindex?: boolean
+}
+
+const { uiLocale, translationLocale } = Astro.locals
+const { common, messages } = await fetchTranslations(translationLocale, ['common', 'messages'])
+
+const { title = common.seo.title, description = common.seo.description, altLocales, noindex = false } = Astro.props
+const currentOrigin = import.meta.env.PROD && Astro.site ? Astro.site.origin : Astro.url.origin
+---
+
+<!doctype html>
+<html lang={toIetfTag(uiLocale)}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={`${currentOrigin}${Astro.url.pathname}`} />
+    <SeoHreflangs currentLang={uiLocale} currentOrigin={currentOrigin} altLocales={altLocales} />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href={`/${uiLocale}/rss.xml`} />
+  </head>
+  <body class="flex min-h-screen flex-col bg-white text-zinc-900 antialiased">
+    <Header t={common} />
+    <MissingTranslationBanner
+      texts={{
+        content: messages.errors.ui.MISSING_TRANSLATED_CONTENT,
+        ui: messages.errors.ui.MISSING_TRANSLATED_UI,
+      }}
+      classes={{
+        root: 'mx-auto mt-6 w-full max-w-3xl rounded-lg border border-amber-300 bg-amber-50 px-4 py-2 text-center text-sm text-amber-900',
+      }}
+    />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer t={common} />
+  </body>
+</html>

@@ -4,7 +4,7 @@
     "description": "多言語アプリを、ハイドレーション肥大化なしでより速くリリース。Cloudflare WorkersとKVとの完全な統合、TypeScriptの自動生成、そしてエッジキャッシュをすぐに利用できます。"
   },
   "nav": {
-    "home": "Astro コンポーネント & Islands",
+    "home": "ホーム",
     "blog": "Markdown の i18n 例",
     "mobileButton": "メニュー"
   },
@@ -15,5 +15,9 @@
     "title": "404 — ページが見つかりません",
     "message": "お探しのページは存在しないか、移動した可能性があります。",
     "backToHome": "ホームに戻る"
+  },
+  "ui": {
+    "emphasis": "注意：<strong>{content}</strong>",
+    "learnMore": "詳しくは<a href='{url}'>{label}</a>をご覧ください。"
   }
 }

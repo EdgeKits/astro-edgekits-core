@@ -4,7 +4,7 @@
     "description": "Distribuye aplicaciones multilingües más rápido y sin sobrecarga de hidratación. Integración completa con Cloudflare Workers y KV, generación automatizada de TypeScript y almacenamiento en caché perimetral listo para usar."
   },
   "nav": {
-    "home": "Componentes Astro e Islands",
+    "home": "Inicio",
     "blog": "Ejemplos de i18n en Markdown",
     "mobileButton": "Menú"
   },
@@ -15,5 +15,9 @@
     "title": "404 — Página no encontrada",
     "message": "La página que buscas no existe o ha sido movida.",
     "backToHome": "Volver al inicio"
+  },
+  "ui": {
+    "emphasis": "Ten en cuenta: <strong>{content}</strong>",
+    "learnMore": "Más detalles: <a href='{url}'>{label}</a>."
   }
 }

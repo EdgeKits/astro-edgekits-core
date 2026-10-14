@@ -1,10 +1,9 @@
 {
   "title": "Mantente al día",
   "description": "Recibe las últimas novedades de EdgeKits directamente en tu correo.",
+  "emailLabel": "Correo electrónico",
   "placeholder": "Ingresa tu correo electrónico",
+  "consent": "Acepto recibir el boletín de EdgeKits. Puedes darte de baja cuando quieras.",
   "button": "Suscribirse",
-  "success": "¡Gracias por suscribirte!",
-  "validation": {
-    "invalidEmail": "Por favor, ingresa una dirección de correo válida."
-  }
+  "demoNote": "Modo demo: la dirección se valida, pero no se guarda."
 }

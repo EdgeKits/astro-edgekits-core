@@ -1,8 +1,18 @@
 {
   "errors": {
     "ui": {
+      "INVALID_EMAIL": "Por favor, ingresa una dirección de correo válida.",
+      "REQUIRED": "Este campo es obligatorio.",
+      "CONSENT_REQUIRED": "Acepta recibir correos para suscribirte.",
       "MISSING_TRANSLATED_UI": "Lo sentimos, esta página aún no está completamente disponible en el idioma seleccionado.",
       "MISSING_TRANSLATED_CONTENT": "Lo sentimos, este artículo aún no está disponible en el idioma seleccionado."
+    },
+    "server": {
+      "INTERNAL_SERVER_ERROR": "Algo salió mal. Inténtalo de nuevo."
     }
+  },
+  "common": {
+    "PENDING": "Espera un momento",
+    "SUBSCRIPTION_SUCCEED": "¡Gracias por suscribirte!"
   }
 }

@@ -1,10 +1,9 @@
 {
   "title": "Fique Atualizado",
   "description": "Receba as últimas novidades do EdgeKits diretamente na sua caixa de entrada.",
+  "emailLabel": "E-mail",
   "placeholder": "Digite seu e-mail",
+  "consent": "Aceito receber a newsletter do EdgeKits. Cancele quando quiser.",
   "button": "Inscrever-se",
-  "success": "Obrigado por se inscrever!",
-  "validation": {
-    "invalidEmail": "Por favor, insira um endereço de e-mail válido."
-  }
+  "demoNote": "Modo demo: o endereço é validado, mas não é armazenado."
 }

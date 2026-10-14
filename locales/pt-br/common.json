@@ -4,7 +4,7 @@
     "description": "Lance aplicações multilíngues mais rápido sem overhead de hidratação. Integração completa com Cloudflare Workers & KV, geração automática de TypeScript e cache no edge."
   },
   "nav": {
-    "home": "Componentes e islands Astro",
+    "home": "Início",
     "blog": "Exemplos de i18n em Markdown",
     "mobileButton": "Menu"
   },
@@ -15,5 +15,9 @@
     "title": "404 — Página não encontrada",
     "message": "A página que você está procurando não existe ou foi movida.",
     "backToHome": "Voltar para a página inicial"
+  },
+  "ui": {
+    "emphasis": "Observação: <strong>{content}</strong>",
+    "learnMore": "Mais detalhes: <a href='{url}'>{label}</a>."
   }
 }

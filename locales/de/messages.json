@@ -1,8 +1,18 @@
 {
   "errors": {
     "ui": {
+      "INVALID_EMAIL": "Bitte gib eine gültige E-Mail-Adresse ein.",
+      "REQUIRED": "Dieses Feld ist erforderlich.",
+      "CONSENT_REQUIRED": "Bitte stimme dem E-Mail-Empfang zu, um zu abonnieren.",
       "MISSING_TRANSLATED_UI": "Diese Seite ist leider noch nicht vollständig in Ihrer gewählten Sprache verfügbar.",
       "MISSING_TRANSLATED_CONTENT": "Dieser Artikel ist leider noch nicht in Ihrer gewählten Sprache verfügbar."
+    },
+    "server": {
+      "INTERNAL_SERVER_ERROR": "Etwas ist schiefgelaufen. Bitte versuche es erneut."
     }
+  },
+  "common": {
+    "PENDING": "Bitte warten",
+    "SUBSCRIPTION_SUCCEED": "Danke für dein Abonnement!"
   }
 }

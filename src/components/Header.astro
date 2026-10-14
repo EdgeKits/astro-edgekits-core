@@ -1,0 +1,35 @@
+---
+import LanguageSwitcher from '@edgekits/astro-i18n/components/LanguageSwitcher'
+import Flag from './Flag.astro'
+
+interface Props {
+  t: I18n.Schema['common']
+}
+
+const { t } = Astro.props
+const { uiLocale } = Astro.locals
+---
+
+<header class="border-b border-zinc-200">
+  <div class="mx-auto flex max-w-5xl items-center justify-between gap-6 px-6 py-4">
+    <a href={`/${uiLocale}/`} class="font-semibold tracking-tight">Astro EdgeKits Core</a>
+    <nav class="flex items-center gap-5 text-sm">
+      <a href={`/${uiLocale}/`} class="text-zinc-600 hover:text-zinc-950">{t.nav.home}</a>
+      <a href={`/${uiLocale}/blog/`} class="text-zinc-600 hover:text-zinc-950">{t.nav.blog}</a>
+      <LanguageSwitcher
+        flag={Flag}
+        classes={{
+          root: 'relative',
+          trigger: 'rounded-full p-2 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950',
+          triggerIcon: 'size-5',
+          dropdown:
+            'absolute right-0 z-50 mt-2 w-52 overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-lg',
+          item: 'flex w-full items-center justify-between px-4 py-2 text-left text-sm hover:bg-zinc-50',
+          itemActive: 'cursor-default font-semibold',
+          itemLabel: 'flex items-center gap-3',
+          activeIcon: 'size-4',
+        }}
+      />
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro'
+import { fetchTranslations } from '@edgekits/astro-i18n/runtime'
+
+const { landing } = await fetchTranslations(Astro.locals.translationLocale, ['landing'])
+---
+
+<Base>
+  <section class="mx-auto max-w-3xl px-6 py-20 text-center">
+    <h1 class="text-4xl font-bold tracking-tight">{landing.hero.title}</h1>
+  </section>
+</Base>

@@ -4,7 +4,7 @@
     "description": "Ship multilingual apps faster without hydration bloat. Full integration with Cloudflare Workers & KV, automated TypeScript generation, and edge caching out of the box."
   },
   "nav": {
-    "home": "Astro components & islands",
+    "home": "Home",
     "blog": "Markdown i18n examples",
     "mobileButton": "Menu"
   },
@@ -15,5 +15,9 @@
     "title": "404 — Page not found",
     "message": "The page you are looking for does not exist or has been moved.",
     "backToHome": "Go back to homepage"
+  },
+  "ui": {
+    "emphasis": "Please note: <strong>{content}</strong>",
+    "learnMore": "Read <a href='{url}'>{label}</a> for details."
   }
 }

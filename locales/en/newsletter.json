@@ -1,10 +1,9 @@
 {
   "title": "Stay Updated",
   "description": "Get the latest EdgeKits news directly to your inbox.",
+  "emailLabel": "Email",
   "placeholder": "Enter your email",
+  "consent": "I agree to receive the EdgeKits newsletter. Unsubscribe at any time.",
   "button": "Subscribe",
-  "success": "Thanks for subscribing!",
-  "validation": {
-    "invalidEmail": "Please enter a valid email address."
-  }
+  "demoNote": "Demo mode: your address is validated but not stored."
 }

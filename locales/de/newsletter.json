@@ -1,10 +1,9 @@
 {
   "title": "Bleib auf dem Laufenden",
   "description": "Erhalte die neuesten EdgeKits-Neuigkeiten direkt in dein Postfach.",
+  "emailLabel": "E-Mail",
   "placeholder": "E-Mail-Adresse eingeben",
+  "consent": "Ich möchte den EdgeKits-Newsletter erhalten. Abmeldung jederzeit möglich.",
   "button": "Abonnieren",
-  "success": "Danke für dein Abonnement!",
-  "validation": {
-    "invalidEmail": "Bitte gib eine gültige E-Mail-Adresse ein."
-  }
+  "demoNote": "Demo-Modus: Die Adresse wird geprüft, aber nicht gespeichert."
 }
