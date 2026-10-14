@@ -1,75 +1,35 @@
 /**
- * For more details on how to configure Wrangler, refer to:
+ * Wrangler configuration:
  * https://developers.cloudflare.com/workers/wrangler/configuration/
  */
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
+  "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "astro-edgekits-core",
-  "main": "./dist/_worker.js/index.js",
-  "compatibility_date": "2025-11-18",
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "compatibility_date": "2026-10-12",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
     "binding": "ASSETS",
     "directory": "./dist",
-    // OPTIMIZATION: Explicitly defining handling order.
-    // false = check for asset first, then run worker.
-    // This reduces CPU invocation costs for static files and maximizes cache hits.
-    // Reference:
-    "run_worker_first": false,
   },
   "observability": {
     "enabled": true,
   },
-  // For instructions on how to configure environment-specific overrides
-  // (development, preview, production), see:
-  // https://developers.cloudflare.com/workers/configuration/environment-variables/
-  //
-  // For the variables below:
-  // - If you define them in .dev.vars, those values will be used in the development environment.
-  // - The values defined here (in wrangler.jsonc) will apply when running production locally (wrangler dev)
-  //   or when deploying to Cloudflare, unless overridden by environment-specific configs.
-  // - If a variable is not present in .dev.vars, the values defined here will be used for all environments.
+  // Values here apply to `wrangler dev` and deployments. `astro dev` reads
+  // overrides from .dev.vars (copy .dev.vars.example, or run `npm run setup`).
   "vars": {
     "I18N_CACHE": "on",
     "DEBUG_I18N": "off",
     "DEMO_MODE": "on",
     "CLOUDFLARE_ZONE_ID": "your_cf_zone_id_here",
   },
+  // Placeholder ids (32 hex characters): local development needs no Cloudflare
+  // account. Replace both with your namespace id before `i18n:migrate` or deploy.
   "kv_namespaces": [
     {
       "binding": "TRANSLATIONS",
-      "id": "your_kv_id_here",
-      "preview_id": "your_kv_id_here",
+      "id": "00000000000000000000000000000000",
+      "preview_id": "00000000000000000000000000000000",
     },
   ],
-  /**
-   * Smart Placement
-   * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
-   */
-  // "placement": { "mode": "smart" }
-  /**
-   * Bindings
-   * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
-   * databases, object storage, AI inference, real-time communication and more.
-   * https://developers.cloudflare.com/workers/runtime-apis/bindings/
-   */
-  /**
-   * Environment Variables
-   * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
-   */
-  // "vars": { "MY_VARIABLE": "production_value" }
-  /**
-   * Note: Use secrets to store sensitive data.
-   * https://developers.cloudflare.com/workers/configuration/secrets/
-   */
-  /**
-   * Static Assets
-   * https://developers.cloudflare.com/workers/static-assets/binding/
-   */
-  // "assets": { "directory": "./public/", "binding": "ASSETS" }
-  /**
-   * Service Bindings (communicate between multiple Workers)
-   * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings
-   */
-  // "services": [{ "binding": "MY_SERVICE", "service": "my-service" }]
 }

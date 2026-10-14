@@ -1,9 +1,0 @@
-{
-  "title": "カウンターのデモ",
-  "increment": "増やす",
-  "reset": "リセット",
-  "patterns": {
-    "zero": "項目はありません",
-    "other": "{count}個"
-  }
-}

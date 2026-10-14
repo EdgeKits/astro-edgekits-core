@@ -1,0 +1,22 @@
+# Dependencies & build output
+node_modules
+dist
+.astro
+.wrangler
+
+# Lockfile: npm-managed; Prettier must not rewrite it
+package-lock.json
+
+# Generated files: normalizing these re-drifts on every regen
+**/*.generated.*
+i18n-data.json
+src/i18n/runtime-constants.ts
+worker-configuration.d.ts
+
+# Private, maintainer-local
+journal/
+audit/
+CLAUDE.local.md
+
+# Pending its rewrite; remove this line when README.md is replaced
+README.md
