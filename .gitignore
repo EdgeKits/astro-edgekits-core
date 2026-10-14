@@ -15,7 +15,8 @@ pnpm-debug.log*
 
 # environment variables
 .env
-.env.production
+.env.*
+!.env.example
 
 # macOS-specific files
 .DS_Store
@@ -24,19 +25,17 @@ pnpm-debug.log*
 .idea/
 
 # wrangler files
-.wrangler
-.dev.vars*
+.wrangler/
+.dev.vars
+.dev.vars.*
 !.dev.vars.example
-!.env.example
 .cache/
 
-# --- EdgeKits i18n Artifacts ---
-
-# i18n KV bundle (for wrangler kv bulk put)
-i18n-data.json
-
-# Auto-generated Types
-src/i18n.generated.d.ts
-
-# Auto-generated ns hashes
+# EdgeKits i18n: written only by `edgekits-i18n migrate` (production)
 .i18n-hashes.json
+
+# private, maintainer-local (never commit)
+journal/
+CLAUDE.local.md
+.claude/settings.local.json
+audit/

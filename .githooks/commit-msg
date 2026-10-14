@@ -1,0 +1,27 @@
+#!/bin/sh
+# commit-msg hook — owner: repo policy (see CLAUDE.md "Commit messages").
+# Strips AI attribution trailers that tooling appends past the settings.json
+# `attribution` block, then trims trailing blank lines. Never fails a commit.
+# Enable after a fresh clone: git config core.hooksPath .githooks
+
+# Byte-wise matching: some sed builds will not match a 4-byte UTF-8 char
+# (the 🤖 below) under a UTF-8 locale.
+LC_ALL=C
+export LC_ALL
+
+msg="$1"
+[ -f "$msg" ] || exit 0
+
+tmp="$msg.strip.$$"
+
+sed -e '/^Claude-Session:/d' \
+    -e '/^Co-Authored-By:.*Claude/d' \
+    -e '/^🤖 Generated with/d' \
+    "$msg" |
+  awk '
+    /^[ \t]*$/ { pending = pending "\n"; next }
+    { printf "%s", pending; pending = ""; print }
+  ' >"$tmp" || { rm -f "$tmp"; exit 0; }
+
+mv "$tmp" "$msg" 2>/dev/null || rm -f "$tmp"
+exit 0
