@@ -4,6 +4,7 @@
   "backToOverview": "一覧に戻る",
   "publishedOn": "公開日",
   "readTime": "{min}分で読めます",
+  "untranslated": "未翻訳のため{language}で表示されます",
   "pluralDemo": {
     "title": "KV から取得した複数形",
     "count": "数",

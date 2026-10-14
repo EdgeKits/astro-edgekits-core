@@ -17,6 +17,25 @@ export async function getPostsForLocale(locale: string): Promise<Post[]> {
   return (await getPublishedPosts()).filter((post) => splitId(post.id).locale === locale)
 }
 
+// Every post of the default locale, each replaced by its `locale` version when one exists;
+// `isFallback` marks the ones still shown in the default locale.
+export async function getPostsWithFallback(
+  locale: string,
+  defaultLocale: string,
+): Promise<{ post: Post; isFallback: boolean }[]> {
+  const published = await getPublishedPosts()
+  const translated = new Map(
+    published.filter((post) => splitId(post.id).locale === locale).map((post) => [splitId(post.id).slug, post]),
+  )
+  return published
+    .filter((post) => splitId(post.id).locale === defaultLocale)
+    .map((base) => {
+      const post = translated.get(splitId(base.id).slug)
+      return post ? { post, isFallback: false } : { post: base, isFallback: true }
+    })
+    .sort((a, b) => b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf())
+}
+
 // slug -> locales the post exists in (hreflang, sitemap alternates).
 export async function getPostLocales(): Promise<Map<string, string[]>> {
   const bySlug = new Map<string, string[]>()

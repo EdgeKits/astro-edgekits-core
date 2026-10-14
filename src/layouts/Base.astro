@@ -14,14 +14,23 @@ interface Props {
   description?: string
   // The locales this page exists in (hreflang). Default: every supported locale.
   altLocales?: readonly string[]
+  // Absolute canonical URL when it is not this page (a blog fallback points at the original).
+  canonicalOverride?: string
   noindex?: boolean
 }
 
 const { uiLocale, translationLocale } = Astro.locals
 const { common, messages } = await fetchTranslations(translationLocale, ['common', 'messages'])
 
-const { title = common.seo.title, description = common.seo.description, altLocales, noindex = false } = Astro.props
+const {
+  title = common.seo.title,
+  description = common.seo.description,
+  altLocales,
+  canonicalOverride,
+  noindex = false,
+} = Astro.props
 const currentOrigin = siteOrigin(Astro.site, Astro.url)
+const canonical = canonicalOverride ?? `${currentOrigin}${Astro.url.pathname}`
 ---
 
 <!doctype html>
@@ -34,7 +43,7 @@ const currentOrigin = siteOrigin(Astro.site, Astro.url)
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
-    <link rel="canonical" href={`${currentOrigin}${Astro.url.pathname}`} />
+    <link rel="canonical" href={canonical} />
     <SeoHreflangs currentLang={uiLocale} currentOrigin={currentOrigin} altLocales={altLocales} />
     <link rel="alternate" type="application/rss+xml" title="RSS" href={`/${uiLocale}/rss.xml`} />
   </head>

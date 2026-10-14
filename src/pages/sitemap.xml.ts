@@ -31,7 +31,7 @@ function renderEntry({ loc, lastmod, alternates }: Entry): string {
 }
 
 // Every static route in every locale, plus each post in the locales it is written in.
-// Fallback renders (a post opened in a locale it lacks) are noindex and left out.
+// Fallback renders (a post opened in a locale it lacks) are left out: their canonical is the original.
 export const GET: APIRoute = async ({ site, url }) => {
   const origin = siteOrigin(site, url)
   const entries: Entry[] = []

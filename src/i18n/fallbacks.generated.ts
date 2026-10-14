@@ -9,6 +9,7 @@ export const FALLBACK_BLOG = {
   "backToOverview": "Back to Overview",
   "publishedOn": "Published on",
   "readTime": "{min} min read",
+  "untranslated": "Not translated yet, opens in {language}",
   "pluralDemo": {
     "title": "Plural forms from KV",
     "count": "Count",

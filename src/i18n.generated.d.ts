@@ -10,6 +10,7 @@ declare global {
             "backToOverview": string;
             "publishedOn": string;
             "readTime": string;
+            "untranslated": string;
             "pluralDemo": {
               "title": string;
               "count": string;

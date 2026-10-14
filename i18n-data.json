@@ -1,7 +1,7 @@
 [
   {
     "key": "astro-edgekits-core:blog:de",
-    "value": "{\"indexPageTitle\":\"Blog\",\"readMore\":\"Mehr erfahren\",\"backToOverview\":\"Zur Übersicht\",\"publishedOn\":\"Veröffentlicht am\",\"readTime\":\"{min} Min. Lesezeit\",\"pluralDemo\":{\"title\":\"Pluralformen aus KV\",\"count\":\"Anzahl\",\"text\":\"Gerenderter Text\",\"note\":\"Auf dem Server mit pluralIcu() gerendert; der Browser erhält reines HTML.\",\"patterns\":{\"zero\":\"Keine Elemente\",\"one\":\"{count} Element\",\"other\":\"{count} Elemente\"}}}"
+    "value": "{\"indexPageTitle\":\"Blog\",\"readMore\":\"Mehr erfahren\",\"backToOverview\":\"Zur Übersicht\",\"publishedOn\":\"Veröffentlicht am\",\"readTime\":\"{min} Min. Lesezeit\",\"untranslated\":\"Noch nicht übersetzt, öffnet auf {language}\",\"pluralDemo\":{\"title\":\"Pluralformen aus KV\",\"count\":\"Anzahl\",\"text\":\"Gerenderter Text\",\"note\":\"Auf dem Server mit pluralIcu() gerendert; der Browser erhält reines HTML.\",\"patterns\":{\"zero\":\"Keine Elemente\",\"one\":\"{count} Element\",\"other\":\"{count} Elemente\"}}}"
   },
   {
     "key": "astro-edgekits-core:common:de",
@@ -21,7 +21,7 @@
   },
   {
     "key": "astro-edgekits-core:blog:en",
-    "value": "{\"indexPageTitle\":\"Blog\",\"readMore\":\"Read more\",\"backToOverview\":\"Back to Overview\",\"publishedOn\":\"Published on\",\"readTime\":\"{min} min read\",\"pluralDemo\":{\"title\":\"Plural forms from KV\",\"count\":\"Count\",\"text\":\"Rendered text\",\"note\":\"Rendered on the server with pluralIcu(); the browser receives plain HTML.\",\"patterns\":{\"zero\":\"No items\",\"one\":\"{count} item\",\"other\":\"{count} items\"}}}"
+    "value": "{\"indexPageTitle\":\"Blog\",\"readMore\":\"Read more\",\"backToOverview\":\"Back to Overview\",\"publishedOn\":\"Published on\",\"readTime\":\"{min} min read\",\"untranslated\":\"Not translated yet, opens in {language}\",\"pluralDemo\":{\"title\":\"Plural forms from KV\",\"count\":\"Count\",\"text\":\"Rendered text\",\"note\":\"Rendered on the server with pluralIcu(); the browser receives plain HTML.\",\"patterns\":{\"zero\":\"No items\",\"one\":\"{count} item\",\"other\":\"{count} items\"}}}"
   },
   {
     "key": "astro-edgekits-core:common:en",
@@ -41,7 +41,7 @@
   },
   {
     "key": "astro-edgekits-core:blog:es",
-    "value": "{\"indexPageTitle\":\"Blog\",\"readMore\":\"Leer más\",\"backToOverview\":\"Volver al resumen\",\"publishedOn\":\"Publicado el\",\"readTime\":\"{min} min de lectura\",\"pluralDemo\":{\"title\":\"Formas plurales desde KV\",\"count\":\"Cantidad\",\"text\":\"Texto renderizado\",\"note\":\"Renderizado en el servidor con pluralIcu(); el navegador recibe HTML plano.\",\"patterns\":{\"zero\":\"Ningún elemento\",\"one\":\"{count} elemento\",\"other\":\"{count} elementos\"}}}"
+    "value": "{\"indexPageTitle\":\"Blog\",\"readMore\":\"Leer más\",\"backToOverview\":\"Volver al resumen\",\"publishedOn\":\"Publicado el\",\"readTime\":\"{min} min de lectura\",\"untranslated\":\"Aún sin traducir, se abre en {language}\",\"pluralDemo\":{\"title\":\"Formas plurales desde KV\",\"count\":\"Cantidad\",\"text\":\"Texto renderizado\",\"note\":\"Renderizado en el servidor con pluralIcu(); el navegador recibe HTML plano.\",\"patterns\":{\"zero\":\"Ningún elemento\",\"one\":\"{count} elemento\",\"other\":\"{count} elementos\"}}}"
   },
   {
     "key": "astro-edgekits-core:common:es",
@@ -61,7 +61,7 @@
   },
   {
     "key": "astro-edgekits-core:blog:ja",
-    "value": "{\"indexPageTitle\":\"ブログ\",\"readMore\":\"続きを読む\",\"backToOverview\":\"一覧に戻る\",\"publishedOn\":\"公開日\",\"readTime\":\"{min}分で読めます\",\"pluralDemo\":{\"title\":\"KV から取得した複数形\",\"count\":\"数\",\"text\":\"表示テキスト\",\"note\":\"pluralIcu() でサーバー上でレンダリングされ、ブラウザには素の HTML が届きます。\",\"patterns\":{\"zero\":\"項目はありません\",\"one\":\"{count}個\",\"other\":\"{count}個\"}}}"
+    "value": "{\"indexPageTitle\":\"ブログ\",\"readMore\":\"続きを読む\",\"backToOverview\":\"一覧に戻る\",\"publishedOn\":\"公開日\",\"readTime\":\"{min}分で読めます\",\"untranslated\":\"未翻訳のため{language}で表示されます\",\"pluralDemo\":{\"title\":\"KV から取得した複数形\",\"count\":\"数\",\"text\":\"表示テキスト\",\"note\":\"pluralIcu() でサーバー上でレンダリングされ、ブラウザには素の HTML が届きます。\",\"patterns\":{\"zero\":\"項目はありません\",\"one\":\"{count}個\",\"other\":\"{count}個\"}}}"
   },
   {
     "key": "astro-edgekits-core:common:ja",
@@ -81,7 +81,7 @@
   },
   {
     "key": "astro-edgekits-core:blog:pt-br",
-    "value": "{\"indexPageTitle\":\"Blog\",\"readMore\":\"Leia mais\",\"backToOverview\":\"Voltar para a visão geral\",\"publishedOn\":\"Publicado em\",\"readTime\":\"{min} min de leitura\",\"pluralDemo\":{\"title\":\"Formas de plural vindas do KV\",\"count\":\"Quantidade\",\"text\":\"Texto renderizado\",\"note\":\"Renderizado no servidor com pluralIcu(); o navegador recebe HTML puro.\",\"patterns\":{\"zero\":\"Nenhum item\",\"one\":\"{count} item\",\"other\":\"{count} itens\"}}}"
+    "value": "{\"indexPageTitle\":\"Blog\",\"readMore\":\"Leia mais\",\"backToOverview\":\"Voltar para a visão geral\",\"publishedOn\":\"Publicado em\",\"readTime\":\"{min} min de leitura\",\"untranslated\":\"Ainda não traduzido, abre em {language}\",\"pluralDemo\":{\"title\":\"Formas de plural vindas do KV\",\"count\":\"Quantidade\",\"text\":\"Texto renderizado\",\"note\":\"Renderizado no servidor com pluralIcu(); o navegador recebe HTML puro.\",\"patterns\":{\"zero\":\"Nenhum item\",\"one\":\"{count} item\",\"other\":\"{count} itens\"}}}"
   },
   {
     "key": "astro-edgekits-core:common:pt-br",

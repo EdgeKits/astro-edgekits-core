@@ -1,16 +1,22 @@
 ---
 import Base from '@/layouts/Base.astro'
-import { fetchTranslations, fmt } from '@edgekits/astro-i18n/runtime'
-import { getPostsForLocale, readingMinutes, splitId } from '@/lib/blog'
+import { DEFAULT_LOCALE, fetchTranslations, fmt } from '@edgekits/astro-i18n/runtime'
+import { getPostsWithFallback, readingMinutes, splitId } from '@/lib/blog'
 import { SITE_NAME } from '@/lib/site'
 
 const { uiLocale, translationLocale } = Astro.locals
 const { blog } = await fetchTranslations(translationLocale, ['blog'])
 
-// Only the posts written in this locale; a missing translation is reachable by URL
-// (it falls back to the default locale's post with the banner) but is not listed here.
-const posts = await getPostsForLocale(uiLocale)
+// Every default-locale post, in this locale where a translation exists. An untranslated post is
+// listed with a badge, links to the localized URL (the post page falls back) and turns the banner
+// on in `content` mode for the list.
+const posts = await getPostsWithFallback(uiLocale, DEFAULT_LOCALE)
+Astro.locals.isMissingContent = posts.some(({ isFallback }) => isFallback)
+
 const dateFormat = new Intl.DateTimeFormat(uiLocale, { dateStyle: 'long' })
+const untranslated = fmt(blog.untranslated, {
+  language: new Intl.DisplayNames([uiLocale], { type: 'language' }).of(DEFAULT_LOCALE) ?? DEFAULT_LOCALE,
+})
 ---
 
 <Base title={`${blog.indexPageTitle} · ${SITE_NAME}`}>
@@ -18,14 +24,24 @@ const dateFormat = new Intl.DateTimeFormat(uiLocale, { dateStyle: 'long' })
     <h1 class="text-3xl font-bold tracking-tight">{blog.indexPageTitle}</h1>
     <ul class="mt-10 space-y-10">
       {
-        posts.map((post) => {
-          const href = `/${uiLocale}/blog/${splitId(post.id).slug}/`
+        posts.map(({ post, isFallback }) => {
+          const { locale, slug } = splitId(post.id)
+          const href = `/${uiLocale}/blog/${slug}/`
           return (
             <li>
-              <article>
-                <p class="text-sm text-zinc-500">
+              <article lang={isFallback ? locale : undefined}>
+                <p class="text-sm text-zinc-500" lang={isFallback ? uiLocale : undefined}>
                   <time datetime={post.data.pubDate.toISOString()}>{dateFormat.format(post.data.pubDate)}</time> ·{' '}
-                  {fmt(blog.readTime, { min: readingMinutes(post.body, uiLocale) })}
+                  {fmt(blog.readTime, { min: readingMinutes(post.body, locale) })}
+                  {isFallback && (
+                    <span
+                      class="ml-2 rounded border border-zinc-300 px-1.5 py-0.5 text-xs font-medium text-zinc-600"
+                      title={untranslated}
+                    >
+                      <span aria-hidden="true">{locale.toUpperCase()}</span>
+                      <span class="sr-only">{untranslated}</span>
+                    </span>
+                  )}
                 </p>
                 <h2 class="mt-1 text-xl font-semibold">
                   <a href={href} class="hover:underline">
@@ -33,7 +49,11 @@ const dateFormat = new Intl.DateTimeFormat(uiLocale, { dateStyle: 'long' })
                   </a>
                 </h2>
                 <p class="mt-2 text-zinc-600">{post.data.description}</p>
-                <a href={href} class="mt-2 inline-block text-sm font-medium underline-offset-4 hover:underline">
+                <a
+                  href={href}
+                  class="mt-2 inline-block text-sm font-medium underline-offset-4 hover:underline"
+                  lang={isFallback ? uiLocale : undefined}
+                >
                   {blog.readMore} →
                 </a>
               </article>

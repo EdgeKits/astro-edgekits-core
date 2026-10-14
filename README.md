@@ -1,7 +1,7 @@
 # Astro EdgeKits Core: Zero-JS i18n Astro Starter for Cloudflare Workers
 
 <div align="center">
-<img src="./.github/assets/astro-edgekits-core-banner.jpg" alt="Astro EdgeKits Core" width="100%" />
+<a href="https://deploy.workers.cloudflare.com/?url=https://github.com/EdgeKits/astro-edgekits-core"><img src="./.github/assets/astro-edgekits-core-banner.jpg" alt="Deploy to Cloudflare" width="100%" /></a>
 </div>
 
 **Astro + Cloudflare Workers + KV + Type-Safe i18n**
@@ -30,8 +30,9 @@ The demo, in five locales (`en`, `de`, `es`, `ja`, `pt-br`):
 
 - **Landing page** with copy from KV and typed keys (`landing.hero.title` is checked by TypeScript).
 - **Blog** on an Astro content collection. One post exists only in English and German, on purpose:
-  open it in Spanish, Japanese or Portuguese and you get the English post with a
-  missing-translation banner and `noindex`.
+  the list shows every post in every locale and flags the untranslated ones; open that post in
+  Spanish, Japanese or Portuguese and you get the English post with a missing-translation banner
+  and a canonical pointing at the English URL.
 - **Newsletter form** over an Astro Action: errors travel as codes and are localized from the
   `messages` namespace, the browser gets no zod and no framework, and the form also works with
   JavaScript turned off.
@@ -160,26 +161,33 @@ Other agents (Cursor, OpenCode, anything that reads `SKILL.md`) and the full gui
 
 ## Deploy
 
-1. **Create the KV namespace** and put its id into `wrangler.jsonc` under the `TRANSLATIONS`
+1. **One click.** The Deploy to Cloudflare button above creates the Worker and the `TRANSLATIONS`
+   KV namespace from `wrangler.jsonc` in your account and deploys from a copy of this repo. The site
+   works at once on the compiled-in fallback dictionaries (English copy in every locale, with the
+   banner); run `npm run i18n:migrate` once against the new namespace id to fill KV.
+
+**Or by hand:**
+
+2. **Create the KV namespace** and put its id into `wrangler.jsonc` under the `TRANSLATIONS`
    binding (both `id` and `preview_id`):
 
    ```bash
    npx wrangler kv namespace create TRANSLATIONS
    ```
 
-2. **Set the purge credentials.** `CLOUDFLARE_ZONE_ID` goes into `vars` in `wrangler.jsonc` (it is
+3. **Set the purge credentials.** `CLOUDFLARE_ZONE_ID` goes into `vars` in `wrangler.jsonc` (it is
    not a secret). Create an API token with the `Zone` → `Cache Purge` → `Purge` permission, scoped
    to your zone, and put it in `CLOUDFLARE_CACHEPURGE_API_TOKEN`: in `.dev.vars` on your machine, or
    in the environment of the CI job that runs the migration. Only `i18n:migrate` reads the token;
    the deployed Worker never does, so it needs no Worker secret.
-3. **Deploy and push the translations:**
+4. **Deploy and push the translations:**
 
    ```bash
    npm run deploy         # astro build && wrangler deploy
    npm run i18n:migrate   # push to production KV, purge the changed namespaces
    ```
 
-4. **Commit `.i18n-hashes.json`** after every migration. `migrate` writes it after a successful
+5. **Commit `.i18n-hashes.json`** after every migration. `migrate` writes it after a successful
    purge; it records what production KV holds, and the next `migrate` purges only what changed
    since. `migrate` refuses to run while that file has uncommitted changes.
 

@@ -4,6 +4,7 @@ import { DEFAULT_LOCALE, fetchTranslations, fmt } from '@edgekits/astro-i18n/run
 
 import Base from '@/layouts/Base.astro'
 import { getPostLocales, readingMinutes } from '@/lib/blog'
+import { siteOrigin } from '@/lib/site'
 
 const { uiLocale, translationLocale } = Astro.locals
 const slug = Astro.params.slug ?? ''
@@ -11,7 +12,8 @@ const slug = Astro.params.slug ?? ''
 // The locales this post is published in (also its hreflang set).
 const altLocales = (await getPostLocales()).get(slug) ?? []
 // Not written in this locale: render the default locale's post, show the banner in
-// `content` mode and keep the fallback out of the index.
+// `content` mode and point the canonical at the original. No noindex: next to a canonical
+// it would send search engines conflicting signals.
 const contentLocale = altLocales.includes(uiLocale) ? uiLocale : DEFAULT_LOCALE
 const post = altLocales.includes(contentLocale) ? await getEntry('blog', `${contentLocale}/${slug}`) : undefined
 if (!post) {
@@ -20,6 +22,9 @@ if (!post) {
 
 const isFallback = contentLocale !== uiLocale
 Astro.locals.isMissingContent = isFallback
+const canonicalOverride = isFallback
+  ? `${siteOrigin(Astro.site, Astro.url)}/${DEFAULT_LOCALE}/blog/${slug}/`
+  : undefined
 
 // MDX posts read `props.t` (see the `interactive-mdx-demo-with-edge-i18n` post).
 const { blog, common, newsletter } = await fetchTranslations(translationLocale, ['blog', 'common', 'newsletter'])
@@ -27,7 +32,12 @@ const { Content } = await render(post)
 const dateFormat = new Intl.DateTimeFormat(uiLocale, { dateStyle: 'long' })
 ---
 
-<Base title={post.data.title} description={post.data.description} altLocales={altLocales} noindex={isFallback}>
+<Base
+  title={post.data.title}
+  description={post.data.description}
+  altLocales={altLocales}
+  canonicalOverride={canonicalOverride}
+>
   <article class="mx-auto max-w-3xl px-6 py-16">
     <a href={`/${uiLocale}/blog/`} class="text-sm text-zinc-500 underline-offset-4 hover:underline">
       ← {blog.backToOverview}

@@ -72,8 +72,10 @@ JSON and the regenerated files together.
 - Locale codes are lowercase everywhere (`pt-br`); only `toIetfTag()` upper-cases the region, for
   `<html lang>` and hreflang.
 - The dictionaries are complete in all five locales; the missing-translation banner and the
-  fallback are demonstrated by the blog: one post exists only in `en` and `de`, so `/ja/blog/...`
-  renders the English post with the banner and `noindex`. Do not "fix" it by translating it.
+  fallback are demonstrated by the blog: one post exists only in `en` and `de`. The index lists
+  it in every locale (flagged as untranslated, with the banner on the list); in the other three
+  locales the post page renders the English post with the banner and a `rel=canonical` pointing
+  at the English URL, no `noindex` (edgekits.dev ADR-0017). Do not "fix" it by translating it.
 - Flags are static SVGs in `public/flags/<countryCode>.svg` rendered with `<img>`; never inline
   them into the HTML.
 - `@edgekits/astro-i18n/runtime` and `/middleware` are workerd-only: never import them from

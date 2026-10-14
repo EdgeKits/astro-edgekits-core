@@ -4,6 +4,7 @@
   "backToOverview": "Zur Übersicht",
   "publishedOn": "Veröffentlicht am",
   "readTime": "{min} Min. Lesezeit",
+  "untranslated": "Noch nicht übersetzt, öffnet auf {language}",
   "pluralDemo": {
     "title": "Pluralformen aus KV",
     "count": "Anzahl",

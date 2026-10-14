@@ -4,6 +4,7 @@
   "backToOverview": "Voltar para a visão geral",
   "publishedOn": "Publicado em",
   "readTime": "{min} min de leitura",
+  "untranslated": "Ainda não traduzido, abre em {language}",
   "pluralDemo": {
     "title": "Formas de plural vindas do KV",
     "count": "Quantidade",
