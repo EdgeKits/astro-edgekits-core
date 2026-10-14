@@ -68,7 +68,8 @@ JSON and the regenerated files together.
   answers, stores nothing) with the vanilla `enhanceForm` controller from the skill's form recipe
   (project code under `src/`);
   validation errors are codes resolved through the `messages` namespace. React belongs to the
-  `react-islands` branch only.
+  `react-islands` branch only. On this branch the newsletter form is a React island; everything
+  else is as on `main`.
 - Locale codes are lowercase everywhere (`pt-br`); only `toIetfTag()` upper-cases the region, for
   `<html lang>` and hreflang.
 - The dictionaries are complete in all five locales; the missing-translation banner and the
