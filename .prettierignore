@@ -17,6 +17,3 @@ worker-configuration.d.ts
 journal/
 audit/
 CLAUDE.local.md
-
-# Pending its rewrite; remove this line when README.md is replaced
-README.md

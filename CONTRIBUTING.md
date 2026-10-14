@@ -18,18 +18,23 @@ To get started with the project locally:
     npm install
     ```
 3.  **Setup environment**:
-    Run the setup script to create your `.dev.vars` and `wrangler.jsonc` from templates:
+    Run the setup script to create your `.dev.vars` from `.dev.vars.example`:
     ```bash
     npm run setup
     ```
-4.  **Generate i18n artifacts**:
-    **Important:** You must run the i18n bundler before starting the dev server, otherwise TypeScript will complain about missing generated files.
+4.  **Seed translations**:
+    Regenerate the i18n files and fill the local KV. Run it again after every change under `locales/`:
     ```bash
-    npm run i18n:bundle
+    npm run i18n:seed
     ```
 5.  **Start the dev server**:
     ```bash
     npm run dev
+    ```
+6.  **Before you commit**, format the code and check that the project builds with zero `astro check` errors:
+    ```bash
+    npm run format
+    npm run build
     ```
 
 ## 📐 Architecture Guidelines
