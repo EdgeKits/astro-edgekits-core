@@ -163,8 +163,8 @@ Other agents (Cursor, OpenCode, anything that reads `SKILL.md`) and the full gui
 
 1. **One click.** The Deploy to Cloudflare button above creates the Worker and the `TRANSLATIONS`
    KV namespace from `wrangler.jsonc` in your account and deploys from a copy of this repo. The site
-   works at once on the compiled-in fallback dictionaries (English copy in every locale, with the
-   banner); run `npm run i18n:migrate` once against the new namespace id to fill KV.
+   works at once on the compiled-in fallback dictionaries (English copy in every locale; the
+   fallbacks are silent, no banner); run `npm run i18n:migrate` once against the new namespace id to fill KV.
 
 **Or by hand:**
 
