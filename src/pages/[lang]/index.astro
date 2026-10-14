@@ -1,9 +1,14 @@
 ---
 import Base from '@/layouts/Base.astro'
+import NewsletterForm from '@/components/forms/NewsletterForm.astro'
 import { fetchTranslations } from '@edgekits/astro-i18n/runtime'
 
 const { uiLocale, translationLocale } = Astro.locals
-const { landing } = await fetchTranslations(translationLocale, ['landing'])
+const { landing, newsletter, messages } = await fetchTranslations(translationLocale, [
+  'landing',
+  'newsletter',
+  'messages',
+])
 
 const features = [
   { title: landing.features.feature1Title, desc: landing.features.feature1Desc },
@@ -42,5 +47,11 @@ const features = [
   <section class="mx-auto max-w-3xl px-6 py-12 text-center">
     <h2 class="text-2xl font-semibold tracking-tight">{landing.builtWith.title}</h2>
     <p class="mt-3 text-zinc-600">{landing.builtWith.subtitle}</p>
+  </section>
+
+  <section id="newsletter" class="mx-auto max-w-3xl px-6 pt-8 pb-20 text-center">
+    <h2 class="text-2xl font-semibold tracking-tight">{newsletter.title}</h2>
+    <p class="mt-3 mb-8 text-zinc-600">{newsletter.description}</p>
+    <NewsletterForm t={{ newsletter, messages }} locale={uiLocale} />
   </section>
 </Base>
