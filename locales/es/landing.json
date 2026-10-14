@@ -1,7 +1,7 @@
 {
   "hero": {
-    "title": "Demo de Astro Component",
-    "subtitle": "Una plantilla de alto rendimiento para <strong>Astro 7 + Cloudflare Workers</strong> con un <strong>motor de internacionalización nativo del Edge</strong> y un <strong>paquete cliente de 0 KB</strong>.",
+    "title": "Astro multilingüe en Cloudflare Workers, sin JavaScript",
+    "subtitle": "Un starter basado en <strong>@edgekits/astro-i18n</strong>: traducciones en Workers KV, claves tipadas, enrutamiento por idioma en el edge y un <strong>bundle de cliente de 0 KB</strong>.",
     "description": "A diferencia de las configuraciones tradicionales que envían grandes diccionarios JSON al cliente, esta arquitectura almacena las traducciones en <strong>Cloudflare KV</strong>, carga solo el idioma requerido por el usuario o el navegador, obtiene únicamente los namespaces necesarios para cada página o componente mediante una <strong>sola solicitud batch</strong> y entrega <strong>HTML prerenderizado</strong>, que se almacena en caché para reducir solicitudes a KV.",
     "cta": "Explorar el blog"
   },

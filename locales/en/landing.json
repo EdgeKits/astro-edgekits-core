@@ -1,7 +1,7 @@
 {
   "hero": {
-    "title": "Astro Component Demo",
-    "subtitle": "A high-performance <strong>Astro 7 + Cloudflare Workers</strong> template featuring an <strong>Edge-Native Internationalization Engine</strong> with a <strong>0 KB client bundle</strong>.",
+    "title": "Multilingual Astro on Cloudflare Workers, without the JavaScript",
+    "subtitle": "A starter on <strong>@edgekits/astro-i18n</strong>: translations in Workers KV, typed keys, locale routing at the edge, and a <strong>0 KB client bundle</strong>.",
     "description": "Unlike traditional setups that ship heavy JSON dictionaries to the client, this architecture stores translations in <strong>Cloudflare KV</strong>, fetches only the locale required by the user or browser, loads only the specific namespaces needed for each page or component via a <strong>single batch request</strong>, and serves <strong>pre-rendered HTML</strong>, which is cached to reduce KV requests.",
     "cta": "Explore the Blog"
   },

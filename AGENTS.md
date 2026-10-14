@@ -63,8 +63,8 @@ JSON and the regenerated files together.
 
 ## Invariants
 
-- `main` ships no client-side framework and no hydration directives: the contact form is an
-  the newsletter signup: an `.astro` form over an Astro Action (demo mode: validates and
+- `main` ships no client-side framework and no hydration directives. The only form is the
+  newsletter signup: an `.astro` form over an Astro Action (demo mode: validates and
   answers, stores nothing) with the vanilla `enhanceForm` controller from the skill's form recipe
   (project code under `src/`);
   validation errors are codes resolved through the `messages` namespace. React belongs to the

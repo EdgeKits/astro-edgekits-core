@@ -1,7 +1,7 @@
 {
   "hero": {
-    "title": "Astro-Komponentendemo",
-    "subtitle": "Eine leistungsstarke Vorlage für <strong>Astro 7 + Cloudflare Workers</strong> mit einer <strong>Edge-Nativen Internationalisierungs-Engine</strong> und einem <strong>0 KB Client-Bundle</strong>.",
+    "title": "Mehrsprachiges Astro auf Cloudflare Workers – ganz ohne JavaScript",
+    "subtitle": "Ein Starter auf Basis von <strong>@edgekits/astro-i18n</strong>: Übersetzungen in Workers KV, typisierte Schlüssel, Sprach-Routing am Edge und ein <strong>Client-Bundle von 0 KB</strong>.",
     "description": "Im Gegensatz zu traditionellen Setups, die große JSON-Wörterbücher an den Client senden, speichert diese Architektur Übersetzungen in <strong>Cloudflare KV</strong>, lädt nur die vom Benutzer oder Browser benötigte Sprache, lädt nur die spezifischen Namespaces für jede Seite oder Komponente über eine <strong>einzelne Batch-Anfrage</strong> und liefert <strong>vorgerendertes HTML</strong>, das zwischengespeichert wird, um KV-Anfragen zu reduzieren.",
     "cta": "Blog entdecken"
   },

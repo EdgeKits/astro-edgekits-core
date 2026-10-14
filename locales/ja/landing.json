@@ -1,7 +1,7 @@
 {
   "hero": {
-    "title": "Astro コンポーネントデモ",
-    "subtitle": "<strong>Astro 7 + Cloudflare Workers</strong> を利用した高性能テンプレートで、<strong>エッジネイティブ国際化エンジン</strong> と <strong>0 KB クライアントバンドル</strong> を特徴としています。",
+    "title": "JavaScript なしで動く、Cloudflare Workers 上の多言語 Astro",
+    "subtitle": "<strong>@edgekits/astro-i18n</strong> をベースにしたスターターです。翻訳は Workers KV に置き、キーは型付き、ロケールのルーティングはエッジで行い、<strong>クライアントバンドルは 0 KB</strong> です。",
     "description": "従来のように大きな JSON 辞書をクライアントに送信する方式とは異なり、このアーキテクチャは翻訳データを <strong>Cloudflare KV</strong> に保存し、ユーザーまたはブラウザに必要なロケールのみを取得し、ページやコンポーネントごとに必要な特定の namespace だけを <strong>単一のバッチリクエスト</strong> で読み込み、<strong>事前レンダリングされた HTML</strong> を返します。この HTML はキャッシュされ、KV へのリクエストを削減します。",
     "cta": "ブログを見る"
   },
