@@ -31,9 +31,6 @@ pnpm-debug.log*
 !.dev.vars.example
 .cache/
 
-# EdgeKits i18n: written only by `edgekits-i18n migrate` (production)
-.i18n-hashes.json
-
 # private, maintainer-local (never commit)
 journal/
 CLAUDE.local.md

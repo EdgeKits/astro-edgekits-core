@@ -8,7 +8,7 @@
 
 > [!IMPORTANT] **Building a commercial SaaS or Telegram App?**
 >
-> This repository is the open-source **core engine** (i18n + caching).
+> This repository is the open-source **starter**; its i18n engine, `@edgekits/astro-i18n`, is MIT too.
 > If you need a production-ready foundation with **Authentication**, **Multi-tenancy (Orgs/Teams)**, **D1 Database**, and **Billing (Stripe/Paddle)**, check out the Pro kits.
 >
 > 🚀 **[Join the EdgeKits Waitlist](https://edgekits.dev)** to get the Early Bird launch discount.
@@ -183,9 +183,14 @@ Other agents (Cursor, OpenCode, anything that reads `SKILL.md`) and the full gui
    purge; it records what production KV holds, and the next `migrate` purges only what changed
    since. `migrate` refuses to run while that file has uncommitted changes.
 
-Cache purging needs the site on a proxied Cloudflare zone (orange cloud). On a `*.workers.dev`
-subdomain, `migrate` still updates KV and skips the purge with a warning. After the first deploy,
-changing copy is `i18n:migrate` alone: no redeploy.
+`migrate` always uploads every value to KV. It purges the edge cache only when it has both
+`CLOUDFLARE_ZONE_ID` and `CLOUDFLARE_CACHEPURGE_API_TOKEN`: if either is missing, it warns, skips the
+purge and leaves `.i18n-hashes.json` untouched, so the next `migrate` treats the same namespaces as
+changed and tries the purge again. The CLI does not check where the site is served. A bare
+`*.workers.dev` URL has no zone to purge, so cached namespaces would stay stale after a `migrate`
+(they are cached for a year); there, set `I18N_CACHE` to `off` in the `wrangler.jsonc` vars and
+every request reads KV directly, which is fine for a demo. After the first deploy, changing copy is
+`i18n:migrate` alone: no redeploy.
 
 **`DEMO_MODE`** (a var in `wrangler.jsonc`, `on` in this repository):
 

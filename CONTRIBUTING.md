@@ -50,9 +50,11 @@ EdgeKits Core is opinionated. When submitting PRs, please respect the following 
 
 If you are adding new translation keys:
 
-1.  Add the key to `src/locales/en/<namespace>.json` first.
-2.  Run `npm run i18n:bundle` to regenerate the types.
-3.  You can then add the same key to other locales.
+1.  Add the key to `locales/en/<namespace>.json` first.
+2.  Run `npm run i18n:seed` to regenerate the types and the other generated files and fill the local KV.
+3.  You can then add the same key to other locales (and run `npm run i18n:seed` again).
+
+Commit the generated files (`i18n-data.json`, `src/i18n.generated.d.ts`, `src/i18n/*.ts`) together with the JSON.
 
 ## 📦 Pull Request Process
 
