@@ -3,7 +3,7 @@ import { z } from 'astro/zod'
 import { ERROR_MESSAGE_CODES } from '@/domain/messages/error-codes'
 
 // Server-side source of truth; every message is a CODE, localized through `messages`.
-// The browser validates with a hand-rolled mirror (NewsletterForm.astro), never with zod.
+// The browser validates with react-hook-form rules that mirror it (NewsletterForm.tsx), never with zod.
 export const NewsletterSchema = z.object({
   // Astro's FormData parsing turns an empty field into null: the type error is REQUIRED too.
   email: z
