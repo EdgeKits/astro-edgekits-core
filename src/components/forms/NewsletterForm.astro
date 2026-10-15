@@ -15,10 +15,12 @@ const { newsletter, messages } = t
 // Every code the form can receive -> its text in this locale.
 const tErrors: Record<string, string> = { ...messages.errors.ui, ...messages.errors.server }
 
-// No-JS: with JS this result is null (the submit is intercepted); without JS the native
-// POST runs the action and this render shows its result and the inline errors.
+// No-JS: with JS this result is null (the submit is intercepted); without JS a failed native
+// POST renders in place and this result carries its inline errors. Success is the 303 from
+// src/middleware.ts (Post/Redirect/Get), so it is read from the URL, not from the result.
+// The action's `#newsletter` fragment is the id of the page's section ([lang]/index.astro).
 const result = Astro.getActionResult(actions.newsletter.subscribe)
-const sent = Boolean(result && !result.error && result.data)
+const sent = Astro.url.searchParams.get('sent') === '1'
 const noJsError = (field: 'email' | 'consent') => {
   const code = result?.error && isInputError(result.error) ? result.error.fields[field]?.[0] : undefined
   return code ? (tErrors[code] ?? '') : ''
@@ -43,7 +45,7 @@ const errorClass = 'text-sm font-normal text-red-600'
     !sent && (
       <form
         method="POST"
-        action={actions.newsletter.subscribe}
+        action={actions.newsletter.subscribe + '#newsletter'}
         data-newsletter-form
         data-config={JSON.stringify(clientConfig)}
         novalidate

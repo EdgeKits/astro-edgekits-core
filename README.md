@@ -35,7 +35,8 @@ The demo, in five locales (`en`, `de`, `es`, `ja`, `pt-br`):
   and a canonical pointing at the English URL.
 - **Newsletter form** over an Astro Action: errors travel as codes and are localized from the
   `messages` namespace, the browser gets no zod and no framework, and the form also works with
-  JavaScript turned off.
+  JavaScript turned off. A successful submit answers 303 back to the form, so a reload does not
+  resubmit.
 - **Multilingual SEO**: `<html lang>`, hreflang with `x-default`, a sitemap with alternates, one RSS
   feed per locale, `llms.txt` and `robots.txt`.
 - **Language switcher** with flags, and a locale-routing middleware that redirects `/` by cookie,

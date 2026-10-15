@@ -17,7 +17,8 @@ import type { ClientSchema, ClientSchemaError } from './client-schema'
  *   - aria-invalid is toggled on [name="<name>"], data-invalid on its closest [data-slot="field"]
  *
  * No-JS fallback: the <form> carries method="POST" + action={actions.x}; the page renders
- * Astro.getActionResult(actions.x). This controller preventDefault()s only when JS is present.
+ * Astro.getActionResult(actions.x) or, after a 303 from src/middleware.ts, `?sent=1`. This
+ * controller preventDefault()s only when JS is present.
  */
 
 type FormValues = Record<string, unknown>
