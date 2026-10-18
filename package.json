@@ -47,10 +47,10 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.4.0",
-    "@astrojs/markdown-satteri": "^0.4.3",
-    "@astrojs/mdx": "^8.0.3",
+    "@astrojs/markdown-satteri": "^0.4.4",
+    "@astrojs/mdx": "^8.1.0",
     "@astrojs/rss": "^4.0.19",
-    "@edgekits/astro-i18n": "^0.1.7",
+    "@edgekits/astro-i18n": "^0.1.8",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.4.0",
     "tailwindcss": "^4.3.3",
