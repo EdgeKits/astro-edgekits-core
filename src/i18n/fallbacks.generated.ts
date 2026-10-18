@@ -33,6 +33,7 @@ export const FALLBACK_COMMON = {
     "blog": "Markdown i18n examples",
     "mobileButton": "Menu"
   },
+  "switchLanguage": "Switch language",
   "footer": {
     "license": "Under the MIT license."
   },

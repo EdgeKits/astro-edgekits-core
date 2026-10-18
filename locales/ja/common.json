@@ -8,6 +8,7 @@
     "blog": "Markdown の i18n 例",
     "mobileButton": "メニュー"
   },
+  "switchLanguage": "言語を切り替える",
   "footer": {
     "license": "MITライセンスの下で提供"
   },

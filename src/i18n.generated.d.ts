@@ -33,6 +33,7 @@ declare global {
               "blog": string;
               "mobileButton": string;
             };
+            "switchLanguage": string;
             "footer": {
               "license": string;
             };

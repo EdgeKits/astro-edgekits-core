@@ -8,6 +8,7 @@
     "blog": "Ejemplos de i18n en Markdown",
     "mobileButton": "Menú"
   },
+  "switchLanguage": "Cambiar idioma",
   "footer": {
     "license": "Bajo la licencia MIT."
   },

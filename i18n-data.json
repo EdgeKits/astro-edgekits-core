@@ -5,7 +5,7 @@
   },
   {
     "key": "astro-edgekits-core:common:de",
-    "value": "{\"seo\":{\"title\":\"Zero-JS i18n Astro Starter für Cloudflare Workers\",\"description\":\"Mehrsprachige Apps schneller veröffentlichen – ohne unnötigen Ballast. Vollständige Integration mit Cloudflare Workers & KV, automatisierte TypeScript-Generierung und Edge-Caching sind sofort einsatzbereit.\"},\"nav\":{\"home\":\"Startseite\",\"blog\":\"Markdown-i18n-Beispiele\",\"mobileButton\":\"Menü\"},\"footer\":{\"license\":\"Unter der MIT-Lizenz.\"},\"notFound\":{\"title\":\"404 — Seite nicht gefunden\",\"message\":\"Die gesuchte Seite existiert nicht oder wurde verschoben.\",\"backToHome\":\"Zurück zur Startseite\"},\"ui\":{\"emphasis\":\"Bitte beachten: <strong>{content}</strong>\",\"learnMore\":\"Mehr dazu: <a href='{url}'>{label}</a>.\"}}"
+    "value": "{\"seo\":{\"title\":\"Zero-JS i18n Astro Starter für Cloudflare Workers\",\"description\":\"Mehrsprachige Apps schneller veröffentlichen – ohne unnötigen Ballast. Vollständige Integration mit Cloudflare Workers & KV, automatisierte TypeScript-Generierung und Edge-Caching sind sofort einsatzbereit.\"},\"nav\":{\"home\":\"Startseite\",\"blog\":\"Markdown-i18n-Beispiele\",\"mobileButton\":\"Menü\"},\"switchLanguage\":\"Sprache wechseln\",\"footer\":{\"license\":\"Unter der MIT-Lizenz.\"},\"notFound\":{\"title\":\"404 — Seite nicht gefunden\",\"message\":\"Die gesuchte Seite existiert nicht oder wurde verschoben.\",\"backToHome\":\"Zurück zur Startseite\"},\"ui\":{\"emphasis\":\"Bitte beachten: <strong>{content}</strong>\",\"learnMore\":\"Mehr dazu: <a href='{url}'>{label}</a>.\"}}"
   },
   {
     "key": "astro-edgekits-core:landing:de",
@@ -25,7 +25,7 @@
   },
   {
     "key": "astro-edgekits-core:common:en",
-    "value": "{\"seo\":{\"title\":\"Zero-JS i18n Astro Starter for Cloudflare Workers\",\"description\":\"Ship multilingual apps faster without hydration bloat. Full integration with Cloudflare Workers & KV, automated TypeScript generation, and edge caching out of the box.\"},\"nav\":{\"home\":\"Home\",\"blog\":\"Markdown i18n examples\",\"mobileButton\":\"Menu\"},\"footer\":{\"license\":\"Under the MIT license.\"},\"notFound\":{\"title\":\"404 — Page not found\",\"message\":\"The page you are looking for does not exist or has been moved.\",\"backToHome\":\"Go back to homepage\"},\"ui\":{\"emphasis\":\"Please note: <strong>{content}</strong>\",\"learnMore\":\"Read <a href='{url}'>{label}</a> for details.\"}}"
+    "value": "{\"seo\":{\"title\":\"Zero-JS i18n Astro Starter for Cloudflare Workers\",\"description\":\"Ship multilingual apps faster without hydration bloat. Full integration with Cloudflare Workers & KV, automated TypeScript generation, and edge caching out of the box.\"},\"nav\":{\"home\":\"Home\",\"blog\":\"Markdown i18n examples\",\"mobileButton\":\"Menu\"},\"switchLanguage\":\"Switch language\",\"footer\":{\"license\":\"Under the MIT license.\"},\"notFound\":{\"title\":\"404 — Page not found\",\"message\":\"The page you are looking for does not exist or has been moved.\",\"backToHome\":\"Go back to homepage\"},\"ui\":{\"emphasis\":\"Please note: <strong>{content}</strong>\",\"learnMore\":\"Read <a href='{url}'>{label}</a> for details.\"}}"
   },
   {
     "key": "astro-edgekits-core:landing:en",
@@ -45,7 +45,7 @@
   },
   {
     "key": "astro-edgekits-core:common:es",
-    "value": "{\"seo\":{\"title\":\"Zero-JS i18n Astro Starter para trabajadores de Cloudflare\",\"description\":\"Distribuye aplicaciones multilingües más rápido y sin sobrecarga de hidratación. Integración completa con Cloudflare Workers y KV, generación automatizada de TypeScript y almacenamiento en caché perimetral listo para usar.\"},\"nav\":{\"home\":\"Inicio\",\"blog\":\"Ejemplos de i18n en Markdown\",\"mobileButton\":\"Menú\"},\"footer\":{\"license\":\"Bajo la licencia MIT.\"},\"notFound\":{\"title\":\"404 — Página no encontrada\",\"message\":\"La página que buscas no existe o ha sido movida.\",\"backToHome\":\"Volver al inicio\"},\"ui\":{\"emphasis\":\"Ten en cuenta: <strong>{content}</strong>\",\"learnMore\":\"Más detalles: <a href='{url}'>{label}</a>.\"}}"
+    "value": "{\"seo\":{\"title\":\"Zero-JS i18n Astro Starter para trabajadores de Cloudflare\",\"description\":\"Distribuye aplicaciones multilingües más rápido y sin sobrecarga de hidratación. Integración completa con Cloudflare Workers y KV, generación automatizada de TypeScript y almacenamiento en caché perimetral listo para usar.\"},\"nav\":{\"home\":\"Inicio\",\"blog\":\"Ejemplos de i18n en Markdown\",\"mobileButton\":\"Menú\"},\"switchLanguage\":\"Cambiar idioma\",\"footer\":{\"license\":\"Bajo la licencia MIT.\"},\"notFound\":{\"title\":\"404 — Página no encontrada\",\"message\":\"La página que buscas no existe o ha sido movida.\",\"backToHome\":\"Volver al inicio\"},\"ui\":{\"emphasis\":\"Ten en cuenta: <strong>{content}</strong>\",\"learnMore\":\"Más detalles: <a href='{url}'>{label}</a>.\"}}"
   },
   {
     "key": "astro-edgekits-core:landing:es",
@@ -65,7 +65,7 @@
   },
   {
     "key": "astro-edgekits-core:common:ja",
-    "value": "{\"seo\":{\"title\":\"Cloudflare Workers 向け Zero-JS i18n Astro スターター\",\"description\":\"多言語アプリを、ハイドレーション肥大化なしでより速くリリース。Cloudflare WorkersとKVとの完全な統合、TypeScriptの自動生成、そしてエッジキャッシュをすぐに利用できます。\"},\"nav\":{\"home\":\"ホーム\",\"blog\":\"Markdown の i18n 例\",\"mobileButton\":\"メニュー\"},\"footer\":{\"license\":\"MITライセンスの下で提供\"},\"notFound\":{\"title\":\"404 — ページが見つかりません\",\"message\":\"お探しのページは存在しないか、移動した可能性があります。\",\"backToHome\":\"ホームに戻る\"},\"ui\":{\"emphasis\":\"注意：<strong>{content}</strong>\",\"learnMore\":\"詳しくは<a href='{url}'>{label}</a>をご覧ください。\"}}"
+    "value": "{\"seo\":{\"title\":\"Cloudflare Workers 向け Zero-JS i18n Astro スターター\",\"description\":\"多言語アプリを、ハイドレーション肥大化なしでより速くリリース。Cloudflare WorkersとKVとの完全な統合、TypeScriptの自動生成、そしてエッジキャッシュをすぐに利用できます。\"},\"nav\":{\"home\":\"ホーム\",\"blog\":\"Markdown の i18n 例\",\"mobileButton\":\"メニュー\"},\"switchLanguage\":\"言語を切り替える\",\"footer\":{\"license\":\"MITライセンスの下で提供\"},\"notFound\":{\"title\":\"404 — ページが見つかりません\",\"message\":\"お探しのページは存在しないか、移動した可能性があります。\",\"backToHome\":\"ホームに戻る\"},\"ui\":{\"emphasis\":\"注意：<strong>{content}</strong>\",\"learnMore\":\"詳しくは<a href='{url}'>{label}</a>をご覧ください。\"}}"
   },
   {
     "key": "astro-edgekits-core:landing:ja",
@@ -85,7 +85,7 @@
   },
   {
     "key": "astro-edgekits-core:common:pt-br",
-    "value": "{\"seo\":{\"title\":\"Starter Astro com i18n Zero-JS para Cloudflare Workers\",\"description\":\"Lance aplicações multilíngues mais rápido sem overhead de hidratação. Integração completa com Cloudflare Workers & KV, geração automática de TypeScript e cache no edge.\"},\"nav\":{\"home\":\"Início\",\"blog\":\"Exemplos de i18n em Markdown\",\"mobileButton\":\"Menu\"},\"footer\":{\"license\":\"Sob a licença MIT.\"},\"notFound\":{\"title\":\"404 — Página não encontrada\",\"message\":\"A página que você está procurando não existe ou foi movida.\",\"backToHome\":\"Voltar para a página inicial\"},\"ui\":{\"emphasis\":\"Observação: <strong>{content}</strong>\",\"learnMore\":\"Mais detalhes: <a href='{url}'>{label}</a>.\"}}"
+    "value": "{\"seo\":{\"title\":\"Starter Astro com i18n Zero-JS para Cloudflare Workers\",\"description\":\"Lance aplicações multilíngues mais rápido sem overhead de hidratação. Integração completa com Cloudflare Workers & KV, geração automática de TypeScript e cache no edge.\"},\"nav\":{\"home\":\"Início\",\"blog\":\"Exemplos de i18n em Markdown\",\"mobileButton\":\"Menu\"},\"switchLanguage\":\"Trocar idioma\",\"footer\":{\"license\":\"Sob a licença MIT.\"},\"notFound\":{\"title\":\"404 — Página não encontrada\",\"message\":\"A página que você está procurando não existe ou foi movida.\",\"backToHome\":\"Voltar para a página inicial\"},\"ui\":{\"emphasis\":\"Observação: <strong>{content}</strong>\",\"learnMore\":\"Mais detalhes: <a href='{url}'>{label}</a>.\"}}"
   },
   {
     "key": "astro-edgekits-core:landing:pt-br",

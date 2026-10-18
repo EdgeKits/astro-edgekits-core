@@ -19,6 +19,7 @@ const { uiLocale } = Astro.locals
       <a href={`/${uiLocale}/blog/`} class="text-zinc-600 hover:text-zinc-950">{t.nav.blog}</a>
       <LanguageSwitcher
         flag={Flag}
+        texts={{ trigger: t.switchLanguage }}
         classes={{
           root: 'relative',
           trigger: 'rounded-full p-2 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950',
