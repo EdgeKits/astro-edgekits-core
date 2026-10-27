@@ -6,5 +6,5 @@ export function siteOrigin(site: URL | undefined, requestUrl: URL): string {
 
 export const SITE_NAME = 'Astro EdgeKits Core'
 
-// Localized static routes, relative to `/<locale>`.
+// Localized static routes, relative to the locale root (built with `localizedPath`).
 export const STATIC_ROUTES = ['/', '/blog/'] as const

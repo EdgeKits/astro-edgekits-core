@@ -1,10 +1,10 @@
 {
-  "enabledPlugins": {
-    "astro-i18n@edgekits": true
-  },
   "attribution": {
     "commit": "",
     "pr": "",
     "sessionUrl": false
+  },
+  "enabledPlugins": {
+    "edgekits-i18n@edgekits": true
   }
 }

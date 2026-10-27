@@ -1,7 +1,8 @@
 ---
 import Base from '@/layouts/Base.astro'
 import NewsletterForm from '@/components/forms/NewsletterForm.astro'
-import { fetchTranslations } from '@edgekits/astro-i18n/runtime'
+import { fetchTranslations, localizedPath } from '@edgekits/astro-i18n/runtime'
+import { pathOptions } from '@/lib/paths'
 
 const { uiLocale, translationLocale } = Astro.locals
 const { landing, newsletter, messages } = await fetchTranslations(translationLocale, [
@@ -23,7 +24,7 @@ const features = [
     <p class="mt-6 text-lg text-zinc-700" set:html={landing.hero.subtitle} />
     <p class="mt-4 text-zinc-600" set:html={landing.hero.description} />
     <a
-      href={`/${uiLocale}/blog/`}
+      href={localizedPath(uiLocale, '/blog/', pathOptions)}
       class="mt-8 inline-block rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-zinc-700"
     >
       {landing.hero.cta}

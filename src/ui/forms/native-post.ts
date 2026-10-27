@@ -15,7 +15,7 @@ export async function redirectAfterNativePost<R extends { error?: unknown }, S>(
   actionContext: FormActionContext<R, S>,
   actionName: string,
   fragment: string,
-  requestContext: { url: URL; redirect: (path: string, status: 303) => Response },
+  requestContext: { originPathname: string; redirect: (path: string, status: 303) => Response },
   next: () => Promise<Response>,
 ): Promise<Response> {
   const { action } = actionContext
@@ -23,7 +23,8 @@ export async function redirectAfterNativePost<R extends { error?: unknown }, S>(
 
   const result = await action.handler()
   if (!result.error) {
-    return requestContext.redirect(`${requestContext.url.pathname}?sent=1#${fragment}`, 303)
+    // The path the visitor posted to (decoded by Astro: encodeURI keeps the header ASCII).
+    return requestContext.redirect(`${encodeURI(requestContext.originPathname)}?sent=1#${fragment}`, 303)
   }
 
   // Setting the result here also stops Astro from running the action again.

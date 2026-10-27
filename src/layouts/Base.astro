@@ -2,11 +2,12 @@
 import '../styles/global.css'
 
 import MissingTranslationBanner from '@edgekits/astro-i18n/components/MissingTranslationBanner'
-import { fetchTranslations, toIetfTag } from '@edgekits/astro-i18n/runtime'
+import { fetchTranslations, localizedPath, toIetfTag } from '@edgekits/astro-i18n/runtime'
 
 import Footer from '@/components/Footer.astro'
 import Header from '@/components/Header.astro'
 import SeoHreflangs from '@/components/seo/SeoHreflangs.astro'
+import { pathOptions } from '@/lib/paths'
 import { siteOrigin } from '@/lib/site'
 
 interface Props {
@@ -30,7 +31,8 @@ const {
   noindex = false,
 } = Astro.props
 const currentOrigin = siteOrigin(Astro.site, Astro.url)
-const canonical = canonicalOverride ?? `${currentOrigin}${Astro.url.pathname}`
+// The requested path: in the root mode `Astro.url.pathname` is the rewritten `/<default>/…`.
+const canonical = canonicalOverride ?? currentOrigin + localizedPath(uiLocale, Astro.originPathname, pathOptions)
 ---
 
 <!doctype html>
@@ -45,7 +47,12 @@ const canonical = canonicalOverride ?? `${currentOrigin}${Astro.url.pathname}`
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
     <SeoHreflangs currentLang={uiLocale} currentOrigin={currentOrigin} altLocales={altLocales} />
-    <link rel="alternate" type="application/rss+xml" title="RSS" href={`/${uiLocale}/rss.xml`} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="RSS"
+      href={`${localizedPath(uiLocale, '/', pathOptions)}rss.xml`}
+    />
   </head>
   <body class="flex min-h-screen flex-col bg-white text-zinc-900 antialiased">
     <Header t={common} />

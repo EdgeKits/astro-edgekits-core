@@ -15,5 +15,6 @@ export default defineI18nConfig({
   // Prefix of every KV key and the host of every edge-cache URL.
   keyPrefix: 'astro-edgekits-core',
   missingTranslationBanner: true,
-  routing: 'prefix',
+  // The default locale at the root (`/`, `/blog/`), every other locale under its prefix (`/de/`).
+  routing: 'prefix-except-default',
 })

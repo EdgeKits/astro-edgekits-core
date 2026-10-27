@@ -1,12 +1,14 @@
 import type { APIRoute } from 'astro'
-import { DEFAULT_LOCALE, fetchTranslations } from '@edgekits/astro-i18n/runtime'
+import { DEFAULT_LOCALE, fetchTranslations, localizedPath } from '@edgekits/astro-i18n/runtime'
 
 import { getPostsForLocale, splitId } from '@/lib/blog'
+import { pathOptions } from '@/lib/paths'
 import { SITE_NAME, siteOrigin } from '@/lib/site'
 
 // Default-locale content only: one language is enough for a model's context.
 export const GET: APIRoute = async ({ site, url }) => {
   const origin = siteOrigin(site, url)
+  const urlOf = (path: string) => origin + localizedPath(DEFAULT_LOCALE, path, pathOptions)
   const { common } = await fetchTranslations(DEFAULT_LOCALE, ['common'])
   const posts = await getPostsForLocale(DEFAULT_LOCALE)
 
@@ -16,13 +18,12 @@ export const GET: APIRoute = async ({ site, url }) => {
     `> ${common.seo.description}`,
     '',
     '## Pages',
-    `- [${common.nav.home}](${origin}/${DEFAULT_LOCALE}/)`,
-    `- [${common.nav.blog}](${origin}/${DEFAULT_LOCALE}/blog/)`,
+    `- [${common.nav.home}](${urlOf('/')})`,
+    `- [${common.nav.blog}](${urlOf('/blog/')})`,
     '',
     '## Blog posts',
     ...posts.map(
-      (post) =>
-        `- [${post.data.title}](${origin}/${DEFAULT_LOCALE}/blog/${splitId(post.id).slug}/): ${post.data.description}`,
+      (post) => `- [${post.data.title}](${urlOf(`/blog/${splitId(post.id).slug}/`)}): ${post.data.description}`,
     ),
     '',
     '## Source',

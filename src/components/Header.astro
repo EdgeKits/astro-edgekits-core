@@ -1,7 +1,9 @@
 ---
 import LanguageSwitcher from '@edgekits/astro-i18n/components/LanguageSwitcher'
 import Flag from './Flag.astro'
+import { localizedPath } from '@edgekits/astro-i18n/runtime'
 import { SITE_NAME } from '@/lib/site'
+import { pathOptions } from '@/lib/paths'
 
 interface Props {
   t: I18n.Schema['common']
@@ -9,14 +11,16 @@ interface Props {
 
 const { t } = Astro.props
 const { uiLocale } = Astro.locals
+const home = localizedPath(uiLocale, '/', pathOptions)
 ---
 
 <header class="border-b border-zinc-200">
   <div class="mx-auto flex max-w-5xl items-center justify-between gap-6 px-6 py-4">
-    <a href={`/${uiLocale}/`} class="font-semibold tracking-tight">{SITE_NAME}</a>
+    <a href={home} class="font-semibold tracking-tight">{SITE_NAME}</a>
     <nav class="flex items-center gap-5 text-sm">
-      <a href={`/${uiLocale}/`} class="text-zinc-600 hover:text-zinc-950">{t.nav.home}</a>
-      <a href={`/${uiLocale}/blog/`} class="text-zinc-600 hover:text-zinc-950">{t.nav.blog}</a>
+      <a href={home} class="text-zinc-600 hover:text-zinc-950">{t.nav.home}</a>
+      <a href={localizedPath(uiLocale, '/blog/', pathOptions)} class="text-zinc-600 hover:text-zinc-950">{t.nav.blog}</a
+      >
       <LanguageSwitcher
         flag={Flag}
         texts={{ trigger: t.switchLanguage }}

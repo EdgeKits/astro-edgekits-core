@@ -1,7 +1,8 @@
 import type { APIRoute } from 'astro'
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES, toIetfTag } from '@edgekits/astro-i18n/runtime'
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES, localizedPath, toIetfTag } from '@edgekits/astro-i18n/runtime'
 
 import { getPostLocales, getPublishedPosts, splitId } from '@/lib/blog'
+import { pathOptions } from '@/lib/paths'
 import { siteOrigin, STATIC_ROUTES } from '@/lib/site'
 
 interface Entry {
@@ -34,21 +35,20 @@ function renderEntry({ loc, lastmod, alternates }: Entry): string {
 // Fallback renders (a post opened in a locale it lacks) are left out: their canonical is the original.
 export const GET: APIRoute = async ({ site, url }) => {
   const origin = siteOrigin(site, url)
+  const urlOf = (locale: string, path: string) => origin + localizedPath(locale, path, pathOptions)
   const entries: Entry[] = []
 
   for (const route of STATIC_ROUTES) {
-    const alternates = new Map(SUPPORTED_LOCALES.map((locale) => [locale, `${origin}/${locale}${route}`]))
-    for (const locale of SUPPORTED_LOCALES) entries.push({ loc: `${origin}/${locale}${route}`, alternates })
+    const alternates = new Map(SUPPORTED_LOCALES.map((locale) => [locale, urlOf(locale, route)]))
+    for (const locale of SUPPORTED_LOCALES) entries.push({ loc: urlOf(locale, route), alternates })
   }
 
   const postLocales = await getPostLocales()
   for (const post of await getPublishedPosts()) {
     const { locale, slug } = splitId(post.id)
-    const alternates = new Map(
-      (postLocales.get(slug) ?? [locale]).map((code) => [code, `${origin}/${code}/blog/${slug}/`]),
-    )
+    const alternates = new Map((postLocales.get(slug) ?? [locale]).map((code) => [code, urlOf(code, `/blog/${slug}/`)]))
     entries.push({
-      loc: `${origin}/${locale}/blog/${slug}/`,
+      loc: urlOf(locale, `/blog/${slug}/`),
       lastmod: post.data.updatedDate ?? post.data.pubDate,
       alternates,
     })

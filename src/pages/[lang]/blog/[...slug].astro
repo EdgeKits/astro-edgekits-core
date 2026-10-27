@@ -1,9 +1,10 @@
 ---
 import { getEntry, render } from 'astro:content'
-import { DEFAULT_LOCALE, fetchTranslations, fmt } from '@edgekits/astro-i18n/runtime'
+import { DEFAULT_LOCALE, fetchTranslations, fmt, localizedPath } from '@edgekits/astro-i18n/runtime'
 
 import Base from '@/layouts/Base.astro'
 import { getPostLocales, readingMinutes } from '@/lib/blog'
+import { pathOptions } from '@/lib/paths'
 import { siteOrigin } from '@/lib/site'
 
 const { uiLocale, translationLocale } = Astro.locals
@@ -16,14 +17,16 @@ const altLocales = (await getPostLocales()).get(slug) ?? []
 // it would send search engines conflicting signals.
 const contentLocale = altLocales.includes(uiLocale) ? uiLocale : DEFAULT_LOCALE
 const post = altLocales.includes(contentLocale) ? await getEntry('blog', `${contentLocale}/${slug}`) : undefined
+// Astro.rewrite runs the middleware again: in the root mode a `/<default>/` prefix would be
+// normalised away with a 301, so the target goes through localizedPath.
 if (!post) {
-  return Astro.rewrite(`/${uiLocale}/404/`)
+  return Astro.rewrite(localizedPath(uiLocale, '/404/', pathOptions))
 }
 
 const isFallback = contentLocale !== uiLocale
 Astro.locals.isMissingContent = isFallback
 const canonicalOverride = isFallback
-  ? `${siteOrigin(Astro.site, Astro.url)}/${DEFAULT_LOCALE}/blog/${slug}/`
+  ? siteOrigin(Astro.site, Astro.url) + localizedPath(DEFAULT_LOCALE, `/blog/${slug}/`, pathOptions)
   : undefined
 
 // MDX posts read `props.t` (see the `interactive-mdx-demo-with-edge-i18n` post).
@@ -39,7 +42,10 @@ const dateFormat = new Intl.DateTimeFormat(uiLocale, { dateStyle: 'long' })
   canonicalOverride={canonicalOverride}
 >
   <article class="mx-auto max-w-3xl px-6 py-16">
-    <a href={`/${uiLocale}/blog/`} class="text-sm text-zinc-500 underline-offset-4 hover:underline">
+    <a
+      href={localizedPath(uiLocale, '/blog/', pathOptions)}
+      class="text-sm text-zinc-500 underline-offset-4 hover:underline"
+    >
       ← {blog.backToOverview}
     </a>
     <header class="mt-6">

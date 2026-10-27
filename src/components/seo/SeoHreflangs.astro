@@ -1,5 +1,7 @@
 ---
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES, replaceLocaleInPath, toIetfTag } from '@edgekits/astro-i18n/runtime'
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES, localizedPath, toIetfTag } from '@edgekits/astro-i18n/runtime'
+
+import { pathOptions } from '@/lib/paths'
 
 interface Props {
   currentLang: string
@@ -9,10 +11,11 @@ interface Props {
   altLocales?: readonly string[]
 }
 
-const { currentLang, currentOrigin, altLocales } = Astro.props
-const currentPath = Astro.url.pathname
+const { currentOrigin, altLocales } = Astro.props
+// The requested path: in the root mode `Astro.url.pathname` is the rewritten one.
+const path = Astro.originPathname
 const locales = altLocales ?? SUPPORTED_LOCALES
-const href = (code: string) => currentOrigin + replaceLocaleInPath(currentPath, currentLang, code)
+const href = (code: string) => currentOrigin + localizedPath(code, path, pathOptions)
 ---
 
 {

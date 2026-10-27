@@ -1,7 +1,8 @@
 ---
 import Base from '@/layouts/Base.astro'
-import { DEFAULT_LOCALE, fetchTranslations, fmt } from '@edgekits/astro-i18n/runtime'
+import { DEFAULT_LOCALE, fetchTranslations, fmt, localizedPath } from '@edgekits/astro-i18n/runtime'
 import { getPostsWithFallback, readingMinutes, splitId } from '@/lib/blog'
+import { pathOptions } from '@/lib/paths'
 import { SITE_NAME } from '@/lib/site'
 
 const { uiLocale, translationLocale } = Astro.locals
@@ -26,7 +27,7 @@ const untranslated = fmt(blog.untranslated, {
       {
         posts.map(({ post, isFallback }) => {
           const { locale, slug } = splitId(post.id)
-          const href = `/${uiLocale}/blog/${slug}/`
+          const href = localizedPath(uiLocale, `/blog/${slug}/`, pathOptions)
           return (
             <li>
               <article lang={isFallback ? locale : undefined}>
