@@ -31,4 +31,4 @@ The text in the box below does not. It is the newsletter copy from the `newslett
 2. It passes the typed objects to the post: `<Content t={{ common, newsletter }} />`.
 3. The MDX reads `props.t` and the server renders plain HTML. No component hydrates and no translation file reaches the browser.
 
-This post exists in English and German only. Open it in Spanish, Japanese or Portuguese: the article falls back to English with a notice and a `noindex` tag, while the box above still speaks your language, because KV has that copy.
+This post exists in English and German only. Open it in Spanish, Japanese or Portuguese: the article falls back to English with a notice and a canonical link to the English original, while the box above still speaks your language, because KV has that copy.

@@ -31,4 +31,4 @@ Der Text im Kasten unten nicht. Er ist der Newsletter-Text aus dem Namespace `ne
 2. Sie übergibt die typisierten Objekte an den Beitrag: `<Content t={{ common, newsletter }} />`.
 3. Das MDX liest `props.t`, und der Server rendert reines HTML. Keine Komponente wird hydratisiert, keine Übersetzungsdatei erreicht den Browser.
 
-Diesen Beitrag gibt es nur auf Englisch und Deutsch. Öffne ihn auf Spanisch, Japanisch oder Portugiesisch: Der Artikel fällt mit einem Hinweis und einem `noindex`-Tag auf Englisch zurück, während der Kasten oben weiterhin deine Sprache spricht, weil KV diesen Text hat.
+Diesen Beitrag gibt es nur auf Englisch und Deutsch. Öffne ihn auf Spanisch, Japanisch oder Portugiesisch: Der Artikel fällt auf Englisch zurück, mit einem Hinweis und einem Canonical-Link auf das englische Original, während der Kasten oben weiterhin deine Sprache spricht, weil KV diesen Text hat.
