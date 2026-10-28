@@ -85,7 +85,7 @@ Astro EdgeKits Core is the best possible _starting point_ for i18n projects. The
 
 ## Quick start
 
-Requirements: Node 22.22 or newer and npm. No Cloudflare account is needed for local development.
+Requirements: Node 22.23.4 or newer, npm, wrangler `^4.152` (installed as a dependency). No Cloudflare account is needed for local development.
 
 ```bash
 git clone https://github.com/EdgeKits/astro-edgekits-core.git

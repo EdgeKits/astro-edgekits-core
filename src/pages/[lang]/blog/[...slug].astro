@@ -17,10 +17,10 @@ const altLocales = (await getPostLocales()).get(slug) ?? []
 // it would send search engines conflicting signals.
 const contentLocale = altLocales.includes(uiLocale) ? uiLocale : DEFAULT_LOCALE
 const post = altLocales.includes(contentLocale) ? await getEntry('blog', `${contentLocale}/${slug}`) : undefined
-// Astro.rewrite runs the middleware again: in the root mode a `/<default>/` prefix would be
-// normalised away with a 301, so the target goes through localizedPath.
+// The 404 page stays at the root (src/pages/404.astro, not under [lang]) and reads the
+// locale from Astro.locals: the middleware lets /404 through untouched, in both modes.
 if (!post) {
-  return Astro.rewrite(localizedPath(uiLocale, '/404/', pathOptions))
+  return Astro.rewrite('/404')
 }
 
 const isFallback = contentLocale !== uiLocale

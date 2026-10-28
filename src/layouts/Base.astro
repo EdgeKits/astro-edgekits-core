@@ -51,7 +51,7 @@ const canonical = canonicalOverride ?? currentOrigin + localizedPath(uiLocale, A
       rel="alternate"
       type="application/rss+xml"
       title="RSS"
-      href={`${localizedPath(uiLocale, '/', pathOptions)}rss.xml`}
+      href={localizedPath(uiLocale, '/rss.xml', pathOptions)}
     />
   </head>
   <body class="flex min-h-screen flex-col bg-white text-zinc-900 antialiased">
