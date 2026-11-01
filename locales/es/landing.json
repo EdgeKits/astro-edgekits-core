@@ -5,11 +5,6 @@
     "description": "A diferencia de las configuraciones tradicionales que envían grandes diccionarios JSON al cliente, esta arquitectura almacena las traducciones en <strong>Cloudflare KV</strong>, carga solo el idioma requerido por el usuario o el navegador, obtiene únicamente los namespaces necesarios para cada página o componente mediante una <strong>sola solicitud batch</strong> y entrega <strong>HTML prerenderizado</strong>, que se almacena en caché para reducir solicitudes a KV.",
     "cta": "Explorar el blog"
   },
-  "metrics": {
-    "metric1": "Paquete Cliente",
-    "metric2": "Latencia",
-    "metric3": "Type-Safe"
-  },
   "features": {
     "title": "Qué muestra este starter",
     "feature1Title": "Traducciones Cargadas desde el Edge",

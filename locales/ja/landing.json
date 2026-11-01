@@ -5,11 +5,6 @@
     "description": "従来のように大きな JSON 辞書をクライアントに送信する方式とは異なり、このアーキテクチャは翻訳データを <strong>Cloudflare KV</strong> に保存し、ユーザーまたはブラウザに必要なロケールのみを取得し、ページやコンポーネントごとに必要な特定の namespace だけを <strong>単一のバッチリクエスト</strong> で読み込み、<strong>事前レンダリングされた HTML</strong> を返します。この HTML はキャッシュされ、KV へのリクエストを削減します。",
     "cta": "ブログを見る"
   },
-  "metrics": {
-    "metric1": "クライアントバンドル",
-    "metric2": "レイテンシ",
-    "metric3": "タイプセーフ"
-  },
   "features": {
     "title": "このスターターで示していること",
     "feature1Title": "エッジでロードされる翻訳",
